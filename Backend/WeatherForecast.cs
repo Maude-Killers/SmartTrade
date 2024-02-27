@@ -1,4 +1,4 @@
-namespace SmartTrade
+namespace Backend
 {
     public class WeatherForecast
     {
