@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTrade", "SmartTrade.csproj", "{1B275C5E-74CF-4F80-A7BD-97F6B63577F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{5B5C968F-9F8F-47AC-B69A-3CFBDE18EB6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{49DF6C10-2C77-4209-B6EC-95D119671F91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,14 @@ Global
 		{1B275C5E-74CF-4F80-A7BD-97F6B63577F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B275C5E-74CF-4F80-A7BD-97F6B63577F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B275C5E-74CF-4F80-A7BD-97F6B63577F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B5C968F-9F8F-47AC-B69A-3CFBDE18EB6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B5C968F-9F8F-47AC-B69A-3CFBDE18EB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B5C968F-9F8F-47AC-B69A-3CFBDE18EB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B5C968F-9F8F-47AC-B69A-3CFBDE18EB6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49DF6C10-2C77-4209-B6EC-95D119671F91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49DF6C10-2C77-4209-B6EC-95D119671F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49DF6C10-2C77-4209-B6EC-95D119671F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49DF6C10-2C77-4209-B6EC-95D119671F91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

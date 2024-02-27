@@ -2,10 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "SmartTrade Debug",
+      "name": "C#: Frontend Debug",
+      "type": "blazorwasm",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/Frontend"
+    },
+    {
+      "name": "C#: Backend Debug",
       "type": "dotnet",
       "request": "launch",
-      "projectPath": "${workspaceFolder}/SmartTrade.csproj"
-    }
+      "projectPath": "${workspaceFolder}/Backend/Backend.csproj"
+    },
   ]
 }
