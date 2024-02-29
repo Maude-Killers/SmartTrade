@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime Js
 
 <div class="page">
     <div class="sidebar">
@@ -15,3 +16,12 @@
         </article>
     </main>
 </div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool isFirstRender) {
+        if (isFirstRender)
+        {
+           await Js.InvokeVoidAsync("window.initializeFlowbite");
+        }
+    }
+ }
