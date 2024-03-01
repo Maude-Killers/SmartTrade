@@ -1,5 +1,13 @@
 # Utiliza la imagen base del SDK de .NET para compilar la aplicación
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
+# Establece el argumento de versión para Node.js
+ARG NODE_VERSION=20.x
+
+# Instala Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION | bash - \
+    && apt-get install -y nodejs
+
 WORKDIR /app
 
 # Copia csproj y restaura las dependencias
@@ -9,6 +17,9 @@ RUN dotnet restore
 
 # Copia el resto de los archivos del proyecto
 COPY . ./
+
+RUN npm install --no-cache && npm run build:css
+
 # Compila el proyecto, este paso genera los archivos necesarios en la carpeta /bin
 RUN dotnet publish -c Release -o output
 
@@ -22,3 +33,6 @@ COPY --from=build /app/output/wwwroot .
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
+
+# Comando para compilar
+# docker build -t frontend .
