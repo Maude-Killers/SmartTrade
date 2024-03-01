@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: 'master'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install npm dependencies
+      run: |
+        cd Frontend
+        npm install
+
+    - name: Compile Tailwind + Flowbite
+      run: |
+        cd Frontend
+        npm run build:css
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '7.0'
+
+    - name: Build and publish .NET project
+      run: |
+        cd Frontend
+        dotnet publish -c Release -o output
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # or the branch you wish to deploy to
+        folder: Frontend/output # the folder the action should deploy
