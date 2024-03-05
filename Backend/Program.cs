@@ -1,8 +1,21 @@
+using Backend.Interfaces;
+using Backend.Repositories;
+using Backend.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+var connectionString = builder.Configuration.GetConnectionString("PostgresDbContext") ?? "A Default Connection String";
+
 // Add services to the container.
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
+builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

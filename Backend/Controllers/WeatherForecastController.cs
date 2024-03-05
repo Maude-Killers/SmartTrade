@@ -1,3 +1,4 @@
+using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -13,22 +14,18 @@ namespace Backend.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWeatherForecastService _service;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IWeatherForecastService service, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            _service = service;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return await _service.GetWeatherForecasts();
         }
     }
 }
