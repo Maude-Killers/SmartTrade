@@ -1,4 +1,4 @@
-namespace Backend
+namespace SmartTrade.Models
 {
     public class WeatherForecast
     {
