@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Fronte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{49DF6C10-2C77-4209-B6EC-95D119671F91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTrade.Models", "SmartTrade.Models\SmartTrade.Models.csproj", "{DB0964B1-60D6-4EBE-9586-BDB2E3618476}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{49DF6C10-2C77-4209-B6EC-95D119671F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49DF6C10-2C77-4209-B6EC-95D119671F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49DF6C10-2C77-4209-B6EC-95D119671F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB0964B1-60D6-4EBE-9586-BDB2E3618476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB0964B1-60D6-4EBE-9586-BDB2E3618476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB0964B1-60D6-4EBE-9586-BDB2E3618476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB0964B1-60D6-4EBE-9586-BDB2E3618476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

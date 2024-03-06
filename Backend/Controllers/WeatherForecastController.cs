@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SmartTrade.Models;
 
 namespace Backend.Controllers
 {
@@ -21,6 +22,8 @@ namespace Backend.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var a = new TestModel {Id = 1, Propiedad = "Pruebas"};
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
