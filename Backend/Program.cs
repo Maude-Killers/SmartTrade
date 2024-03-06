@@ -1,12 +1,15 @@
 using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
+using dotenv.net;
 using Microsoft.EntityFrameworkCore;
+
+DotEnv.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-var connectionString = builder.Configuration.GetConnectionString("PostgresDbContext") ?? "A Default Connection String";
+var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?? builder.Configuration.GetConnectionString("PostgresDbContext");
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
