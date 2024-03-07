@@ -3,7 +3,7 @@
     "build:css": "tailwindcss -i ./wwwroot/css/app.css -o ./wwwroot/css/app.min.css --minify",
     "watch:css": "tailwindcss -i ./wwwroot/css/app.css -o ./wwwroot/css/app.min.css --watch"
   },
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer": "^10.4.17",
     "flowbite": "^2.3.0",
     "postcss": "^8.4.35",
