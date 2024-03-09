@@ -23,3 +23,6 @@ COPY --from=build /app/output ./
 EXPOSE 80
 
 ENTRYPOINT ["dotnet", "Backend.dll"]
+
+# Comando para compilar
+# docker build -t backend .

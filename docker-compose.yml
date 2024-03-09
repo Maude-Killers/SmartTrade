@@ -13,5 +13,10 @@ services:
     ports:
       - "${WEB_PORT}:80"
 
+
+# Las variables de entorno estás definidas en el fichero .env.local
+# se debe copiar a un fichero .env en la misma ruta para que lo evalue
+# el docker-compose
+
 # comand to start up
 # docker-compose --env-file ./.env.local up --build
