@@ -12,6 +12,15 @@ services:
       context: ./Frontend
     ports:
       - "${WEB_PORT}:80"
+  database:
+    image: postgres:14.3
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
 
 
 # Las variables de entorno estás definidas en el fichero .env.local
