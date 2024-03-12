@@ -3,6 +3,7 @@ using Backend.Repositories;
 using Backend.Services;
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
+using SmartTrade.Models;
 
 DotEnv.Load();
 
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddScoped<WeatherForecastEntity>();
 
 builder.Services.AddControllers();
 

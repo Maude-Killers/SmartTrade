@@ -14,18 +14,18 @@ namespace Backend.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IWeatherForecastService _service;
+        private readonly WeatherForecastEntity _domain;
 
-        public WeatherForecastController(IWeatherForecastService service, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(WeatherForecastEntity domain, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _service = service;
+            _domain = domain;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            return await _service.GetWeatherForecasts();
+            return await _domain.GetAll();
         }
     }
 }
