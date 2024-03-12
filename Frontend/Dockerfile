@@ -11,14 +11,19 @@ RUN curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION | bash - \
 WORKDIR /app
 
 # Copia csproj y restaura las dependencias
-COPY Frontend.csproj .
+COPY ["Frontend/Frontend.csproj", "Frontend/"]
+COPY ["SmartTrade.Models/SmartTrade.Models.csproj", "SmartTrade.Models/"]
 
-RUN dotnet restore
+RUN dotnet restore "Frontend/Frontend.csproj"
 
 # Copia el resto de los archivos del proyecto
 COPY . ./
 
+WORKDIR /app/Frontend
+
 RUN npm install --no-cache && npm run build:css
+
+RUN cp wwwroot/appsettings.Docker.json wwwroot/appsettings.json
 
 # Compila el proyecto, este paso genera los archivos necesarios en la carpeta /bin
 RUN dotnet publish -c Release -o output
@@ -28,11 +33,11 @@ FROM nginx:alpine AS final
 
 WORKDIR /var/www/web
 
-COPY --from=build /app/output/wwwroot .
+COPY --from=build /app/Frontend/output/wwwroot .
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY Frontend/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
 # Comando para compilar
-# docker build -t frontend .
+# docker build -t frontend -f Frontend/Dockerfile
