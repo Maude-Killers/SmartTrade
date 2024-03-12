@@ -15,7 +15,7 @@ namespace Backend.Repositories
 
         public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts()
         {
-            return await _context.WeatherForecasts.ToListAsync();
+            return (IEnumerable<WeatherForecast>)await _context.WeatherForecasts.ToListAsync();
         }
     }
 }
