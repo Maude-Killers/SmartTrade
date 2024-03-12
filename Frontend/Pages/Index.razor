@@ -28,13 +28,3 @@
     </li>
   </ul>
 </div>
-
-@code {
-  protected override async Task OnAfterRenderAsync(bool isFirstRender)
-  {
-    if (isFirstRender)
-    {
-      await Js.InvokeVoidAsync("window.initializeFlowbite");
-    }
-  }
-}
