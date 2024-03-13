@@ -10,16 +10,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION | bash - \
 
 WORKDIR /app
 
-# Copia csproj y restaura las dependencias
-COPY ["Frontend/Frontend.csproj", "Frontend/"]
-COPY ["SmartTrade.Models/SmartTrade.Models.csproj", "SmartTrade.Models/"]
-
-RUN dotnet restore "Frontend/Frontend.csproj"
-
-# Copia el resto de los archivos del proyecto
 COPY . ./
 
 WORKDIR /app/Frontend
+
+RUN dotnet restore Frontend.csproj
 
 RUN npm install --no-cache && npm run build:css
 
