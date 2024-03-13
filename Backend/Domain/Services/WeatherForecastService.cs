@@ -1,17 +1,15 @@
 using Backend.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
-namespace Backend.Repositories
+namespace Backend.Services
 {
-    public class WeatherForecastsRepository : IWeatherForecastRepository
+    public class WeatherForecastService : IWeatherForecastService
     {
-        private readonly AppDbContext _context;
+        private readonly IWeatherForecastRepository _repository;
 
-        public WeatherForecastsRepository(AppDbContext context)
+        public WeatherForecastService(IWeatherForecastRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public Task<IEnumerable<WeatherForecast>> createWeatherForecast(WeatherForecast forecast)
@@ -31,14 +29,12 @@ namespace Backend.Repositories
 
         public WeatherForecast GetWeatherForecast(int id)
         {
-            var forecast = _context.WeatherForecasts.Find(id) ?? throw new InvalidOperationException("Forecast no encontrado");
-            return forecast;
-
+            return _repository.GetWeatherForecast(id);
         }
 
         public IEnumerable<WeatherForecast> GetWeatherForecasts()
         {
-            return _context.WeatherForecasts.ToList();
+            return _repository.GetWeatherForecasts();
         }
     }
 }

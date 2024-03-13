@@ -23,9 +23,22 @@ namespace Backend.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<IEnumerable<WeatherForecast>> Get()
+        public IEnumerable<WeatherForecast> Get()
         {
-            return await _domain.GetAll();
+            return _domain.GetAll();
+        }
+
+        [HttpGet("/weatherforecast/{id}", Name = "GetWeatherForecastById")]
+        public ActionResult<WeatherForecast> Get(int id)
+        {
+            var forecast = _domain.GetById(id);
+
+            if (forecast == null)
+            {
+                return NotFound();
+            }
+
+            return forecast;
         }
     }
 }

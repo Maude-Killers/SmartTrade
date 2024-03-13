@@ -11,9 +11,14 @@ namespace SmartTrade.Models
             _service = service;
         }
 
-        public async Task<IEnumerable<WeatherForecast>> GetAll()
+        public IEnumerable<WeatherForecast> GetAll()
         {
-            return await _service.GetWeatherForecasts();
+            return _service.GetWeatherForecasts();
+        }
+
+        public WeatherForecast GetById(int id)
+        {
+            return _service.GetWeatherForecast(id);
         }
     }
 }
