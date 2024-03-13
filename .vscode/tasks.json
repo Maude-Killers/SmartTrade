@@ -2,40 +2,75 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
-            "command": "dotnet",
+            "label": "watch blazor",
             "type": "process",
+            "options": {
+                "cwd": "${workspaceFolder}/Frontend/"
+            },
+            "command": "dotnet",
             "args": [
-                "build",
-                "${workspaceFolder}/SmartTrade.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+                "watch",
+                "run",
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "isBackground": true,
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent"
+            }
         },
         {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
+            "label": "watch css",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/Frontend/"
+            },
+            "command": "npm",
             "args": [
-                "publish",
-                "${workspaceFolder}/SmartTrade.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+                "run",
+                "watch:css"
             ],
-            "problemMatcher": "$msCompile"
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent"
+            }
         },
         {
-            "label": "watch",
+            "label": "Frontend watch",
+            "options": {
+                "cwd": "${workspaceFolder}/Frontend/"
+            },
+            "dependsOn": [
+                "watch blazor",
+                "watch css"
+            ],
+            "dependsOrder": "parallel"
+        },
+        {
+            "label": "Backend watch",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/SmartTrade.sln"
+                "${workspaceFolder}/Backend/Backend.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "group": "build",
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
         }
     ]
 }
