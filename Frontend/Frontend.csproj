@@ -11,8 +11,5 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.16" PrivateAssets="all" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SmartTrade.Models\SmartTrade.Models.csproj" />
-  </ItemGroup>
 
 </Project>
