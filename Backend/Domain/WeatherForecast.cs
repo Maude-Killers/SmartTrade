@@ -20,5 +20,20 @@ namespace SmartTrade.Models
         {
             return _service.GetWeatherForecast(id);
         }
+
+        public void CreateForecast(WeatherForecast forecast)
+        {
+            _service.createWeatherForecast(forecast);
+        }
+
+        public void EditForecast(int id, WeatherForecast forecast)
+        {
+            _service.editWeatherForecast(id, forecast);
+        }
+
+        public void DeleteForecast(int id)
+        {
+            _service.deleteWeatherForecast(id);
+        }
     }
 }

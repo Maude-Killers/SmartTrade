@@ -40,5 +40,23 @@ namespace Backend.Controllers
 
             return forecast;
         }
+
+        [HttpPost(Name = "CreateWeatherForecast")]
+        public void Post(WeatherForecast forecast)
+        {
+            _domain.CreateForecast(forecast);
+        }
+
+        [HttpPut("/weatherforecast/{id}", Name = "EditWeatherForecast")]
+        public void Put(int id, WeatherForecast forecast)
+        {
+            _domain.EditForecast(id, forecast);
+        }
+
+        [HttpDelete("/weatherforecast/{id}", Name = "DeleteWeatherForecast")]
+        public void Delete(int id)
+        {
+            _domain.DeleteForecast(id);
+        }
     }
 }

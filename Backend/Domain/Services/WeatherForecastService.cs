@@ -12,19 +12,19 @@ namespace Backend.Services
             _repository = repository;
         }
 
-        public Task<IEnumerable<WeatherForecast>> createWeatherForecast(WeatherForecast forecast)
+        public void createWeatherForecast(WeatherForecast forecast)
         {
-            throw new NotImplementedException();
+            _repository.createWeatherForecast(forecast);
         }
 
-        public Task<IEnumerable<WeatherForecast>> deleteWeatherForecast(int id)
+        public void deleteWeatherForecast(int id)
         {
-            throw new NotImplementedException();
+            _repository.deleteWeatherForecast(id);
         }
 
-        public Task<IEnumerable<WeatherForecast>> editWeatherForecast(int id, WeatherForecast forecast)
+        public void editWeatherForecast(int id, WeatherForecast forecast)
         {
-            throw new NotImplementedException();
+            _repository.editWeatherForecast(id, forecast);
         }
 
         public WeatherForecast GetWeatherForecast(int id)

@@ -14,24 +14,45 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public Task<IEnumerable<WeatherForecast>> createWeatherForecast(WeatherForecast forecast)
+        public void createWeatherForecast(WeatherForecast forecast)
         {
-            throw new NotImplementedException();
+            _context.WeatherForecasts.Add(forecast);
+            _context.SaveChanges();
         }
 
-        public Task<IEnumerable<WeatherForecast>> deleteWeatherForecast(int id)
+        public void deleteWeatherForecast(int id)
         {
-            throw new NotImplementedException();
+            var targetForecast = _context.WeatherForecasts
+                .Where(forecast => forecast.Id == id)
+                .FirstOrDefault();
+            
+            if (targetForecast == null) throw new InvalidOperationException();
+
+            _context.WeatherForecasts.Remove(targetForecast);
+            _context.SaveChanges();
         }
 
-        public Task<IEnumerable<WeatherForecast>> editWeatherForecast(int id, WeatherForecast forecast)
+        public void editWeatherForecast(int id, WeatherForecast newForecast)
         {
-            throw new NotImplementedException();
+            var actualForecast = _context.WeatherForecasts
+                .Where(forecast => forecast.Id == id)
+                .FirstOrDefault();
+
+            if (actualForecast == null) throw new InvalidOperationException();
+
+            actualForecast.TemperatureC = newForecast.TemperatureC;
+            actualForecast.Summary = newForecast.Summary;
+            actualForecast.Date = newForecast.Date.ToUniversalTime();
+            _context.SaveChanges();
+
         }
 
         public WeatherForecast GetWeatherForecast(int id)
         {
-            var forecast = _context.WeatherForecasts.Find(id) ?? throw new InvalidOperationException("Forecast no encontrado");
+            var forecast = _context.WeatherForecasts
+                .Where(forecast => forecast.Id == id)
+                .FirstOrDefault();
+
             return forecast;
 
         }

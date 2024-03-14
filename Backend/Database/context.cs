@@ -21,7 +21,7 @@ public class AppDbContext : DbContext
             Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Id = index,
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
             })
             .ToArray()
