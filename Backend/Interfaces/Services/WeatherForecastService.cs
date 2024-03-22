@@ -2,14 +2,8 @@ using SmartTrade.Models;
 
 namespace Backend.Interfaces
 {
-    public interface IWeatherForecastService
+    public interface IWeatherForecastService : EntityService<WeatherForecast>
     {
-        void createWeatherForecast(WeatherForecast forecast);
-        IEnumerable<WeatherForecast> GetWeatherForecasts();
-        WeatherForecast GetWeatherForecast(int id);
-
-        void editWeatherForecast(int i, WeatherForecast forecast);
-        void deleteWeatherForecast(int i);
     }
 
 }

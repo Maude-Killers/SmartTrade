@@ -1,6 +1,4 @@
 using Backend.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -14,25 +12,39 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public void createWeatherForecast(WeatherForecast forecast)
+        public void Create(WeatherForecast item)
         {
-            _context.WeatherForecasts.Add(forecast);
+            _context.WeatherForecasts.Add(item);
             _context.SaveChanges();
         }
 
-        public void deleteWeatherForecast(int id)
+        public void Delete(int id)
         {
             var targetForecast = _context.WeatherForecasts
                 .Where(forecast => forecast.Id == id)
                 .FirstOrDefault();
-            
+
             if (targetForecast == null) throw new InvalidOperationException();
 
             _context.WeatherForecasts.Remove(targetForecast);
             _context.SaveChanges();
         }
 
-        public void editWeatherForecast(int id, WeatherForecast newForecast)
+        public WeatherForecast? Get(int id)
+        {
+            var forecast = _context.WeatherForecasts
+                .Where(forecast => forecast.Id == id)
+                .FirstOrDefault();
+
+            return forecast;
+        }
+
+        public IEnumerable<WeatherForecast> GetAll()
+        {
+            return _context.WeatherForecasts.ToList();
+        }
+
+        public void Set(int id, WeatherForecast item)
         {
             var actualForecast = _context.WeatherForecasts
                 .Where(forecast => forecast.Id == id)
@@ -40,26 +52,10 @@ namespace Backend.Repositories
 
             if (actualForecast == null) throw new InvalidOperationException();
 
-            actualForecast.TemperatureC = newForecast.TemperatureC;
-            actualForecast.Summary = newForecast.Summary;
-            actualForecast.Date = newForecast.Date.ToUniversalTime();
+            actualForecast.TemperatureC = item.TemperatureC;
+            actualForecast.Summary = item.Summary;
+            actualForecast.Date = item.Date.ToUniversalTime();
             _context.SaveChanges();
-
-        }
-
-        public WeatherForecast GetWeatherForecast(int id)
-        {
-            var forecast = _context.WeatherForecasts
-                .Where(forecast => forecast.Id == id)
-                .FirstOrDefault();
-
-            return forecast;
-
-        }
-
-        public IEnumerable<WeatherForecast> GetWeatherForecasts()
-        {
-            return _context.WeatherForecasts.ToList();
         }
     }
 }

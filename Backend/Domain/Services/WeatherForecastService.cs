@@ -12,29 +12,29 @@ namespace Backend.Services
             _repository = repository;
         }
 
-        public void createWeatherForecast(WeatherForecast forecast)
+        public void Create(WeatherForecast item)
         {
-            _repository.createWeatherForecast(forecast);
+            _repository.Create(item);
         }
 
-        public void deleteWeatherForecast(int id)
+        public void Delete(int id)
         {
-            _repository.deleteWeatherForecast(id);
+            _repository.Delete(id);
         }
 
-        public void editWeatherForecast(int id, WeatherForecast forecast)
+        public WeatherForecast? Get(int id)
         {
-            _repository.editWeatherForecast(id, forecast);
+            return _repository.Get(id);
         }
 
-        public WeatherForecast GetWeatherForecast(int id)
+        public IEnumerable<WeatherForecast> GetAll()
         {
-            return _repository.GetWeatherForecast(id);
+            return _repository.GetAll();
         }
 
-        public IEnumerable<WeatherForecast> GetWeatherForecasts()
+        public void Set(int id, WeatherForecast item)
         {
-            return _repository.GetWeatherForecasts();
+            _repository.Set(id, item);
         }
     }
 }

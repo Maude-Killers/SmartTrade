@@ -13,27 +13,27 @@ namespace SmartTrade.Models
 
         public IEnumerable<WeatherForecast> GetAll()
         {
-            return _service.GetWeatherForecasts();
+            return _service.GetAll();
         }
 
-        public WeatherForecast GetById(int id)
+        public WeatherForecast? GetById(int id)
         {
-            return _service.GetWeatherForecast(id);
+            return _service.Get(id);
         }
 
         public void CreateForecast(WeatherForecast forecast)
         {
-            _service.createWeatherForecast(forecast);
+            _service.Create(forecast);
         }
 
         public void EditForecast(int id, WeatherForecast forecast)
         {
-            _service.editWeatherForecast(id, forecast);
+            _service.Set(id, forecast);
         }
 
         public void DeleteForecast(int id)
         {
-            _service.deleteWeatherForecast(id);
+            _service.Delete(id);
         }
     }
 }
