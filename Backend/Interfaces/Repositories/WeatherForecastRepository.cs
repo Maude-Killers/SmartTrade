@@ -2,8 +2,7 @@ using SmartTrade.Models;
 
 namespace Backend.Interfaces
 {
-    public interface IWeatherForecastRepository
+    public interface IWeatherForecastRepository : EntityRepository<WeatherForecast>
     {
-        Task<IEnumerable<WeatherForecast>> GetWeatherForecasts();
     }
 }

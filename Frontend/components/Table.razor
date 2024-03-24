@@ -1,0 +1,48 @@
+@inject HttpClient Http
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Temp. (C)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Temp. (F)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Summary
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+                {
+                    <TableRow forecast="@forecast" />
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+
+@code {
+    private WeatherForecast[] forecasts = new WeatherForecast[0];
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("/weatherforecast") ?? new WeatherForecast[0];
+    }
+}

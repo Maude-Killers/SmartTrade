@@ -1,5 +1,4 @@
 using Backend.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -13,9 +12,50 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts()
+        public void Create(WeatherForecast item)
         {
-            return (IEnumerable<WeatherForecast>)await _context.WeatherForecasts.ToListAsync();
+            _context.WeatherForecasts.Add(item);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var targetForecast = _context.WeatherForecasts
+                .Where(forecast => forecast.Id == id)
+                .FirstOrDefault();
+
+            if (targetForecast == null) throw new InvalidOperationException();
+
+            _context.WeatherForecasts.Remove(targetForecast);
+            _context.SaveChanges();
+        }
+
+        public WeatherForecast? Get(int id)
+        {
+            var forecast = _context.WeatherForecasts
+                .Where(forecast => forecast.Id == id)
+                .FirstOrDefault();
+
+            return forecast;
+        }
+
+        public IEnumerable<WeatherForecast> GetAll()
+        {
+            return _context.WeatherForecasts.ToList();
+        }
+
+        public void Set(int id, WeatherForecast item)
+        {
+            var actualForecast = _context.WeatherForecasts
+                .Where(forecast => forecast.Id == id)
+                .FirstOrDefault();
+
+            if (actualForecast == null) throw new InvalidOperationException();
+
+            actualForecast.TemperatureC = item.TemperatureC;
+            actualForecast.Summary = item.Summary;
+            actualForecast.Date = item.Date.ToUniversalTime();
+            _context.SaveChanges();
         }
     }
 }

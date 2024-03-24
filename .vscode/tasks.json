@@ -10,7 +10,7 @@
             "command": "dotnet",
             "args": [
                 "watch",
-                "run",
+                "run"
             ],
             "problemMatcher": "$msCompile",
             "isBackground": true,
@@ -48,7 +48,8 @@
                 "watch blazor",
                 "watch css"
             ],
-            "dependsOrder": "parallel"
+            "dependsOrder": "parallel",
+            "problemMatcher": []
         },
         {
             "label": "Backend watch",

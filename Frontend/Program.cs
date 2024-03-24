@@ -8,5 +8,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var apiUrl = builder.Configuration["API_URL"] ?? "Failed getting API URL";
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
+builder.Services.AddScoped<WeatherForecastService>();
 
 await builder.Build().RunAsync();
