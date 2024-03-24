@@ -1,3 +1,6 @@
+@inject WeatherForecastService service
+@inject NavigationManager nav
+
 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         @forecast.Date.ToShortDateString()
@@ -12,12 +15,20 @@
         @forecast.Summary
     </td>
     <td class="flex items-center px-6 py-4">
-        <NavLink href="@($"/weather/{forecast.Id}")" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</NavLink>
-        <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
+        <NavLink href="@($"/weather/{forecast.Id}")"
+            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</NavLink>
+         <button @onclick="HandleDelete" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</button>`
     </td>
 </tr>
 
 @code {
     [Parameter]
     public WeatherForecast forecast { get; set; } = new WeatherForecast();
+    private async Task HandleDelete()
+    {
+        await service.DeleteForecastAsync(forecast.Id);
+        nav.NavigateTo("/");
+        nav.NavigateTo("/fetchda");
+        //nav.NavigateTo("/fetchda", true); se ve mas feo pero es mas limpio
+    }
 }
