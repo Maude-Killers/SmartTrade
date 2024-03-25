@@ -8,6 +8,8 @@ public class AppDbContext : DbContext
     { }
 
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+    public DbSet<Product> Product { get; set; }
+    public DbSet<Gallery> Gallery { get; set; }
 
     private static readonly string[] Summaries = new[]
     {
