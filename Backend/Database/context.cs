@@ -8,6 +8,9 @@ public class AppDbContext : DbContext
     { }
 
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+    public DbSet<TechnoProduct> TechnoProduct { get; set; }
+    public DbSet<SportProduct> SportProduct { get; set; }
+    public DbSet<GrocerieProduct> GrocerieProduct { get; set; }
     public DbSet<Product> Product { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
 

@@ -3,9 +3,9 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository<Product>
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
 
         public ProductRepository(AppDbContext context)
         {
