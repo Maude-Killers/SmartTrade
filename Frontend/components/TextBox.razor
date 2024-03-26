@@ -5,16 +5,22 @@
 
 <div class="mb-6 flex items-center">
     <!-- Agregamos la clase flex y items-center para alinear verticalmente -->
-    <label for="success" class="mr-2 text-sm font-medium text-green-700 dark:text-green-500">Success input</label> <!-- Agregamos la clase mr-2 para dar un margen derecho -->
-    <input type="text" id="success" @bind="successInput" class="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Email">
+    <label for="email" class="mr-2 text-sm font-medium text-green-700 dark:text-green-500">Email</label> <!-- Agregamos la clase mr-2 para dar un margen derecho -->
+    <input type="text" id="email" @bind="emailInput" class=" bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Email">
 </div>
-<p class="mt-2 text-sm text-green-600 dark:text-green-500"><span class="font-medium">Well done!</span> @successMessage</p>
+<!--p class="mt-2 text-sm text-green-600 dark:text-green-500"><span class="font-medium">Well done!</span> @successMessage</!--p #label que aparece debajo del textfield--> 
 
-    <div>
+
+<div class="mb-6 flex items-center">
+    <!-- Agregamos la clase flex y items-center para alinear verticalmente -->
+    <label for="password" class="mr-2 text-sm font-medium text-green-700 dark:text-green-500">Password</label> <!-- Agregamos la clase mr-2 para dar un margen derecho -->
+    <input type="password" id="password" @bind="passwordInput" class=" bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Password">
+</div>
+    <!-- TextFiel para el error<div>
     <label for="error" class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">Error input</label>
     <input type="text" id="error" @bind="errorInput" class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500" placeholder="Error input">
     <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> @errorMessage</p>
-    </div>
+    </div>-->
 
 
 
@@ -29,15 +35,15 @@
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("/weatherforecast");
     }
 
-    private string successInput { get; set; }
-    private string errorInput { get; set; }
+    private string emailInput { get; set; }
+    private string passwordInput { get; set; }
     private string successMessage { get; set; } = "";
     private string errorMessage { get; set; } = "";
 
     private void HandleSuccessInput(ChangeEventArgs e)
     {
-        successInput = e.Value.ToString(); // Actualizamos el valor de successInput
-        if (!string.IsNullOrWhiteSpace(successInput))
+        emailInput = e.Value.ToString(); // Actualizamos el valor de successInput
+        if (!string.IsNullOrWhiteSpace(emailInput))
         {
             successMessage = "Some success message."; // Mostramos el mensaje de éxito si el campo no está vacío
         }
@@ -49,8 +55,8 @@
 
     private void HandleErrorInput(ChangeEventArgs e)
     {
-        errorInput = e.Value.ToString(); // Actualizamos el valor de errorInput
-        if (!string.IsNullOrWhiteSpace(errorInput))
+        passwordInput = e.Value.ToString(); // Actualizamos el valor de errorInput
+        if (!string.IsNullOrWhiteSpace(passwordInput))
         {
             errorMessage = "Some error message."; // Mostramos el mensaje de error si el campo no está vacío
         }
