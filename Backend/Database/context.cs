@@ -31,5 +31,44 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
+        modelBuilder.Entity<SportProduct>().HasData(
+            Enumerable.Range(1, 5).Select(index => new SportProduct
+            {
+                Product_code = index,
+                Name = "product" + index,
+                Price = 10 + index,
+                Description = "descripción" + index,
+                Features = "características" + index,
+                Huella = Random.Shared.Next(-20, 55),
+                Category = "Sports",
+            })
+            .ToArray()
+        );
+        modelBuilder.Entity<GrocerieProduct>().HasData(
+            Enumerable.Range(1, 5).Select(index => new GrocerieProduct
+            {
+                Product_code = index,
+                Name = "product" + index,
+                Price = 10 + index,
+                Description = "descripción" + index,
+                Features = "características" + index,
+                Huella = Random.Shared.Next(-20, 55),
+                Category = "Grocerie",
+            })
+            .ToArray()
+        );
+        modelBuilder.Entity<TechnoProduct>().HasData(
+            Enumerable.Range(1, 5).Select(index => new TechnoProduct
+            {
+                Product_code = index,
+                Name = "product" + index,
+                Price = 10 + index,
+                Description = "descripción" + index,
+                Features = "características" + index,
+                Huella = Random.Shared.Next(-20, 55),
+                Category = "Techno",
+            })
+            .ToArray()
+        );
     }
 }
