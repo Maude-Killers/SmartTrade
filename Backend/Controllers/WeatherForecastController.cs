@@ -28,7 +28,7 @@ namespace Backend.Controllers
             return _domain.GetAll();
         }
 
-        [HttpGet("/weatherforecast/{id}", Name = "GetWeatherForecastById")]
+        [HttpGet("/weatherforecasts/{id}", Name = "GetWeatherForecastById")]
         public ActionResult<WeatherForecast> Get(int id)
         {
             var forecast = _domain.GetById(id);
@@ -47,13 +47,13 @@ namespace Backend.Controllers
             _domain.CreateForecast(forecast);
         }
 
-        [HttpPut("/weatherforecast/{id}", Name = "EditWeatherForecast")]
+        [HttpPut("/weatherforecasts/{id}", Name = "EditWeatherForecast")]
         public void Put(int id, WeatherForecast forecast)
         {
             _domain.EditForecast(id, forecast);
         }
 
-        [HttpDelete("/weatherforecast/{id}", Name = "DeleteWeatherForecast")]
+        [HttpDelete("/weatherforecasts/{id}", Name = "DeleteWeatherForecast")]
         public void Delete(int id)
         {
             _domain.DeleteForecast(id);

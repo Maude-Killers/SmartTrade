@@ -23,7 +23,7 @@ namespace Backend.Controllers
             return _domain.GetAll();
         }
 
-        [HttpGet("/product/{Product_code}", Name = "GetProductByProduct_code")]
+        [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
         public ActionResult<Product> Get(int Product_code)
         {
             var product = _domain.GetById(Product_code);
@@ -42,13 +42,13 @@ namespace Backend.Controllers
             _domain.CreateProduct(product);
         }
 
-        [HttpPut("/product/{Product_code}", Name = "EditProduct")]
+        [HttpPut("/products/{Product_code}", Name = "EditProduct")]
         public void Put(int Product_code, Product product)
         {
             _domain.EditProduct(Product_code, product);
         }
 
-        [HttpDelete("/Product/{Product_code}", Name = "DeleteProduct")]
+        [HttpDelete("/Products/{Product_code}", Name = "DeleteProduct")]
         public void Delete(int product_code)
         {
             _domain.DeleteProduct(product_code);
