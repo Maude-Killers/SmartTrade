@@ -5,9 +5,9 @@ namespace Backend.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductRepository<Product> _repository;
 
-        public ProductService(IProductRepository repository)
+        public ProductService(IProductRepository<Product> repository)
         {
             _repository = repository;
         }

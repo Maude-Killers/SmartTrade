@@ -2,7 +2,7 @@ using SmartTrade.Models;
 
 namespace Backend.Interfaces
 {
-    public interface IGroceryProductRepository : IProductRepository<GroceryProduct>
+    public interface IGroceryProductRepository : IProductRepository<GrocerieProduct>
     {
     }
 }

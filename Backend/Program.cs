@@ -16,7 +16,7 @@ var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
-builder.Services.AddScoped<IGroceryProdroductRepository, GroceryProdroductRepository>();
+builder.Services.AddScoped<IGroceryProductRepository, GroceryProdroductRepository>();
 builder.Services.AddScoped<ITechnoProductRepository, TechnoProductRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 builder.Services.AddScoped<WeatherForecastEntity>();
