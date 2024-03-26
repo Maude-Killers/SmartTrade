@@ -3,19 +3,19 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class GroceryProdroductRepository : ProductRepository, IGroceryProductRepository
+    public class GroceryProductRepository : ProductRepository, IGroceryProductRepository
     {
-        public GroceryProdroductRepository(AppDbContext context) : base(context)
+        public GroceryProductRepository(AppDbContext context) : base(context)
         {
         }
 
-        public void Create(GrocerieProduct product)
+        public void Create(GroceryProduct product)
         {
             _context.GrocerieProduct.Add(product);
             _context.SaveChanges();
         }
 
-        public void Set(int Product_code, GrocerieProduct product)
+        public void Set(int Product_code, GroceryProduct product)
         {
             var actualProduct = _context.GrocerieProduct
                 .Where(product => product.Product_code == Product_code)

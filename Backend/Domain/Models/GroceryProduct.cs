@@ -1,6 +1,6 @@
 ﻿namespace SmartTrade.Models
 {
-    public class GrocerieProduct : Product
+    public class GroceryProduct : Product
     {
         public string Category { get; set; }
     }

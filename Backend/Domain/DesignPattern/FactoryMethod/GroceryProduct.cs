@@ -3,11 +3,11 @@ using SmartTrade.Models;
 
 namespace Backend.Domain.DesignPattern.FactoryMethod
 {
-    public class GrocerieProductFActory : ProductFactory
+    public class GroceryProductFactory : ProductFactory
     {
         public override Product CreateProduct()
         {
-            return new GrocerieProduct();
+            return new GroceryProduct();
         }
     }
 }

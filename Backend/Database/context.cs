@@ -10,7 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public DbSet<TechnoProduct> TechnoProduct { get; set; }
     public DbSet<SportProduct> SportProduct { get; set; }
-    public DbSet<GrocerieProduct> GrocerieProduct { get; set; }
+    public DbSet<GroceryProduct> GrocerieProduct { get; set; }
     public DbSet<Product> Product { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
 
@@ -44,8 +44,8 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
-        modelBuilder.Entity<GrocerieProduct>().HasData(
-            Enumerable.Range(1, 5).Select(index => new GrocerieProduct
+        modelBuilder.Entity<GroceryProduct>().HasData(
+            Enumerable.Range(1, 5).Select(index => new GroceryProduct
             {
                 Product_code = index,
                 Name = "product" + index,
