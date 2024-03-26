@@ -10,6 +10,10 @@ public class AppDbContext : DbContext
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public DbSet<Product> Product { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
+    public DbSet<Person> Person { get; set; }
+    public DbSet<Client> Client { get; set; }
+
+    public DbSet<SalesPerson> SalesPerson { get; set; }
 
     private static readonly string[] Summaries = new[]
     {
