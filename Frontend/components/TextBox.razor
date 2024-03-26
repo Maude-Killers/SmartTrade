@@ -3,25 +3,19 @@
 
 
 
-<div class="mb-6 flex items-center">
-    <!-- Agregamos la clase flex y items-center para alinear verticalmente -->
-    <label for="email" class="mr-2 text-sm font-medium text-green-700 dark:text-green-500">Email</label> <!-- Agregamos la clase mr-2 para dar un margen derecho -->
-    <input type="text" id="email" @bind="emailInput" class=" bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Email">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Campo de Email -->
+    <div class="flex items-center justify-between">
+        <label for="email" class="mr-2 text-sm font-medium text-green-700 dark:text-green-500">Email</label>
+        <input type="text" id="email" @bind="emailInput" class="flex-grow bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Email">
+    </div>
+
+    <!-- Campo de Contraseña -->
+    <div class="flex items-center justify-between">
+        <label for="password" class="mr-2 text-sm font-medium text-green-700 dark:text-green-500">Contraseña</label>
+        <input type="password" id="password" @bind="passwordInput" class="flex-grow bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Contraseña">
+    </div>
 </div>
-<!--p class="mt-2 text-sm text-green-600 dark:text-green-500"><span class="font-medium">Well done!</span> @successMessage</!--p #label que aparece debajo del textfield--> 
-
-
-<div class="mb-6 flex items-center">
-    <!-- Agregamos la clase flex y items-center para alinear verticalmente -->
-    <label for="password" class="mr-2 text-sm font-medium text-green-700 dark:text-green-500">Password</label> <!-- Agregamos la clase mr-2 para dar un margen derecho -->
-    <input type="password" id="password" @bind="passwordInput" class=" bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Password">
-</div>
-    <!-- TextFiel para el error<div>
-    <label for="error" class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">Error input</label>
-    <input type="text" id="error" @bind="errorInput" class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500" placeholder="Error input">
-    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> @errorMessage</p>
-    </div>-->
-
 
 
 
