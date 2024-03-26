@@ -76,12 +76,12 @@
     private async Task HandleValidSubmit()
     {
         await service.SaveForecastAsync(forecast);
-        nav.NavigateTo("/fetchdata");
+        nav.NavigateTo("/logIn");
     }
 
     private async Task HandleDelete()
     {
         await service.DeleteForecastAsync(int.Parse(Id));
-        nav.NavigateTo("/fetchdata");
+        nav.NavigateTo("/logIn");
     }
 }
