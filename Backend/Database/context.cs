@@ -10,8 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public DbSet<TechnoProduct> TechnoProduct { get; set; }
     public DbSet<SportProduct> SportProduct { get; set; }
-    public DbSet<GroceryProduct> GrocerieProduct { get; set; }
-    public DbSet<Product> Product { get; set; }
+    public DbSet<GroceryProduct> GroceryProduct { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
 
     private static readonly string[] Summaries = new[]
@@ -37,8 +36,8 @@ public class AppDbContext : DbContext
                 Product_code = index,
                 Name = "product" + index,
                 Price = 10 + index,
-                Description = "descripción" + index,
-                Features = "características" + index,
+                Description = "descripciï¿½n" + index,
+                Features = "caracterï¿½sticas" + index,
                 Huella = Random.Shared.Next(-20, 55),
                 Category = "Sports",
             })
@@ -50,8 +49,8 @@ public class AppDbContext : DbContext
                 Product_code = index,
                 Name = "product" + index,
                 Price = 10 + index,
-                Description = "descripción" + index,
-                Features = "características" + index,
+                Description = "descripciï¿½n" + index,
+                Features = "caracterï¿½sticas" + index,
                 Huella = Random.Shared.Next(-20, 55),
                 Category = "Grocerie",
             })
@@ -63,8 +62,8 @@ public class AppDbContext : DbContext
                 Product_code = index,
                 Name = "product" + index,
                 Price = 10 + index,
-                Description = "descripción" + index,
-                Features = "características" + index,
+                Description = "descripciï¿½n" + index,
+                Features = "caracterï¿½sticas" + index,
                 Huella = Random.Shared.Next(-20, 55),
                 Category = "Techno",
             })

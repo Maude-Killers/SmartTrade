@@ -3,10 +3,39 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class TechnoProductRepository : ProductRepository, ITechnoProductRepository
+    public class TechnoProductRepository : ITechnoProductRepository
     {
-        public TechnoProductRepository(AppDbContext context) : base(context)
+        private readonly AppDbContext _context;
+
+        public TechnoProductRepository(AppDbContext context)
         {
+             _context = context;
+        }
+
+        public void Delete(int Product_code)
+        {
+            var targetProduct = _context.TechnoProduct
+                .Where(product => product.Product_code == Product_code)
+                .FirstOrDefault();
+
+            if (targetProduct == null) throw new InvalidOperationException();
+
+            _context.TechnoProduct.Remove(targetProduct);
+            _context.SaveChanges();
+        }
+
+        public TechnoProduct? Get(int Product_code)
+        {
+            var product = _context.TechnoProduct
+                .Where(product => product.Product_code == Product_code)
+                .FirstOrDefault();
+
+            return product;
+        }
+
+        public IEnumerable<TechnoProduct> GetAll()
+        {
+            return _context.TechnoProduct.ToList();
         }
 
         public void Create(TechnoProduct product)
