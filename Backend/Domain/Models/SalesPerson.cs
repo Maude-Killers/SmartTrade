@@ -8,8 +8,6 @@ namespace SmartTrade.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Email { get; set; }
-
         public string? Password { get; set; }
         public string? Company { get; set; }
 
