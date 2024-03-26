@@ -1,0 +1,95 @@
+@using SmartTrade.Models;
+@inject HttpClient Http
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Temp. (C)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Temp. (F)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Summary
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+                {
+                    <TableRow forecast="@forecast" />
+                }
+            </tbody>
+        </table>
+    </div
+
+    <div class="mb-6">
+    <label for="success" class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Success input</label>
+    <input type="text" id="success" @bind="successInput" class="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Success input">
+    <p class="mt-2 text-sm text-green-600 dark:text-green-500"><span class="font-medium">Well done!</span> @successMessage</p>
+    </div>
+
+    <div>
+    <label for="error" class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">Error input</label>
+    <input type="text" id="error" @bind="errorInput" class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500" placeholder="Error input">
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> @errorMessage</p>
+    </div>
+
+}
+
+
+
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("/weatherforecast");
+    }
+
+    private string successInput { get; set; }
+    private string errorInput { get; set; }
+    private string successMessage { get; set; } = "";
+    private string errorMessage { get; set; } = "";
+
+    private void HandleSuccessInput(ChangeEventArgs e)
+    {
+        successInput = e.Value.ToString(); // Actualizamos el valor de successInput
+        if (!string.IsNullOrWhiteSpace(successInput))
+        {
+            successMessage = "Some success message."; // Mostramos el mensaje de éxito si el campo no está vacío
+        }
+        else
+        {
+            successMessage = ""; // Limpiamos el mensaje si el campo está vacío
+        }
+    }
+
+    private void HandleErrorInput(ChangeEventArgs e)
+    {
+        errorInput = e.Value.ToString(); // Actualizamos el valor de errorInput
+        if (!string.IsNullOrWhiteSpace(errorInput))
+        {
+            errorMessage = "Some error message."; // Mostramos el mensaje de error si el campo no está vacío
+        }
+        else
+        {
+            errorMessage = ""; // Limpiamos el mensaje si el campo está vacío
+        }
+    }
+}
