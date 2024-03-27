@@ -13,6 +13,7 @@ Requisitos:
 cd Frontend
 npm i
 npm run build:css
+npm run watch:css
 dotnet run
 ```
 Listen on http://localhost:5173
