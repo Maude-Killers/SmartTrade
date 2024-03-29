@@ -6,6 +6,7 @@
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
             @*<img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">*@
+            <img class="w-9 h-9 mr-2" src="https://img.icons8.com/external-goofy-line-kerismaker/96/external-Ecommerce-web-development-goofy-line-kerismaker.png" alt="external-Ecommerce-web-development-goofy-line-kerismaker" />
             Smart Trade
         </a>
         <div
@@ -15,41 +16,36 @@
                     Inicio de Sesión
                 </h1>
                 <form class="space-y-4 md:space-y-6" action="#">
+
                     <div>
+
+
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="email" name="email" id="email"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="user@domain.com" required="" @bind="emailInput">
-                    </div>
-                   
-                        <div class="mb-5">
-                            
-                            <input type="text" id="email-success"
-                                class="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
-                                placeholder="Bonnie Green">
-                            <p class="mt-2 text-sm text-green-600 dark:text-green-500"><span
-                                    class="font-medium">Alright!</span> Correct Email!</p>
-                        </div>
-
-                        <div class="mb-5">
-                            
-                            
-                            <input type="text" id="email-success"
-                                   class="bg-green-50 border border-red-500 text-red-900 dark:text-red-400 placeholder-red-700 dark:placeholder-red-500 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-red-500"
-                                   placeholder="Bonnie Green">
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-                                <span class="font-medium">Oops!</span> Please enter a valid email address.
-                            </p>
-                        </div>
+                               class="@($"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {(string.IsNullOrEmpty(emailInput) ? "border-red-500" : "")}")" placeholder="user@domain.com" required="" @bind="emailInput">
+                        @if (string.IsNullOrEmpty(emailInput))
+                        {
+                            <label for="email" class="block mb-2 text-sm font-light text-red-600 dark:text-red-400">Email is required</label>
+                        }
                         
 
+
+                        
+                    </div>
+                   
+                        
                     <div>
-                        <label for="contraseña"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+
+
+                        <label for="contraseña" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
                         <input type="password" name="password" id="password" placeholder="••••••••"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required="" @bind="passwordInput">
+                        
+                            
+                        
                     </div>
+
                     <div class="flex items-center justify-between">
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
