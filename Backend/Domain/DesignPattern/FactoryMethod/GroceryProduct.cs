@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Backend.Repositories;
+using Backend.Services;
 using SmartTrade.Models;
 
 namespace Backend.Domain.DesignPattern.FactoryMethod
@@ -7,7 +8,8 @@ namespace Backend.Domain.DesignPattern.FactoryMethod
     {
         public override Product CreateProduct()
         {
-            return new GroceryProduct();
+            var dbContext = AppServices.CreateDbContext();
+            return new GroceryProduct(new GroceryProductService(new GroceryProductRepository(dbContext)));
         }
     }
 }

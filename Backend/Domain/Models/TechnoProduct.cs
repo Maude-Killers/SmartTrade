@@ -1,7 +1,12 @@
 ﻿namespace SmartTrade.Models
 {
-    public class TechnoProduct : Product
+    public partial class TechnoProduct : Product
     {
-        public string Category { get; set; }
+
+        public string? Category { get; set; }
+        
+        public TechnoProduct() : base()
+        {
+        }
     }
 }

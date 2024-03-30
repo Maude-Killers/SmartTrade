@@ -1,7 +1,11 @@
 ﻿namespace SmartTrade.Models
 {
-    public class GroceryProduct : Product
+    public partial class GroceryProduct : Product
     {
-        public string Category { get; set; }
+        public string? Category { get; set; }
+
+        public GroceryProduct() : base()
+        {
+        }
     }
 }

@@ -3,16 +3,16 @@ using SmartTrade.Models;
 
 namespace Backend.Services
 {
-    public class ProductService : IProductService
+    public abstract class ProductService<T> : IProductService<T> where T : Product
     {
-        private readonly IProductRepository<Product> _repository;
+        private readonly IProductRepository<T> _repository;
 
-        public ProductService(IProductRepository<Product> repository)
+        public ProductService(IProductRepository<T> repository)
         {
             _repository = repository;
         }
 
-        public void Create(Product item)
+        public void Create(T item)
         {
             _repository.Create(item);
         }
@@ -22,17 +22,17 @@ namespace Backend.Services
             _repository.Delete(Product_code);
         }
 
-        public Product? Get(int Product_code)
+        public T? Get(int Product_code)
         {
             return _repository.Get(Product_code);
         }
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public void Set(int Product_code, Product item)
+        public void Set(int Product_code, T item)
         {
             _repository.Set(Product_code, item);
         }

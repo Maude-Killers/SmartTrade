@@ -25,7 +25,7 @@ public class AppDbContext : DbContext
             Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Id = index,
-                Date = DateTime.Now.AddDays(index),
+                Date = DateTime.UtcNow.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
             })
             .ToArray()
@@ -44,7 +44,7 @@ public class AppDbContext : DbContext
             .ToArray()
         );
         modelBuilder.Entity<GroceryProduct>().HasData(
-            Enumerable.Range(1, 5).Select(index => new GroceryProduct
+            Enumerable.Range(6, 10).Select(index => new GroceryProduct
             {
                 Product_code = index,
                 Name = "product" + index,
@@ -57,7 +57,7 @@ public class AppDbContext : DbContext
             .ToArray()
         );
         modelBuilder.Entity<TechnoProduct>().HasData(
-            Enumerable.Range(1, 5).Select(index => new TechnoProduct
+            Enumerable.Range(11, 15).Select(index => new TechnoProduct
             {
                 Product_code = index,
                 Name = "product" + index,

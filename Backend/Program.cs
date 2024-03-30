@@ -16,8 +16,19 @@ var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
+
 builder.Services.AddScoped<IGroceryProductRepository, GroceryProductRepository>();
 builder.Services.AddScoped<ITechnoProductRepository, TechnoProductRepository>();
+builder.Services.AddScoped<ISportProductRepository, SportProductRepository>();
+
+builder.Services.AddScoped<ProductService<SportProduct>, SportProductService>();
+builder.Services.AddScoped<ProductService<GroceryProduct>, GroceryProductService>();
+builder.Services.AddScoped<ProductService<TechnoProduct>, TechnoProductService>();
+
+builder.Services.AddScoped<SportProduct>();
+builder.Services.AddScoped<GroceryProduct>();
+builder.Services.AddScoped<TechnoProduct>();
+
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 builder.Services.AddScoped<WeatherForecastEntity>();
 
@@ -36,6 +47,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+AppServices.Configure(app.Services);
 
 app.UseCors("AllowAnyOrigin");
 

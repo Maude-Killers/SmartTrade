@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using SmartTrade.Models;
+﻿using SmartTrade.Models;
 
 namespace Backend.Domain.DesignPattern
 {

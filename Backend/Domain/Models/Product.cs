@@ -6,6 +6,10 @@ namespace SmartTrade.Models
 {
     public partial class Product
     {
+        protected Product()
+        {
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Product_code { get; set; }

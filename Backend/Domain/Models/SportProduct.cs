@@ -1,7 +1,11 @@
 ﻿namespace SmartTrade.Models
 {
-    public class SportProduct : Product
+    public partial class SportProduct : Product
     {
-        public string Category { get; set; }
+        public string? Category { get; set; }
+
+        public SportProduct() : base()
+        {
+        }
     }
 }
