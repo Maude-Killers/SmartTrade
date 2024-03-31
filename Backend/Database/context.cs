@@ -8,6 +8,7 @@ public class AppDbContext : DbContext
     { }
 
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+    public DbSet<Product> Products { get; set; }
     public DbSet<TechnoProduct> TechnoProduct { get; set; }
     public DbSet<SportProduct> SportProduct { get; set; }
     public DbSet<GroceryProduct> GroceryProduct { get; set; }
@@ -36,36 +37,33 @@ public class AppDbContext : DbContext
                 Product_code = index,
                 Name = "product" + index,
                 Price = 10 + index,
-                Description = "descripci�n" + index,
-                Features = "caracter�sticas" + index,
+                Description = "descripcion" + index,
+                Features = "caracteristicas" + index,
                 Huella = Random.Shared.Next(-20, 55),
-                Category = "Sports",
             })
             .ToArray()
         );
         modelBuilder.Entity<GroceryProduct>().HasData(
-            Enumerable.Range(6, 10).Select(index => new GroceryProduct
+            Enumerable.Range(6, 5).Select(index => new GroceryProduct
             {
                 Product_code = index,
                 Name = "product" + index,
                 Price = 10 + index,
-                Description = "descripci�n" + index,
-                Features = "caracter�sticas" + index,
+                Description = "descripcion" + index,
+                Features = "caracteristicas" + index,
                 Huella = Random.Shared.Next(-20, 55),
-                Category = "Grocerie",
             })
             .ToArray()
         );
         modelBuilder.Entity<TechnoProduct>().HasData(
-            Enumerable.Range(11, 15).Select(index => new TechnoProduct
+            Enumerable.Range(11, 5).Select(index => new TechnoProduct
             {
                 Product_code = index,
                 Name = "product" + index,
                 Price = 10 + index,
-                Description = "descripci�n" + index,
-                Features = "caracter�sticas" + index,
+                Description = "descripcion" + index,
+                Features = "caracteristicas" + index,
                 Huella = Random.Shared.Next(-20, 55),
-                Category = "Techno",
             })
             .ToArray()
         );

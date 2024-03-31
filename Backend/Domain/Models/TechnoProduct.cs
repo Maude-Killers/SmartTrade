@@ -2,11 +2,9 @@
 {
     public partial class TechnoProduct : Product
     {
-
-        public string? Category { get; set; }
-        
         public TechnoProduct() : base()
         {
+            Category = "Techno";
         }
     }
 }
