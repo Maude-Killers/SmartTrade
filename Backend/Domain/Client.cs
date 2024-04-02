@@ -1,5 +1,4 @@
 using Backend.Interfaces;
-using Backend.Services;
 
 namespace SmartTrade.Models
 {

@@ -1,5 +1,4 @@
-﻿using Backend.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
 namespace Backend.Controllers

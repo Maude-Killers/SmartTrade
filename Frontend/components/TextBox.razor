@@ -1,5 +1,5 @@
 @using SmartTrade.Models;
-@inject HttpClient Http
+@inject AuthService _service
 
 
 <section class="bg-gray-50 dark:bg-gray-900 flex-col">
@@ -14,10 +14,7 @@
                     Inicio de Sesión
                 </h1>
                 <form class="space-y-4 md:space-y-6" action="#">
-
                     <div>
-
-
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="email" name="email" id="email"
                                class="@($"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {(string.IsNullOrEmpty(emailInput) ? "border-red-500" : "")}")" placeholder="user@domain.com" required="" @bind="emailInput">
@@ -25,16 +22,8 @@
                         {
                             <label for="email" class="block mb-2 text-sm font-light text-red-600 dark:text-red-400">Email is required</label>
                         }
-                        
-
-
-                        
-                    </div>
-                   
-                        
+                    </div>                        
                     <div>
-
-
                         <label for="contraseña" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
                         <input type="password" name="password" id="password"
                                class="@($"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {(string.IsNullOrEmpty(passwordInput) ? "border-red-500" : "")}")" placeholder="••••••••" required="" @bind="passwordInput">
@@ -42,9 +31,6 @@
                         {
                             <label for="email" class="block mb-2 text-sm font-light text-red-600 dark:text-red-400">Password is required</label>
                         }
-
-
-
                     </div>
 
                     <div class="flex items-center justify-between">
@@ -83,33 +69,6 @@
 
     private async Task Login()
     {
-        try
-        {
-            // Send login request to the backend
-            var loginRequest = new LoginRequest
-                {
-                    Email = emailInput,
-                    Password = passwordInput
-                };
-
-            var response = await Http.PostAsJsonAsync("/api/auth/login", loginRequest);
-
-            if (response.IsSuccessStatusCode)
-            {
-                // Handle successful login
-                var loginResult = await response.Content.ReadFromJsonAsync<LoginResult>();
-                
-            }
-            else
-            {
-                // Handle failed login
-                errorMessage = "Invalid email or password";
-            }
-        }
-        catch (Exception ex)
-        {
-            // Handle exception
-            errorMessage = ex.Message;
-        }
+        _service.Login(emailInput, passwordInput);
     }
 }

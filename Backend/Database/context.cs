@@ -12,7 +12,6 @@ public class AppDbContext : DbContext
     public DbSet<Gallery> Gallery { get; set; }
     public DbSet<Person> Person { get; set; }
     public DbSet<Client> Client { get; set; }
-
     public DbSet<SalesPerson> SalesPerson { get; set; }
 
     private static readonly string[] Summaries = new[]
@@ -27,7 +26,7 @@ public class AppDbContext : DbContext
             Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Id = index,
-                Date = DateTime.Now.AddDays(index),
+                Date = DateTime.UtcNow.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
             })
             .ToArray()

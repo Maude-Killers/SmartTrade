@@ -1,4 +1,3 @@
-using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -20,27 +19,27 @@ namespace Backend.Controllers
             _httpClient = httpClient;
         }
 
-        [HttpPost("login")]
-            public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
-            {
-                // Delegate authentication to AuthController
-                // Call AuthController's login action and handle the response
-                var response = await _httpClient.PostAsJsonAsync("/api/auth/login", loginRequest);
+        // [HttpPost("login")]
+        // public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
+        // {
+        //     // Delegate authentication to AuthController
+        //     // Call AuthController's login action and handle the response
+        //     var response = await _httpClient.PostAsJsonAsync("/api/auth/login", loginRequest);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    // Handle successful login
-                    var loginResult = await response.Content.ReadAsAsync<LoginResult>();
-                    return Ok(loginResult);
-                }
-                else
-                {
-                    // Handle failed login
-                    return BadRequest("Invalid email or password");
-                }
-            }
+        //     if (response.IsSuccessStatusCode)
+        //     {
+        //         // Handle successful login
+        //         var loginResult = await response.Content.ReadAsAsync<LoginResult>();
+        //         return Ok(loginResult);
+        //     }
+        //     else
+        //     {
+        //         // Handle failed login
+        //         return BadRequest("Invalid email or password");
+        //     }
+        // }
 
-       
+
 
         [HttpGet(Name = "GetSalesPerson")]
         public IEnumerable<SalesPerson> Get()
