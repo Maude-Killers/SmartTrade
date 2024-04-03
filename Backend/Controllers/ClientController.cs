@@ -9,10 +9,10 @@ namespace Backend.Controllers
     {
 
         private readonly ILogger<ClientController> _logger;
-        private readonly ClientEntity _domain;
+        private readonly Client _domain;
         private readonly HttpClient _httpClient;
 
-        public ClientController(ClientEntity domain, ILogger<ClientController> logger, HttpClient httpClient)
+        public ClientController(Client domain, ILogger<ClientController> logger, HttpClient httpClient)
         {
             _logger = logger;
             _domain = domain;
@@ -48,7 +48,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("/client/{Email}", Name = "GetClientByEmail")]
-        public ActionResult<Client> Get(int Email)
+        public ActionResult<Client> Get(string Email)
         {
             var client = _domain.GetById(Email);
 
@@ -67,13 +67,13 @@ namespace Backend.Controllers
         }
 
         [HttpPut("/client/{Email}", Name = "EditClient")]
-        public void Put(int Email, Client client)
+        public void Put(string Email, Client client)
         {
             _domain.EditClient(Email, client);
         }
 
         [HttpDelete("/client/{Email}", Name = "DeleteClient")]
-        public void Delete(int Email)
+        public void Delete(string Email)
         {
             _domain.DeleteClient(Email);
         }

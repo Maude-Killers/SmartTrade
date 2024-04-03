@@ -18,7 +18,7 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(int Email)
+        public void Delete(string Email)
         {
             var targetClient = _context.Client
                 .Where(client => client.Email == Email)
@@ -30,7 +30,7 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public Client? Get(int Email)
+        public Client? Get(string Email)
         {
             var client = _context.Client
                 .Where(client => client.Email == Email)
@@ -44,7 +44,7 @@ namespace Backend.Repositories
             return _context.Client.ToList();
         }
 
-        public void Set(int Email, Client client)
+        public void Set(string Email, Client client)
         {
             var actualClient = _context.Client
                 .Where(client => client.Email == Email)

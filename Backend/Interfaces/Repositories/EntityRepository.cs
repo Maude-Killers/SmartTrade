@@ -1,11 +1,11 @@
 namespace Backend.Interfaces
 {
-    public interface EntityRepository<T>
+    public interface EntityRepository<T, TKey>
     {
         void Create(T item);
         IEnumerable<T> GetAll();
-        T? Get(int id);
-        void Set(int id, T item);
-        void Delete(int id);
+        T? Get(TKey id);
+        void Set(TKey id, T item);
+        void Delete(TKey id);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface IGalleryService : EntityService<Gallery>
+    public interface IGalleryService : EntityService<Gallery, int>
     {
     }
 

@@ -16,7 +16,7 @@ namespace SmartTrade.Models
             return _service.GetAll();
         }
 
-        public SalesPerson? GetById(int Email)
+        public SalesPerson? GetById(string Email)
         {
             return _service.Get(Email);
         }
@@ -26,12 +26,12 @@ namespace SmartTrade.Models
             _service.Create(salesPerson);
         }
 
-        public void EditSalesPerson(int Email, SalesPerson salesPerson)
+        public void EditSalesPerson(string Email, SalesPerson salesPerson)
         {
             _service.Set(Email, salesPerson);
         }
 
-        public void DeleteSalesPerson(int Email)
+        public void DeleteSalesPerson(string Email)
         {
             _service.Delete(Email);
         }

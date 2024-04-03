@@ -1,12 +1,12 @@
 namespace Backend.Interfaces
 {
-    public interface EntityService<T>
+    public interface EntityService<T,TKey>
     {
         void Create(T item);
         IEnumerable<T> GetAll();
-        T? Get(int id);
+        T? Get(TKey id);
 
-        void Set(int id, T item);
-        void Delete(int id);
+        void Set(TKey id, T item);
+        void Delete(TKey id);
     }
 }

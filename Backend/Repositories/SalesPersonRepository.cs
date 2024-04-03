@@ -18,7 +18,7 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(int Email)
+        public void Delete(string Email)
         {
             var targetSalesPerson = _context.SalesPerson
                 .Where(salesPerson => salesPerson.Email == Email)
@@ -30,7 +30,7 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public SalesPerson? Get(int Email)
+        public SalesPerson? Get(string Email)
         {
             var salesPerson = _context.SalesPerson
                 .Where(salesPerson => salesPerson.Email == Email)
@@ -44,7 +44,7 @@ namespace Backend.Repositories
             return _context.SalesPerson.ToList();
         }
 
-        public void Set(int Email, SalesPerson salesPerson)
+        public void Set(string Email, SalesPerson salesPerson)
         {
             var actualSalesPerson = _context.SalesPerson
                 .Where(salesPerson => salesPerson.Email == Email)

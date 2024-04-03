@@ -12,7 +12,7 @@ namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240402133239_users")]
-    partial class users
+    partial class Users
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

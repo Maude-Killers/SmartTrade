@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface IProductService : EntityService<Product>
+    public interface IProductService : EntityService<Product, int>
     {
     }
 

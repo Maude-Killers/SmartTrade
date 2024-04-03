@@ -17,12 +17,12 @@ namespace Backend.Services
             _repository.Create(item);
         }
 
-        public void Delete(int Email)
+        public void Delete(string Email)
         {
             _repository.Delete(Email);
         }
 
-        public Client? Get(int Email)
+        public Client? Get(string Email)
         {
             return _repository.Get(Email);
         }
@@ -32,7 +32,7 @@ namespace Backend.Services
             return _repository.GetAll();
         }
 
-        public void Set(int Email, Client item)
+        public void Set(string Email, Client item)
         {
             _repository.Set(Email, item);
         }
