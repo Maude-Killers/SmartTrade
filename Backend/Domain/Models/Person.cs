@@ -10,5 +10,7 @@ namespace SmartTrade.Models
         public string? FullName { get; set; }
 
         public int PhoneNumber { get; set; }
+
+        public Person() {}
     }
 }

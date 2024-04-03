@@ -2,11 +2,11 @@ using Backend.Interfaces;
 
 namespace SmartTrade.Models
 {
-    public partial class SalesPersonEntity
+    public partial class SalesPerson
     {
         private readonly ISalesPersonService _service;
 
-        public SalesPersonEntity(ISalesPersonService service)
+        public SalesPerson(ISalesPersonService service)
         {
             _service = service;
         }

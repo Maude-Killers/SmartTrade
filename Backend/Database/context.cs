@@ -31,5 +31,13 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
+
+        modelBuilder.Entity<Client>().HasData(
+            Enumerable.Range(1, 5).Select(index => new Client
+            {
+                
+            })
+            .ToArray()
+        );
     }
 }
