@@ -1,15 +1,39 @@
-﻿namespace SmartTrade.Models
+﻿using Backend.Interfaces;
+
+namespace SmartTrade.Models
 {
-    public abstract partial class Product
+    public partial class ProductEntity
     {
-        public abstract IEnumerable<Product> GetAll();
+        private readonly IProductService _service;
 
-        public abstract Product? GetById(int Product_code);
+        public ProductEntity(IProductService service)
+        {
+            _service = service;
+        }
 
-        public abstract void CreateProduct(Product product);
+        public IEnumerable<Product> GetAll()
+        {
+            return _service.GetAll();
+        }
 
-        public abstract void EditProduct(int Product_code, Product product);
+        public Product? GetById(int Product_code)
+        {
+            return _service.Get(Product_code);
+        }
 
-        public abstract void DeleteProduct(int Product_code);
+        public void CreateProduct(Product product)
+        {
+            _service.Create(product);
+        }
+
+        public void EditProduct(int Product_code, Product product)
+        {
+            _service.Set(Product_code, product);
+        }
+
+        public void DeleteProduct(int Product_code)
+        {
+            _service.Delete(Product_code);
+        }
     }
 }

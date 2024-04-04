@@ -2,7 +2,8 @@
 
 namespace Backend.Interfaces
 {
-    public interface IProductService<S> : EntityService<S> where S: Product
+    public interface IProductService : EntityService<Product>
     {
     }
+
 }
