@@ -32,12 +32,16 @@ public class AppDbContext : DbContext
             .ToArray()
         );
 
-        //modelBuilder.Entity<Client>().HasData(
-        //    Enumerable.Range(1, 5).Select(index => new Client
-        //    {
-        //        
-        //    })
-        //    .ToArray()
-        //    );
+       /* modelBuilder.Entity<Client>().HasData(
+            Enumerable.Range(1, 5).Select(index => new Client
+            {
+                Email = "prueba1@prueba1.com",
+                Password = "cliente1",
+                FullName = "Cliente Uno",
+                PhoneNumber = 654654654,
+
+            })
+            .ToArray()
+            ) ;*/
     }
 }
