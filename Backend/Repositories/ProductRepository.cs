@@ -1,52 +1,52 @@
-using Backend.Interfaces;
+﻿using Backend.Interfaces;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class TechnoProductRepository : ITechnoProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
 
-        public TechnoProductRepository(AppDbContext context)
+        public ProductRepository(AppDbContext context)
         {
-             _context = context;
+            _context = context;
+        }
+
+        public void Create(Product product)
+        {
+            _context.Product.Add(product);
+            _context.SaveChanges();
         }
 
         public void Delete(int Product_code)
         {
-            var targetProduct = _context.TechnoProduct
+            var targetProduct = _context.Product
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
             if (targetProduct == null) throw new InvalidOperationException();
 
-            _context.TechnoProduct.Remove(targetProduct);
+            _context.Product.Remove(targetProduct);
             _context.SaveChanges();
         }
 
-        public TechnoProduct? Get(int Product_code)
+        public Product? Get(int Product_code)
         {
-            var product = _context.TechnoProduct
+            var product = _context.Product
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
             return product;
         }
 
-        public IEnumerable<TechnoProduct> GetAll()
+        public IEnumerable<Product> GetAll()
         {
-            return _context.TechnoProduct.ToList();
+            return _context.Product.ToList();
         }
 
-        public void Create(TechnoProduct product)
+        public void Set(int Product_code, Product product)
         {
-            _context.TechnoProduct.Add(product);
-            _context.SaveChanges();
-        }
-
-        public void Set(int Product_code, TechnoProduct product)
-        {
-            var actualProduct = _context.TechnoProduct
+            var actualProduct = _context.Product
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
@@ -57,8 +57,6 @@ namespace Backend.Repositories
             actualProduct.Description = product.Description;
             actualProduct.Features = product.Features;
             actualProduct.Huella = product.Huella;
-            actualProduct.Category = product.Category;
-
             _context.SaveChanges();
         }
     }
