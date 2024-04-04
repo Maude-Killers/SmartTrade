@@ -1,4 +1,4 @@
-﻿using Backend.Interfaces;
+﻿using Backend.Domain.DesignPattern;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -8,50 +8,45 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
+        private ProductFactory? _factory;
+        private Product? _domain;
         private readonly ILogger<ProductController> _logger;
-        private readonly ProductEntity _domain;
 
-        public ProductController(ProductEntity domain, ILogger<ProductController> logger)
+        public ProductController(ILogger<ProductController> logger)
         {
             _logger = logger;
-            _domain = domain;
         }
 
         [HttpGet(Name = "GetProduct")]
         public IEnumerable<Product> Get()
         {
+            _factory = new SportProductFactory();
+            _domain = _factory.CreateProduct();
             return _domain.GetAll();
         }
 
-        [HttpGet("/product/{Product_code}", Name = "GetProductByProduct_code")]
+        [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
         public ActionResult<Product> Get(int Product_code)
         {
-            var product = _domain.GetById(Product_code);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return product;
+            return null;
         }
 
         [HttpPost(Name = "CreateProduct")]
         public void Post(Product product)
         {
-            _domain.CreateProduct(product);
+            return;
         }
 
-        [HttpPut("/product/{Product_code}", Name = "EditProduct")]
+        [HttpPut("/products/{Product_code}", Name = "EditProduct")]
         public void Put(int Product_code, Product product)
         {
-            _domain.EditProduct(Product_code, product);
+            return;
         }
 
-        [HttpDelete("/Product/{Product_code}", Name = "DeleteProduct")]
+        [HttpDelete("/Products/{Product_code}", Name = "DeleteProduct")]
         public void Delete(int product_code)
         {
-            _domain.DeleteProduct(product_code);
+            return;
         }
     }
 }

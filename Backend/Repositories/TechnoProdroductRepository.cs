@@ -1,52 +1,52 @@
-﻿using Backend.Interfaces;
+using Backend.Interfaces;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class TechnoProductRepository : ITechnoProductRepository
     {
         private readonly AppDbContext _context;
 
-        public ProductRepository(AppDbContext context)
+        public TechnoProductRepository(AppDbContext context)
         {
-            _context = context;
-        }
-
-        public void Create(Product product)
-        {
-            _context.Product.Add(product);
-            _context.SaveChanges();
+             _context = context;
         }
 
         public void Delete(int Product_code)
         {
-            var targetProduct = _context.Product
+            var targetProduct = _context.TechnoProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
             if (targetProduct == null) throw new InvalidOperationException();
 
-            _context.Product.Remove(targetProduct);
+            _context.TechnoProduct.Remove(targetProduct);
             _context.SaveChanges();
         }
 
-        public Product? Get(int Product_code)
+        public TechnoProduct? Get(int Product_code)
         {
-            var product = _context.Product
+            var product = _context.TechnoProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
             return product;
         }
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<TechnoProduct> GetAll()
         {
-            return _context.Product.ToList();
+            return _context.TechnoProduct.ToList();
         }
 
-        public void Set(int Product_code, Product product)
+        public void Create(TechnoProduct product)
         {
-            var actualProduct = _context.Product
+            _context.TechnoProduct.Add(product);
+            _context.SaveChanges();
+        }
+
+        public void Set(int Product_code, TechnoProduct product)
+        {
+            var actualProduct = _context.TechnoProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
@@ -57,6 +57,8 @@ namespace Backend.Repositories
             actualProduct.Description = product.Description;
             actualProduct.Features = product.Features;
             actualProduct.Huella = product.Huella;
+            actualProduct.Category = product.Category;
+
             _context.SaveChanges();
         }
     }

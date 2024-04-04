@@ -19,5 +19,11 @@ namespace SmartTrade.Models
         public string? Features { get; set; }
 
         public int Huella { get; set; }
+        
+        public string Category { get; set; }
+
+        protected Product()
+        {
+        }
     }
 }
