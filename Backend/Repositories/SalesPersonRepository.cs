@@ -39,6 +39,15 @@ namespace Backend.Repositories
             return salesPerson;
         }
 
+        public SalesPerson? GetByCredentials(string Email, string Password)
+        {
+            var salesPerson = _context.SalesPerson
+                .Where(salesPerson => salesPerson.Email == Email && salesPerson.Password == Password)
+                .FirstOrDefault();
+
+            return salesPerson;
+        }
+
         public IEnumerable<SalesPerson> GetAll()
         {
             return _context.SalesPerson.ToList();
