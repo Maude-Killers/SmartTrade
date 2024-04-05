@@ -11,12 +11,12 @@ namespace SmartTrade.Models
             _service = service;
         }
 
-        public IEnumerable<Person> GetAll()
+        public IEnumerable<Person> GetPersons()
         {
             return _service.GetAll();
         }
 
-        public Person? GetById(string Email)
+        public Person? GetPersonById(string Email)
         {
             return _service.Get(Email);
         }
@@ -36,7 +36,7 @@ namespace SmartTrade.Models
             _service.Delete(Email);
         }
 
-        Person ValidateEmail()
+        Person? ValidateEmail()
         {
             Person p = _service.Get(Email);
             if (p is SalesPerson sperson)
@@ -48,7 +48,5 @@ namespace SmartTrade.Models
             }
             return null;
         }
-
-
     }
 }

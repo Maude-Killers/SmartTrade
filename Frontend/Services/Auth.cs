@@ -10,7 +10,7 @@ public class AuthService
         _httpClient = httpClient;
     }
 
-    public async Task Login(string emailInput, string passwordInput)
+    public void Login(string emailInput, string passwordInput)
     {
         // Send login request to the backend
         var loginRequest = new Person

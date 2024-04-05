@@ -1,4 +1,5 @@
 using Backend.Interfaces;
+using Backend.Repositories;
 using Microsoft.AspNetCore.Components;
 using SmartTrade.Models;
 
@@ -8,15 +9,14 @@ namespace Backend.Services
     public class PersonService : IPersonService
     {
         private readonly IPersonRepository _repository;
+        private readonly IClientRepository _clientRepository;
+        private readonly ISalesPersonRepository _salespersonRepository;
 
-        [Inject]
-        private IClientRepository _clientRepository { get; set; }
-        [Inject]
-        private ISalesPersonRepository _salespersonRepository { get; set; }
-
-        public PersonService(IPersonRepository repository)
+        public PersonService(IPersonRepository repository, IClientRepository clientRepository, ISalesPersonRepository salesRepository)
         {
             _repository = repository;
+            _clientRepository = clientRepository;
+            _salespersonRepository = salesRepository;
         }
 
         public void Create(Person item)
@@ -44,15 +44,17 @@ namespace Backend.Services
             _repository.Set(Email, item);
         }
 
-        public Person GetPersonByCredentials(string email, string password)
+        public Person? GetPersonByCredentials(string email, string password)
         {
-            var client = _clientRepository.Get(email);
+            ClientRepository castedClientRepository = _clientRepository as ClientRepository;
+            var client = castedClientRepository?.GetByCredentials(email, password);
             if (client != null)
             {
                 return client; 
             }
 
-            var salesman = _salespersonRepository.Get(email);
+            SalesPersonRepository castedSalesRepository = _salespersonRepository as SalesPersonRepository;
+            var salesman = castedSalesRepository?.GetByCredentials(email, password);
             if (salesman != null)
             {
                 return salesman;

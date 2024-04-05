@@ -10,7 +10,6 @@ namespace SmartTrade.Models
         {
             _service = service;
         }
-
         public IEnumerable<Client> GetAll()
         {
             return _service.GetAll();
