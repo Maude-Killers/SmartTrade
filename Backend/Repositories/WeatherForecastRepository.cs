@@ -34,8 +34,7 @@ namespace Backend.Repositories
         {
             var forecast = _context.WeatherForecasts
                 .Where(forecast => forecast.Id == id)
-                .FirstOrDefault();
-
+                .FirstOrDefault() ?? throw new ResourceNotFound("Cannot find Weatherforecast", id);
             return forecast;
         }
 
