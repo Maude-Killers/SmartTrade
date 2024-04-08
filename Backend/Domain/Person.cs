@@ -1,4 +1,5 @@
 using Backend.Interfaces;
+using Backend.Services;
 
 namespace SmartTrade.Models
 {
@@ -36,17 +37,11 @@ namespace SmartTrade.Models
             _service.Delete(Email);
         }
 
-        Person? ValidateEmail()
+        Person? ValidateEmail(string email, string password)
         {
-            Person p = _service.Get(Email);
-            if (p is SalesPerson sperson)
-            {
-                return sperson;
-            }
-            else if (p is Client cperson) { 
-                return cperson;
-            }
-            return null;
+            PersonService personService = _service as PersonService;
+            Person p = personService.GetPersonByCredentials(email, password);
+            return p;
         }
     }
 }
