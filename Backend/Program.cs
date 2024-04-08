@@ -21,6 +21,7 @@ var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?
 // Add services to the container.
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 
+
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 
@@ -44,28 +45,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddAuthentication(cfg => {
-    cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-    .AddJwtBearer(options =>
-    {
-        var jwtKey = builder.Configuration["JwtConfig:key"];
-        options.RequireHttpsMetadata = true;
-        options.SaveToken = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ClockSkew = TimeSpan.Zero
-        };
-    });
-
-//.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-//   options => builder.Configuration.Bind("CookieSettings", options));
+builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
