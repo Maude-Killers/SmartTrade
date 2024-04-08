@@ -21,6 +21,8 @@ var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?
 // Add services to the container.
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 
+builder.Services.ConfigureJwtAuthentication(builder.Configuration);
+
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
