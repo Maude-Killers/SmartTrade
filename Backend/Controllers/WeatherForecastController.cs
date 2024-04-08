@@ -1,5 +1,5 @@
-using Backend.Migrations;
 using Backend.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -16,30 +16,17 @@ namespace Backend.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly WeatherForecastEntity _domain;
-        private readonly AuthHelpers _authHelpers;
 
-        public WeatherForecastController(WeatherForecastEntity domain, ILogger<WeatherForecastController> logger, AuthHelpers authhelpers)
+        public WeatherForecastController(WeatherForecastEntity domain, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
             _domain = domain;
-            _authHelpers = authhelpers;
         }
 
+        [Authorize(Roles = "client")]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
-            var token = _authHelpers.GenerateJWTToken(new Person {FullName= "Juan José", Email= "jj@gmail.com" });
-
-            // Configurar la cookie
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true, 
-                Expires = DateTime.Now.AddDays(30),
-            };
-
-            // Enviar la cookie
-            Response.Cookies.Append("JWTToken", token, cookieOptions);
-
             return _domain.GetAll();
         }
 

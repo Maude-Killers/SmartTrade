@@ -1,7 +1,6 @@
 using Backend.Utils;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
-using System.Runtime.Intrinsics.Arm;
 
 namespace Backend.Controllers
 {
@@ -18,33 +17,28 @@ namespace Backend.Controllers
             _domain = domain;
         }
 
-        [HttpPost("login")]
-        public void Login(Person loginRequest)
+        [HttpPost("/login")]
+        public void Login([FromBody] Person loginRequest)
         {
-            
             // Perform authentication
-            var result =  _domain.ValidateEmail(loginRequest.Email, loginRequest.Password);
+            var result = _domain.ValidateEmail(loginRequest.Email, loginRequest.Password);
             if (result != null)
             {
                 string token;
                 //Llamar helper para generar token
                 if (result is Client) { token = _authService.GenerateJWTToken(result, "client"); }
                 else { token = _authService.GenerateJWTToken(result, "salesPerson"); }
-                
+
                 var cookieOptions = new CookieOptions
                 {
                     HttpOnly = true,
-                    Expires = DateTime.Now.AddDays(30),
+                    Expires = DateTime.Now.AddDays(1),
                 };
 
                 // Enviar la cookie
                 Response.Cookies.Append("JWTToken", token, cookieOptions);
             }
-            else
-            {
-
-                
-            }
+            else { }
         }
     }
 }

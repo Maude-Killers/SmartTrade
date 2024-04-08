@@ -3,13 +3,8 @@ using Backend.Repositories;
 using Backend.Services;
 using Backend.Utils;
 using dotenv.net;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using SmartTrade.Models;
-using System.Text;
 
 DotEnv.Load();
 
@@ -24,7 +19,13 @@ builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfi
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
-
+builder.Services.AddScoped<ISalesPersonRepository, SalesPersonRepository>();
+builder.Services.AddScoped<ISalesPersonService, SalesPersonService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<Person>();
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 builder.Services.AddScoped<WeatherForecastEntity>();

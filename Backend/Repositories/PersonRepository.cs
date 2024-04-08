@@ -1,8 +1,5 @@
 using Backend.Interfaces;
 using SmartTrade.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Backend.Repositories
 {
