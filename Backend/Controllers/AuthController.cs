@@ -1,5 +1,7 @@
+using Backend.Utils;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Backend.Controllers
 {
@@ -7,23 +9,42 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        // [HttpPost("login")]
-        // public void Login(Person user)
-        // {
-        //     Authentication logic
-        //     Perform authentication
-        //     if (loginRequest.Email, loginRequest.Password)
-        //     {
-        //         // Return success response with user type (Client or Salesperson)
-        //         var userType = GetUserType(loginRequest.Email);
-        //         return Ok(new LoginResult { Type = userType, Message = "Login successful" });
-        //     }
-        //     else
-        //     {
-        //         // Return error response for invalid credentials
-        //         return Unauthorized(new LoginResult { Message = "Invalid email or password" });
-        //     }
-        // }
+        private readonly AuthHelpers _authService;
+        private readonly Person _domain;
+
+        public AuthController(AuthHelpers authService, Person domain)
+        {
+            _authService = authService;
+            _domain = domain;
+        }
+
+        [HttpPost("login")]
+        public void Login(Person loginRequest)
+        {
+            
+            // Perform authentication
+            var result =  _domain.ValidateEmail(loginRequest.Email, loginRequest.Password);
+            if (result != null)
+            {
+                string token;
+                //Llamar helper para generar token
+                if (result is Client) { token = _authService.GenerateJWTToken(result, "client"); }
+                else { token = _authService.GenerateJWTToken(result, "salesPerson"); }
+                
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.Now.AddDays(30),
+                };
+
+                // Enviar la cookie
+                Response.Cookies.Append("JWTToken", token, cookieOptions);
+            }
+            else
+            {
+
+                
+            }
+        }
     }
 }
-    

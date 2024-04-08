@@ -37,7 +37,7 @@ namespace SmartTrade.Models
             _service.Delete(Email);
         }
 
-        Person? ValidateEmail(string email, string password)
+        public Person? ValidateEmail(string email, string password)
         {
             PersonService personService = _service as PersonService;
             Person p = personService.GetPersonByCredentials(email, password);

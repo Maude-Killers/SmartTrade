@@ -13,11 +13,12 @@ namespace Backend.Utils
         public AuthHelpers(IOptions <JwtConfig> jwtKey) { 
             _jwtKey = jwtKey.Value;
         }
-        public string GenerateJWTToken(Person person)
+        public string GenerateJWTToken(Person person, string rol)
         {
             var claims = new List<Claim> {
             new Claim(ClaimTypes.NameIdentifier, person.Email),
             new Claim(ClaimTypes.Name, person.FullName),
+            new Claim("rol",rol)
         };
             var jwtToken = new JwtSecurityToken(
                 claims: claims,
