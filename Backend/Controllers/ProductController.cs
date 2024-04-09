@@ -28,7 +28,9 @@ namespace Backend.Controllers
         [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
         public ActionResult<Product> Get(int Product_code)
         {
-            return null;
+            _factory = new SportProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetById(Product_code);
         }
 
         [HttpPost(Name = "CreateProduct")]

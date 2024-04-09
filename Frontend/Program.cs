@@ -9,5 +9,6 @@ var apiUrl = builder.Configuration["API_URL"] ?? "Failed getting API URL";
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
 builder.Services.AddScoped<WeatherForecastService>();
+builder.Services.AddScoped<ProductService>();
 
 await builder.Build().RunAsync();

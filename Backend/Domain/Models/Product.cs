@@ -22,7 +22,7 @@ namespace SmartTrade.Models
         
         public string Category { get; set; }
 
-        protected Product()
+        public Product()
         {
         }
     }
