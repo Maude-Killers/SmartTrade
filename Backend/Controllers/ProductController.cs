@@ -1,4 +1,5 @@
 ﻿using Backend.Domain.DesignPattern;
+using Backend.Domain.DesignPattern.FactoryMethod;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -21,6 +22,30 @@ namespace Backend.Controllers
         public IEnumerable<Product> Get()
         {
             _factory = new SportProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetAll();
+        }
+
+        [HttpGet("/products/Sport")]
+        public IEnumerable<Product> GetSportProducts()
+        {
+            _factory = new SportProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetAll();
+        }
+
+        [HttpGet("/products/Grocery")]
+        public IEnumerable<Product> GetGroceryProducts()
+        {
+            _factory = new GroceryProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetAll();
+        }
+
+        [HttpGet("/products/Technology")]
+        public IEnumerable<Product> GetTechnoProducts()
+        {
+            _factory = new TechnoProductFactory();
             _domain = _factory.CreateProduct();
             return _domain.GetAll();
         }

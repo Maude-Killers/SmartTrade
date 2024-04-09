@@ -1,0 +1,13 @@
+<NavLink href="@($"/{URI}")" Match="NavLinkMatch.All">
+    <li
+        class="flex items-center py-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <span class="mx-3">@Name</span>
+    </li>
+</NavLink>
+
+@code {
+    [Parameter]
+    public string URI { get; set; }
+    [Parameter]
+    public string Name { get; set; }
+}
