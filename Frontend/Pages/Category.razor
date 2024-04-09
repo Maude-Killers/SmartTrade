@@ -5,15 +5,15 @@
     <article class="max-h-lg grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-items-center">
         @foreach (var product in products)
         {
-            <ProductCard imgURL="" price="@product.Price" productName="@product.Name" product_code="@product.Product_code"/>
+            <ProductCard product="@product"/>
         }
     </article>
 </main>
 
 @code {
     [Parameter]
-    public string category_name { get; set; }
-    private Product[] products;
+    public string category_name { get; set; } = "";
+    private Product[] products = Array.Empty<Product>();
 
     protected override async Task OnInitializedAsync()
     {

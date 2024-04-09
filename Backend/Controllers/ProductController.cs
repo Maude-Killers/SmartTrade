@@ -18,12 +18,20 @@ namespace Backend.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetProduct")]
+        [HttpGet("/products", Name = "GetProduct")]
         public IEnumerable<Product> Get()
         {
-            _factory = new SportProductFactory();
+            _factory = new GenericProductFactory();
             _domain = _factory.CreateProduct();
             return _domain.GetAll();
+        }
+
+        [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
+        public ActionResult<Product> Get(int Product_code)
+        {
+            _factory = new GenericProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetById(Product_code);
         }
 
         [HttpGet("/products/Sport")]
@@ -50,13 +58,7 @@ namespace Backend.Controllers
             return _domain.GetAll();
         }
 
-        [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
-        public ActionResult<Product> Get(int Product_code)
-        {
-            return null;
-        }
-
-        [HttpPost(Name = "CreateProduct")]
+        [HttpPost("/products", Name = "CreateProduct")]
         public void Post(Product product)
         {
             return;
@@ -68,7 +70,7 @@ namespace Backend.Controllers
             return;
         }
 
-        [HttpDelete("/Products/{Product_code}", Name = "DeleteProduct")]
+        [HttpDelete("/products/{Product_code}", Name = "DeleteProduct")]
         public void Delete(int product_code)
         {
             return;

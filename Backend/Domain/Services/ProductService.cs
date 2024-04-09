@@ -3,7 +3,7 @@ using SmartTrade.Models;
 
 namespace Backend.Services
 {
-    public abstract class ProductService<T> : IProductService<T> where T : Product
+    public class ProductService<T> : IProductService<T> where T : Product
     {
         private readonly IProductRepository<T> _repository;
 
