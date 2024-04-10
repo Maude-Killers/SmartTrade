@@ -55,5 +55,9 @@ namespace Backend.Repositories
             actualGallery.Image = item.Image; 
             _context.SaveChanges();
         }
+        public IEnumerable<Gallery> GetAllImages(int Product_code) 
+        {
+            return _context.Gallery.Where(item => item.Product_code == Product_code).ToList();
+        }
     }
 }

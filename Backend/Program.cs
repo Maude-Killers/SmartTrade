@@ -31,6 +31,10 @@ builder.Services.AddScoped<ITechnoProductRepository, TechnoProductRepository>();
 builder.Services.AddScoped<ITechnoProductService, TechnoProductService>();
 builder.Services.AddScoped<TechnoProduct>();
 
+builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
+builder.Services.AddScoped<IGalleryService, GalleryService>();
+builder.Services.AddScoped<Gallery>();
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

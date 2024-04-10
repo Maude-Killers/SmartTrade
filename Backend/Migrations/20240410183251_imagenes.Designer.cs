@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240331124838_products")]
-    partial class products
+    [Migration("20240410183251_imagenes")]
+    partial class imagenes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,18 +26,110 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
                 {
-                    b.Property<int>("Product_code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
-
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
-                    b.HasKey("Product_code");
+                    b.Property<int?>("Category_name")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Product_code")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Image");
 
                     b.ToTable("Gallery");
+
+                    b.HasData(
+                        new
+                        {
+                            Image = "https://i.imgur.com/WtfQOF3.png",
+                            Product_code = 1
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/bRFgYfL.png",
+                            Product_code = 2
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/0kTxfNT.png",
+                            Product_code = 3
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/tewVKu5.png",
+                            Product_code = 4
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/VcVlhzr.png",
+                            Product_code = 5
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/9ZpZZfe.png",
+                            Product_code = 6
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/YgKapTz.png",
+                            Product_code = 7
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/kgj7C77.png",
+                            Product_code = 8
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/ATQsdPb.png",
+                            Product_code = 9
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/ADMjfOX.png",
+                            Product_code = 10
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/IMMlRaG.png",
+                            Product_code = 11
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/qNLCqrT.png",
+                            Product_code = 12
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/qImnFwc.png",
+                            Product_code = 13
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/icpDfTu.png",
+                            Product_code = 14
+                        },
+                        new
+                        {
+                            Image = "https://i.imgur.com/B9UeUnE.png",
+                            Product_code = 15
+                        },
+                        new
+                        {
+                            Image = "https://www.timeshighereducation.com/student/sites/default/files/styles/default/public/different_sports.jpg",
+                            Category_name = 2
+                        },
+                        new
+                        {
+                            Image = "https://hips.hearstapps.com/hmg-prod/images/online-buying-and-delivery-concept-royalty-free-image-1675370119.jpg",
+                            Category_name = 1
+                        },
+                        new
+                        {
+                            Image = "https://miro.medium.com/v2/resize:fit:720/format:webp/1*f9N5gbBNXLGqD7NgjzVg5g.jpeg",
+                            Category_name = 0
+                        });
                 });
 
             modelBuilder.Entity("SmartTrade.Models.Product", b =>
@@ -105,32 +197,32 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2024, 4, 1, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3129),
-                            TemperatureC = 44
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2024, 4, 2, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3143),
-                            TemperatureC = -7
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2024, 4, 3, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3144),
+                            Date = new DateTime(2024, 4, 11, 18, 32, 51, 525, DateTimeKind.Utc).AddTicks(6740),
                             TemperatureC = 40
                         },
                         new
                         {
+                            Id = 2,
+                            Date = new DateTime(2024, 4, 12, 18, 32, 51, 525, DateTimeKind.Utc).AddTicks(6764),
+                            TemperatureC = 51
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2024, 4, 13, 18, 32, 51, 525, DateTimeKind.Utc).AddTicks(6765),
+                            TemperatureC = 36
+                        },
+                        new
+                        {
                             Id = 4,
-                            Date = new DateTime(2024, 4, 4, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3144),
-                            TemperatureC = -12
+                            Date = new DateTime(2024, 4, 14, 18, 32, 51, 525, DateTimeKind.Utc).AddTicks(6765),
+                            TemperatureC = 18
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2024, 4, 5, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3145),
-                            TemperatureC = 52
+                            Date = new DateTime(2024, 4, 15, 18, 32, 51, 525, DateTimeKind.Utc).AddTicks(6766),
+                            TemperatureC = 18
                         });
                 });
 
@@ -147,7 +239,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 19,
+                            Huella = -2,
                             Name = "product6",
                             Price = 16f
                         },
@@ -157,7 +249,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = 17,
+                            Huella = 52,
                             Name = "product7",
                             Price = 17f
                         },
@@ -167,7 +259,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 2,
+                            Huella = -17,
                             Name = "product8",
                             Price = 18f
                         },
@@ -177,7 +269,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 30,
+                            Huella = -5,
                             Name = "product9",
                             Price = 19f
                         },
@@ -187,7 +279,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 12,
+                            Huella = 54,
                             Name = "product10",
                             Price = 20f
                         });
@@ -206,7 +298,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 0,
+                            Huella = 34,
                             Name = "product1",
                             Price = 11f
                         },
@@ -216,7 +308,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 10,
+                            Huella = 51,
                             Name = "product2",
                             Price = 12f
                         },
@@ -226,7 +318,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = -3,
+                            Huella = 47,
                             Name = "product3",
                             Price = 13f
                         },
@@ -236,7 +328,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = -9,
+                            Huella = -5,
                             Name = "product4",
                             Price = 14f
                         },
@@ -265,7 +357,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 15,
+                            Huella = 19,
                             Name = "product11",
                             Price = 21f
                         },
@@ -275,7 +367,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = 33,
+                            Huella = 13,
                             Name = "product12",
                             Price = 22f
                         },
@@ -285,7 +377,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = 52,
+                            Huella = 42,
                             Name = "product13",
                             Price = 23f
                         },
@@ -295,7 +387,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 48,
+                            Huella = 53,
                             Name = "product14",
                             Price = 24f
                         },
@@ -305,7 +397,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 31,
+                            Huella = 0,
                             Name = "product15",
                             Price = 25f
                         });
