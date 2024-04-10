@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<SportProduct> SportProduct { get; set; }
     public DbSet<GroceryProduct> GroceryProduct { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
+    public DbSet<List> List { get; set; }
 
     private static readonly string[] Summaries = new[]
     {
