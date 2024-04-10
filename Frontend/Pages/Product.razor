@@ -3,29 +3,13 @@
 
 <main class="grid grid-cols-2 justify-items-center">
     <aside class="w-full">
-        <div id="default-carousel" class="relative w-full" data-carousel="slide">
+        <div id="carousel" class="relative w-full" data-carousel="static">
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                <!-- Item 1 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbeSNjjkXNJLBfkX-Gzp3jWcAXJDyq2g5hpkDenwr4fEJxhWpgn_mljvQDKV1c-OMGCLw&usqp=CAU"
-                        class="absolute object-scale-down block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cover" alt="...">
-                </div>
-                <!-- Item 2 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSobyGWbM6CDCkCJiSuhAmPwTvuYMFgqPgHrMNckM05BA&s"
-                        class="absolute object-scale-down block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                </div>
-                <!-- Item 3 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://pbs.twimg.com/media/EvTu0czXMAEwN7B.jpg"
-                        class="absolute object-cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                </div>
-                <!-- Item 4 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://preview.redd.it/illojuan-chino-v0-apmof54j5f0a1.jpg?auto=webp&s=c63ea61ed40b94dde6e3b212c738453b4fe793fd"
-                        class="absolute object-cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                </div>
+                @foreach (var img in images)
+                {
+                    <ImageCarrousel ImgURL="@img" />
+                }
             </div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
@@ -43,7 +27,7 @@
                 class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                 data-carousel-prev>
                 <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-400/30 group-hover:bg-white/50 dark:group-hover:bg-gray-200/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                     <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -56,7 +40,7 @@
                 class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                 data-carousel-next>
                 <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-400/30 group-hover:bg-white/50 dark:group-hover:bg-gray-200/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                     <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -67,19 +51,24 @@
             </button>
         </div>
     </aside>
-    <aside class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800
-        dark:border-gray-700 dark:hover:bg-gray-700">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-            acquisitions 2021</h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-            acquisitions of 2021 so far, in reverse chronological order.</p>
+    <aside class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
+        dark:border-gray-700">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@product.Name</h5>
+        <p class="font-normal text-gray-700 dark:text-gray-400">@product.Description</p>
     </aside>
 </main>
 
 @code {
     [Parameter]
     public string product_code { get; set; }
-    private Product product = new Product();
+    private SmartTrade.Models.Product product = new SmartTrade.Models.Product();
+
+    private string[] images = {
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbeSNjjkXNJLBfkX-Gzp3jWcAXJDyq2g5hpkDenwr4fEJxhWpgn_mljvQDKV1c-OMGCLw&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSobyGWbM6CDCkCJiSuhAmPwTvuYMFgqPgHrMNckM05BA&s",
+        "https://pbs.twimg.com/media/EvTu0czXMAEwN7B.jpg",
+        "https://preview.redd.it/illojuan-chino-v0-apmof54j5f0a1.jpg?auto=webp&s=c63ea61ed40b94dde6e3b212c738453b4fe793fd"
+    };
 
     protected override async Task OnInitializedAsync()
     {
