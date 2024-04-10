@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     public DbSet<GroceryProduct> GroceryProduct { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
     public DbSet<List> List { get; set; }
+    public DbSet<WishList> WishList { get; set; }
 
     private static readonly string[] Summaries = new[]
     {
