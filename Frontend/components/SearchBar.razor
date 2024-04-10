@@ -1,6 +1,7 @@
-@inject HttpClient Http
+@inject ProductService service
+@inject NavigationManager nav
 
-<form @onsubmit="HandleValidSubmit"
+<form @onsubmit="HandleOnSubmit"
     class="flex max-w-md w-full items-center md:order-1 space-x-3 md:space-x-0 rtl:space-x-reverse ml-6">
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     <div class="relative w-full">
@@ -42,12 +43,19 @@
     private void OnTextHasChanged()
     {
         debounceTimer?.Dispose();
-        debounceTimer = new Timer(HandleValidSubmit, null, 500, Timeout.Infinite);
+        debounceTimer = new Timer(HandleOnKeyUp, null, 500, Timeout.Infinite);
     }
 
-    private async void HandleValidSubmit(Object? state)
+    private void HandleOnSubmit()
     {
-        results = await Http.GetFromJsonAsync<Product[]>($"search?value={searchValue}");
+        results = Array.Empty<Product>();
+        nav.NavigateTo($"/results/{searchValue}");
+        searchValue = "";
+    }
+
+    private async void HandleOnKeyUp(Object? state)
+    {
+        results = await service.SearchProduct(searchValue) ?? Array.Empty<Product>();
         StateHasChanged();
     }
 
