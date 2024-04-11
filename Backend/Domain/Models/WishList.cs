@@ -6,12 +6,10 @@ namespace SmartTrade.Models
 {
     public partial class WishList: List
     {
-        public List<Product> Products { get; set; }
-
-
 
         public WishList()
         {
+            Name = "WishList";
         }
     }
 }

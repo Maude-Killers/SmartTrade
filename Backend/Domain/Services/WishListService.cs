@@ -12,6 +12,11 @@ namespace Backend.Services
             _repository = repository;
         }
 
+        public void AddProduct(Product product)
+        {
+            _repository.AddProduct(product);
+        }
+
         public void Create(WishList item)
         {
             _repository.Create(item);
@@ -36,5 +41,7 @@ namespace Backend.Services
         {
             _repository.Set(List_code, item);
         }
+
+        
     }
 }

@@ -69,5 +69,6 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
+        //crear wishlist
     }
 }

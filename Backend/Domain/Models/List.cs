@@ -6,11 +6,6 @@ namespace SmartTrade.Models
 {
     public partial class List
     {
-        public enum ListType
-        {
-            Wish,
-            Later
-        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,7 +13,7 @@ namespace SmartTrade.Models
 
         public string? Name { get; set; }
 
-        public ListType Type { get; set; }
+        public List<Product> Products { get; set; }
 
         public List()
         {

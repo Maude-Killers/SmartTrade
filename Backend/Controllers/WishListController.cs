@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Backend.Interfaces;
+using Backend.Services;
+using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
 namespace Backend.Controllers
@@ -8,24 +10,22 @@ namespace Backend.Controllers
     public class WishListController : ControllerBase
     {
         private readonly ILogger<WishListController> _logger;
-        private readonly WishListEntity _domain;
+        private readonly WishList _domain;
 
-        public WishListController(WishListEntity domain, ILogger<WishListController> logger)
+        public WishListController(WishList domain, ILogger<WishListController> logger )
         {
             _logger = logger;
             _domain = domain;
+ 
         }
 
-        [HttpGet(Name = "GetWishList")]
-        public IEnumerable<WishList> Get()
-        {
-            return _domain.GetAll();
-        }
 
-        [HttpGet("/WishLists/{List_code}", Name = "GetWishListByList_code")]
-        public ActionResult<WishList> Get(int List_code)
+        [HttpGet("/wishList", Name = "GetWishList")]
+        
+        //Id de persona desde jwt, recuperar wishlist de persona
+        /*public ActionResult<WishList> Get()
         {
-            var item = _domain.GetByList_code(List_code);
+            var item = _domain.GetByList_code();
 
             if (item == null)
             {
@@ -33,21 +33,28 @@ namespace Backend.Controllers
             }
 
             return item;
-        }
+        }*/
 
-        [HttpPost(Name = "CreateWishList")]
-        public void Post(WishList item)
+
+        //Recuperar correo de persona desde jwt y modificar addproduct
+        [HttpPost("/productsList", Name= "addProduct")]
+        public IActionResult AddProduct(Product product)
         {
-            _domain.CreateWishList(item);
+            _domain.AddProduct(product);
+            return Ok();
         }
 
-        [HttpPut("/galleries/{List_code}", Name = "EditWishList")]
-        public void Put(int List_code, WishList item)
+        //Recuperar correo de persona desde jwt y modificar createwishlist/ Validar si hay una lista ligada al usuario
+        /*[HttpPost(Name = "CreateWishList")]
+        public void Post()
         {
-            _domain.EditWishList(List_code, item);
+            _domain.CreateWishList();
         }
+        */
 
-        [HttpDelete("/galleries/{List_code}", Name = "DeleteWishList")]
+
+
+        [HttpDelete("/wishlists/{List_code}", Name = "DeleteWishList")]
         public void Delete(int List_code)
         {
             _domain.DeleteWishList(List_code);

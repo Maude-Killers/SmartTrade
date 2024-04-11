@@ -2,11 +2,11 @@
 
 namespace SmartTrade.Models
 {
-    public partial class WishListEntity
+    public partial class WishList
     {
         private readonly IWishListService _service;
 
-        public WishListEntity(IWishListService service)
+        public WishList(IWishListService service)
         {
             _service = service;
         }
@@ -35,5 +35,11 @@ namespace SmartTrade.Models
         {
             _service.Delete(List_code);
         }
+
+        public void AddProduct(Product product) 
+        { 
+            _service.AddProduct(product);
+        }
+       
     }
 }

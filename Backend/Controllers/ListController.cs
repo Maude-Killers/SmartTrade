@@ -41,13 +41,13 @@ namespace Backend.Controllers
             _domain.CreateList(item);
         }
 
-        [HttpPut("/galleries/{List_code}", Name = "EditList")]
+        [HttpPut("/lists/{List_code}", Name = "EditList")]
         public void Put(int List_code, List item)
         {
             _domain.EditList(List_code, item);
         }
 
-        [HttpDelete("/galleries/{List_code}", Name = "DeleteList")]
+        [HttpDelete("/lists/{List_code}", Name = "DeleteList")]
         public void Delete(int List_code)
         {
             _domain.DeleteList(List_code);

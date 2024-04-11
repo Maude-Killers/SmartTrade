@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface IWishListRepository : EntityRepository<WishList>
+    public interface IWishListRepository : IListRepository<WishList>
     {
     }
 }

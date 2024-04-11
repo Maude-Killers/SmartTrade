@@ -2,8 +2,9 @@
 
 namespace Backend.Interfaces
 {
-    public interface IListService : EntityService<List>
+    public interface IListService<S> : EntityService<S> where S : List
     {
+        void AddProduct(Product product);
     }
 
 }
