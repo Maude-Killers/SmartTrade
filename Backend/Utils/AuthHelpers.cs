@@ -33,5 +33,12 @@ namespace Backend.Utils
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+        public static string GetEmail(string token) {
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+            return jsonToken?.Claims.First(claim => claim.Type == "email").Value;
+
+        }
     }
 }

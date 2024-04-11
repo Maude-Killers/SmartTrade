@@ -2,6 +2,7 @@ using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Backend.Controllers
 {
@@ -16,6 +17,8 @@ namespace Backend.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly WeatherForecastEntity _domain;
+        
+
 
         public WeatherForecastController(WeatherForecastEntity domain, ILogger<WeatherForecastController> logger)
         {
@@ -27,6 +30,8 @@ namespace Backend.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var Email= AuthHelpers.GetEmail(token);
             return _domain.GetAll();
         }
 
