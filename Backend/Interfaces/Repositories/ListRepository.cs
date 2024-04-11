@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface IListRepository<S> : EntityRepository<S> where S : List
+    public interface IListRepository<S> : EntityRepository<S, int> where S : List
     {
     }
 }

@@ -9,4 +9,5 @@ public class WishListService
     {
         _httpClient = httpClient;
     }
+}
 

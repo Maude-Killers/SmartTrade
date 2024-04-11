@@ -8,24 +8,19 @@ namespace Backend.Controllers
     public class ListController : ControllerBase
     {
         private readonly ILogger<ListController> _logger;
-        private readonly ListEntity _domain;
 
-        public ListController(ListEntity domain, ILogger<ListController> logger)
+        public ListController(ILogger<ListController> logger)
         {
             _logger = logger;
-            _domain = domain;
         }
 
-        [HttpGet(Name = "GetList")]
-        public IEnumerable<List> Get()
-        {
-            return _domain.GetAll();
-        }
+        /*
+        [HttpGet("/wishList", Name = "GetWishList")]
 
-        [HttpGet("/lists/{List_code}", Name = "GetListByList_code")]
-        public ActionResult<List> Get(int List_code)
+        //Id de persona desde jwt, recuperar wishlist de persona
+        public ActionResult<WishList> Get()
         {
-            var item = _domain.GetByList_code(List_code);
+            var item = _domain.GetByList_code();
 
             if (item == null)
             {
@@ -35,22 +30,30 @@ namespace Backend.Controllers
             return item;
         }
 
-        [HttpPost(Name = "CreateList")]
-        public void Post(List item)
+
+        //Recuperar correo de persona desde jwt y modificar addproduct
+        [HttpPost("/productsList", Name = "addProduct")]
+        public IActionResult AddProduct(Product product)
         {
-            _domain.CreateList(item);
+            _domain.AddProduct(product);
+            return Ok();
         }
 
-        [HttpPut("/lists/{List_code}", Name = "EditList")]
-        public void Put(int List_code, List item)
+        //Recuperar correo de persona desde jwt y modificar createwishlist/ Validar si hay una lista ligada al usuario
+        [HttpPost(Name = "CreateWishList")]
+        public void Post()
         {
-            _domain.EditList(List_code, item);
+            _domain.CreateWishList();
         }
+        
 
-        [HttpDelete("/lists/{List_code}", Name = "DeleteList")]
+
+
+        [HttpDelete("/wishlists/{List_code}", Name = "DeleteWishList")]
         public void Delete(int List_code)
         {
-            _domain.DeleteList(List_code);
+            _domain.DeleteWishList(List_code);
         }
+        */
     }
 }
