@@ -14,7 +14,7 @@ namespace Backend.Repositories
 
         public void Create(LaterList item)
         {
-            _context.WishList.Add(item);
+            _context.LaterList.Add(item);
             _context.SaveChanges();
         }
 
@@ -26,7 +26,7 @@ namespace Backend.Repositories
 
             if (targetLaterList == null) throw new InvalidOperationException();
 
-            _context.WishList.Remove(targetLaterList);
+            _context.LaterList.Remove(targetLaterList);
             _context.SaveChanges();
         }
 
