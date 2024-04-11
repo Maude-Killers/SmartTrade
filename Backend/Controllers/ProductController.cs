@@ -1,4 +1,4 @@
-﻿using Backend.Domain.DesignPattern;
+using Backend.Domain.DesignPattern;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 

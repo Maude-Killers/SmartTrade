@@ -15,6 +15,9 @@ public class AppDbContext : DbContext
     public DbSet<Gallery> Gallery { get; set; }
     public DbSet<List> List { get; set; }
     public DbSet<WishList> WishList { get; set; }
+    public DbSet<Person> Person { get; set; }
+    public DbSet<Client> Client { get; set; }
+    public DbSet<SalesPerson> SalesPerson { get; set; }
 
     private static readonly string[] Summaries = new[]
     {
@@ -70,5 +73,16 @@ public class AppDbContext : DbContext
             .ToArray()
         );
         //crear wishlist
+
+        modelBuilder.Entity<Client>().HasData(
+            Enumerable.Range(1, 5).Select(index => new Client
+             {
+                Email = $"prueba{index}@prueba.com",
+                Password = $"cliente{index}",
+                FullName = $"Cliente {index}",
+                PhoneNumber = 654654654 + index 
+            })
+            .ToArray()
+        );
     }
 }

@@ -1,3 +1,5 @@
+using Backend.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -21,6 +23,7 @@ namespace Backend.Controllers
             _domain = domain;
         }
 
+        [Authorize(Roles = "client")]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
