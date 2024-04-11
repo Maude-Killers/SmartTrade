@@ -1,6 +1,5 @@
 using System.Net.Http.Json;
 using SmartTrade.Models;
-
 public class WeatherForecastService
 {
     private readonly HttpClient _httpClient;
@@ -25,5 +24,6 @@ public class WeatherForecastService
     public async Task DeleteForecastAsync(int id)
     {
         await _httpClient.DeleteAsync($"weatherforecast/{id}");
+
     }
 }

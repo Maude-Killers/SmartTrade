@@ -1,0 +1,51 @@
+﻿@inject ProductService service
+@inject HttpClient Http
+@inject NavigationManager nav
+@page "/product/{product_code}"
+
+<PageTitle>Products</PageTitle>
+
+<div class="flex justify-center items-center h-screen">
+    <div class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-4xl md:mx-4xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <img class="object-cover w-full rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="https://flowbite.com/docs/images/blog/image-4.jpg" alt="">
+        <div class="flex flex-col justify-between p-4 leading-normal">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@product.Name</h5>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">@product.Price</p>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">@product.Description</p>
+            <div class="flex justify-start">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de deseos</button>
+                <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar al carrito</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@code {
+    [Parameter]
+    public string? product_code { get; set; }
+    private Product product = new Product();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            product = await Http.GetFromJsonAsync<Product>($"/products/{product_code}") ?? new Product();
+            if (product == null) return;
+            StateHasChanged();
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await service.SaveProductAsync(product);
+        nav.NavigateTo("/wishlist");
+    }
+
+    private async Task HandleDelete()
+    {
+        await service.DeleteProductAsync(int.Parse(product_code));
+        nav.NavigateTo("/wishlist");
+    }
+}

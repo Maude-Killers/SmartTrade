@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface IProductRepository : EntityRepository<Product, int>
+    public interface IProductRepository<S, T> : EntityRepository<S, T> where S : Product
     {
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240331124838_products")]
+    partial class products
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,77 +78,6 @@ namespace Backend.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Product");
 
                     b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
-                {
-                    b.Property<int>("Product_code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
-
-                    b.Property<string>("Image")
-                        .HasColumnType("text");
-
-                    b.HasKey("Product_code");
-
-                    b.ToTable("Gallery");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Person", b =>
-                {
-                    b.Property<int>("Email")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Email"));
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Email");
-
-                    b.ToTable("Person");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Product", b =>
-                {
-                    b.Property<int>("Product_code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Features")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Huella")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.HasKey("Product_code");
-
-                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("SmartTrade.Models.WeatherForecast", b =>
@@ -377,35 +309,6 @@ namespace Backend.Migrations
                             Name = "product15",
                             Price = 25f
                         });
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Client", b =>
-                {
-                    b.HasBaseType("SmartTrade.Models.Person");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.HasDiscriminator().HasValue("Client");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.SalesPerson", b =>
-                {
-                    b.HasBaseType("SmartTrade.Models.Person");
-
-                    b.Property<string>("Company")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.ToTable("Person", t =>
-                        {
-                            t.Property("Password")
-                                .HasColumnName("SalesPerson_Password");
-                        });
-
-                    b.HasDiscriminator().HasValue("SalesPerson");
                 });
 #pragma warning restore 612, 618
         }

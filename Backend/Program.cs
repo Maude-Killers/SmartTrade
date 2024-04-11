@@ -32,6 +32,22 @@ builder.Services.AddScoped<WeatherForecastEntity>();
 builder.Services.AddScoped<AuthHelpers>();
 
 
+builder.Services.AddScoped<ISportProductRepository, SportProductRepository>();
+builder.Services.AddScoped<ISportProductService, SportProductService>();
+builder.Services.AddScoped<SportProduct>();
+
+builder.Services.AddScoped<IGroceryProductRepository, GroceryProductRepository>();
+builder.Services.AddScoped<IGroceryProductService, GroceryProductService>();
+builder.Services.AddScoped<GroceryProduct>();
+
+builder.Services.AddScoped<ITechnoProductRepository, TechnoProductRepository>();
+builder.Services.AddScoped<ITechnoProductService, TechnoProductService>();
+builder.Services.AddScoped<TechnoProduct>();
+
+builder.Services.AddScoped<IWishListRepository, WishListRepository>();
+builder.Services.AddScoped<IWishListService, WishListService>();
+builder.Services.AddScoped<WishList>();
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -50,6 +66,8 @@ builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
+AppServices.Configure(app.Services);
+
 app.UseCors("AllowAnyOrigin");
 
 // Configure the HTTP request pipeline.
@@ -61,11 +79,9 @@ if (app.Environment.IsDevelopment() || Environment.GetEnvironmentVariable("ASPNE
 
 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Docker")
 {
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        dbContext.Database.Migrate();
-    }
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
 }
 
 app.UseHttpsRedirection();

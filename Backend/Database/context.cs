@@ -8,8 +8,13 @@ public class AppDbContext : DbContext
     { }
 
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
-    public DbSet<Product> Product { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<TechnoProduct> TechnoProduct { get; set; }
+    public DbSet<SportProduct> SportProduct { get; set; }
+    public DbSet<GroceryProduct> GroceryProduct { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
+    public DbSet<List> List { get; set; }
+    public DbSet<WishList> WishList { get; set; }
     public DbSet<Person> Person { get; set; }
     public DbSet<Client> Client { get; set; }
     public DbSet<SalesPerson> SalesPerson { get; set; }
@@ -31,6 +36,43 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
+        modelBuilder.Entity<SportProduct>().HasData(
+            Enumerable.Range(1, 5).Select(index => new SportProduct
+            {
+                Product_code = index,
+                Name = "product" + index,
+                Price = 10 + index,
+                Description = "descripcion" + index,
+                Features = "caracteristicas" + index,
+                Huella = Random.Shared.Next(-20, 55),
+            })
+            .ToArray()
+        );
+        modelBuilder.Entity<GroceryProduct>().HasData(
+            Enumerable.Range(6, 5).Select(index => new GroceryProduct
+            {
+                Product_code = index,
+                Name = "product" + index,
+                Price = 10 + index,
+                Description = "descripcion" + index,
+                Features = "caracteristicas" + index,
+                Huella = Random.Shared.Next(-20, 55),
+            })
+            .ToArray()
+        );
+        modelBuilder.Entity<TechnoProduct>().HasData(
+            Enumerable.Range(11, 5).Select(index => new TechnoProduct
+            {
+                Product_code = index,
+                Name = "product" + index,
+                Price = 10 + index,
+                Description = "descripcion" + index,
+                Features = "caracteristicas" + index,
+                Huella = Random.Shared.Next(-20, 55),
+            })
+            .ToArray()
+        );
+        //crear wishlist
 
         modelBuilder.Entity<Client>().HasData(
             Enumerable.Range(1, 5).Select(index => new Client
