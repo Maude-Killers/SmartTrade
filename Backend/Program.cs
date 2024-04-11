@@ -48,6 +48,10 @@ builder.Services.AddScoped<IWishListRepository, WishListRepository>();
 builder.Services.AddScoped<IWishListService, WishListService>();
 builder.Services.AddScoped<WishList>();
 
+builder.Services.AddScoped<ILaterListRepository, LaterListRepository>();
+builder.Services.AddScoped<ILaterListService, LaterListService>();
+builder.Services.AddScoped<LaterList>();
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
