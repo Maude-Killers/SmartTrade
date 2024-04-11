@@ -159,32 +159,32 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2024, 4, 12, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1444),
-                            TemperatureC = 46
+                            Date = new DateTime(2024, 4, 12, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2100),
+                            TemperatureC = -11
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2024, 4, 13, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1470),
-                            TemperatureC = 27
+                            Date = new DateTime(2024, 4, 13, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2122),
+                            TemperatureC = -12
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2024, 4, 14, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1471),
-                            TemperatureC = 25
+                            Date = new DateTime(2024, 4, 14, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2123),
+                            TemperatureC = -8
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2024, 4, 15, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1472),
-                            TemperatureC = 38
+                            Date = new DateTime(2024, 4, 15, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2124),
+                            TemperatureC = 11
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2024, 4, 16, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1472),
-                            TemperatureC = 20
+                            Date = new DateTime(2024, 4, 16, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2125),
+                            TemperatureC = -17
                         });
                 });
 
@@ -262,7 +262,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 17,
+                            Huella = 43,
                             Name = "product6",
                             Price = 16f
                         },
@@ -272,7 +272,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = 54,
+                            Huella = -20,
                             Name = "product7",
                             Price = 17f
                         },
@@ -282,7 +282,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = -5,
+                            Huella = 46,
                             Name = "product8",
                             Price = 18f
                         },
@@ -292,7 +292,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 19,
+                            Huella = 13,
                             Name = "product9",
                             Price = 19f
                         },
@@ -302,7 +302,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 40,
+                            Huella = -8,
                             Name = "product10",
                             Price = 20f
                         });
@@ -321,7 +321,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 22,
+                            Huella = 41,
                             Name = "product1",
                             Price = 11f
                         },
@@ -331,7 +331,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 44,
+                            Huella = 25,
                             Name = "product2",
                             Price = 12f
                         },
@@ -341,7 +341,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 18,
+                            Huella = 37,
                             Name = "product3",
                             Price = 13f
                         },
@@ -351,7 +351,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = 3,
+                            Huella = 2,
                             Name = "product4",
                             Price = 14f
                         },
@@ -361,7 +361,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 20,
+                            Huella = 46,
                             Name = "product5",
                             Price = 15f
                         });
@@ -380,7 +380,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = -12,
+                            Huella = 7,
                             Name = "product11",
                             Price = 21f
                         },
@@ -390,7 +390,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = 30,
+                            Huella = -20,
                             Name = "product12",
                             Price = 22f
                         },
@@ -400,7 +400,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = -19,
+                            Huella = -2,
                             Name = "product13",
                             Price = 23f
                         },
@@ -410,7 +410,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = -11,
+                            Huella = 37,
                             Name = "product14",
                             Price = 24f
                         },
@@ -420,7 +420,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 16,
+                            Huella = 51,
                             Name = "product15",
                             Price = 25f
                         });

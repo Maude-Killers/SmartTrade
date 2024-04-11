@@ -114,21 +114,21 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "List_code", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, "Sports", "descripcion1", "SportProduct", "caracteristicas1", 22, null, "product1", 11f },
-                    { 2, "Sports", "descripcion2", "SportProduct", "caracteristicas2", 44, null, "product2", 12f },
-                    { 3, "Sports", "descripcion3", "SportProduct", "caracteristicas3", 18, null, "product3", 13f },
-                    { 4, "Sports", "descripcion4", "SportProduct", "caracteristicas4", 3, null, "product4", 14f },
-                    { 5, "Sports", "descripcion5", "SportProduct", "caracteristicas5", 20, null, "product5", 15f },
-                    { 6, "Grocery", "descripcion6", "GroceryProduct", "caracteristicas6", 17, null, "product6", 16f },
-                    { 7, "Grocery", "descripcion7", "GroceryProduct", "caracteristicas7", 54, null, "product7", 17f },
-                    { 8, "Grocery", "descripcion8", "GroceryProduct", "caracteristicas8", -5, null, "product8", 18f },
-                    { 9, "Grocery", "descripcion9", "GroceryProduct", "caracteristicas9", 19, null, "product9", 19f },
-                    { 10, "Grocery", "descripcion10", "GroceryProduct", "caracteristicas10", 40, null, "product10", 20f },
-                    { 11, "Techno", "descripcion11", "TechnoProduct", "caracteristicas11", -12, null, "product11", 21f },
-                    { 12, "Techno", "descripcion12", "TechnoProduct", "caracteristicas12", 30, null, "product12", 22f },
-                    { 13, "Techno", "descripcion13", "TechnoProduct", "caracteristicas13", -19, null, "product13", 23f },
-                    { 14, "Techno", "descripcion14", "TechnoProduct", "caracteristicas14", -11, null, "product14", 24f },
-                    { 15, "Techno", "descripcion15", "TechnoProduct", "caracteristicas15", 16, null, "product15", 25f }
+                    { 1, "Sports", "descripcion1", "SportProduct", "caracteristicas1", 41, null, "product1", 11f },
+                    { 2, "Sports", "descripcion2", "SportProduct", "caracteristicas2", 25, null, "product2", 12f },
+                    { 3, "Sports", "descripcion3", "SportProduct", "caracteristicas3", 37, null, "product3", 13f },
+                    { 4, "Sports", "descripcion4", "SportProduct", "caracteristicas4", 2, null, "product4", 14f },
+                    { 5, "Sports", "descripcion5", "SportProduct", "caracteristicas5", 46, null, "product5", 15f },
+                    { 6, "Grocery", "descripcion6", "GroceryProduct", "caracteristicas6", 43, null, "product6", 16f },
+                    { 7, "Grocery", "descripcion7", "GroceryProduct", "caracteristicas7", -20, null, "product7", 17f },
+                    { 8, "Grocery", "descripcion8", "GroceryProduct", "caracteristicas8", 46, null, "product8", 18f },
+                    { 9, "Grocery", "descripcion9", "GroceryProduct", "caracteristicas9", 13, null, "product9", 19f },
+                    { 10, "Grocery", "descripcion10", "GroceryProduct", "caracteristicas10", -8, null, "product10", 20f },
+                    { 11, "Techno", "descripcion11", "TechnoProduct", "caracteristicas11", 7, null, "product11", 21f },
+                    { 12, "Techno", "descripcion12", "TechnoProduct", "caracteristicas12", -20, null, "product12", 22f },
+                    { 13, "Techno", "descripcion13", "TechnoProduct", "caracteristicas13", -2, null, "product13", 23f },
+                    { 14, "Techno", "descripcion14", "TechnoProduct", "caracteristicas14", 37, null, "product14", 24f },
+                    { 15, "Techno", "descripcion15", "TechnoProduct", "caracteristicas15", 51, null, "product15", 25f }
                 });
 
             migrationBuilder.InsertData(
@@ -136,11 +136,11 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 12, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1444), null, 46 },
-                    { 2, new DateTime(2024, 4, 13, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1470), null, 27 },
-                    { 3, new DateTime(2024, 4, 14, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1471), null, 25 },
-                    { 4, new DateTime(2024, 4, 15, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1472), null, 38 },
-                    { 5, new DateTime(2024, 4, 16, 11, 55, 52, 639, DateTimeKind.Utc).AddTicks(1472), null, 20 }
+                    { 1, new DateTime(2024, 4, 12, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2100), null, -11 },
+                    { 2, new DateTime(2024, 4, 13, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2122), null, -12 },
+                    { 3, new DateTime(2024, 4, 14, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2123), null, -8 },
+                    { 4, new DateTime(2024, 4, 15, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2124), null, 11 },
+                    { 5, new DateTime(2024, 4, 16, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2125), null, -17 }
                 });
 
             migrationBuilder.CreateIndex(

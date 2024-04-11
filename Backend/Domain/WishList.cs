@@ -2,7 +2,7 @@
 
 namespace SmartTrade.Models
 {
-    public partial class WishList
+    public partial class WishList : List
     {
         private readonly IWishListService _service;
 
