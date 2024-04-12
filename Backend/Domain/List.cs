@@ -8,9 +8,9 @@ namespace SmartTrade.Models
 
         public abstract List? GetByEmail(string Email);
 
-        public abstract void CreateList(string Email);
+        public abstract void CreateList(List item);
 
-        public abstract void EditList(int List_code, List item);
+        public abstract void DeleteList(List item);
 
         public abstract void DeleteProduct(Product product);
 

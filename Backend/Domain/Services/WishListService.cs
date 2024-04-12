@@ -14,7 +14,12 @@ namespace Backend.Services
 
         public void AddProduct(Product product)
         {
-           
+           _repository.AddProduct(product); 
+        }
+
+        public void DeleteProduct(Product product)
+        {
+            _repository.DeleteProduct(product);
         }
 
         public void Create(WishList item)
@@ -22,14 +27,14 @@ namespace Backend.Services
             _repository.Create(item);
         }
 
-        public void Delete(int List_code)
+        public void Delete(WishList item)
         {
-            _repository.Delete(List_code);
+            _repository.Delete(item);
         }
 
-        public WishList? Get(int List_code)
+        public WishList? Get(string Email)
         {
-            return _repository.Get(List_code);
+            return _repository.Get(Email);
         }
 
         public IEnumerable<WishList> GetAll()
@@ -37,11 +42,7 @@ namespace Backend.Services
             return _repository.GetAll();
         }
 
-        public void Set(int List_code, WishList item)
-        {
-            _repository.Set(List_code, item);
-        }
-
+        
         
     }
 }
