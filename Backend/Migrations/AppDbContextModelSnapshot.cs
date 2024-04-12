@@ -37,6 +37,58 @@ namespace Backend.Migrations
                     b.ToTable("Gallery");
                 });
 
+            modelBuilder.Entity("SmartTrade.Models.List", b =>
+                {
+                    b.Property<int>("List_code")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("List_code"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("List_code");
+
+                    b.ToTable("List");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("List");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Person", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("Person");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("SmartTrade.Models.Product", b =>
                 {
                     b.Property<int>("Product_code")
@@ -62,6 +114,9 @@ namespace Backend.Migrations
                     b.Property<int>("Huella")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("List_code")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -69,83 +124,14 @@ namespace Backend.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Product_code");
+
+                    b.HasIndex("List_code");
 
                     b.ToTable("Products");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Product");
 
                     b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
-                {
-                    b.Property<int>("Product_code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
-
-                    b.Property<string>("Image")
-                        .HasColumnType("text");
-
-                    b.HasKey("Product_code");
-
-                    b.ToTable("Gallery");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Person", b =>
-                {
-                    b.Property<int>("Email")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Email"));
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Email");
-
-                    b.ToTable("Person");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Product", b =>
-                {
-                    b.Property<int>("Product_code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Features")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Huella")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.HasKey("Product_code");
-
-                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("SmartTrade.Models.WeatherForecast", b =>
@@ -173,33 +159,94 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2024, 4, 1, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3129),
-                            TemperatureC = 44
+                            Date = new DateTime(2024, 4, 12, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2100),
+                            TemperatureC = -11
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2024, 4, 2, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3143),
-                            TemperatureC = -7
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2024, 4, 3, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3144),
-                            TemperatureC = 40
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = new DateTime(2024, 4, 4, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3144),
+                            Date = new DateTime(2024, 4, 13, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2122),
                             TemperatureC = -12
                         },
                         new
                         {
+                            Id = 3,
+                            Date = new DateTime(2024, 4, 14, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2123),
+                            TemperatureC = -8
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2024, 4, 15, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2124),
+                            TemperatureC = 11
+                        },
+                        new
+                        {
                             Id = 5,
-                            Date = new DateTime(2024, 4, 5, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3145),
-                            TemperatureC = 52
+                            Date = new DateTime(2024, 4, 16, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2125),
+                            TemperatureC = -17
                         });
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.WishList", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.List");
+
+                    b.HasDiscriminator().HasValue("WishList");
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Client", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.Person");
+
+                    b.HasDiscriminator().HasValue("Client");
+
+                    b.HasData(
+                        new
+                        {
+                            Email = "prueba1@prueba.com",
+                            FullName = "Cliente 1",
+                            Password = "cliente1",
+                            PhoneNumber = 654654655
+                        },
+                        new
+                        {
+                            Email = "prueba2@prueba.com",
+                            FullName = "Cliente 2",
+                            Password = "cliente2",
+                            PhoneNumber = 654654656
+                        },
+                        new
+                        {
+                            Email = "prueba3@prueba.com",
+                            FullName = "Cliente 3",
+                            Password = "cliente3",
+                            PhoneNumber = 654654657
+                        },
+                        new
+                        {
+                            Email = "prueba4@prueba.com",
+                            FullName = "Cliente 4",
+                            Password = "cliente4",
+                            PhoneNumber = 654654658
+                        },
+                        new
+                        {
+                            Email = "prueba5@prueba.com",
+                            FullName = "Cliente 5",
+                            Password = "cliente5",
+                            PhoneNumber = 654654659
+                        });
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.SalesPerson", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.Person");
+
+                    b.Property<string>("Company")
+                        .HasColumnType("text");
+
+                    b.HasDiscriminator().HasValue("SalesPerson");
                 });
 
             modelBuilder.Entity("SmartTrade.Models.GroceryProduct", b =>
@@ -215,7 +262,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 19,
+                            Huella = 43,
                             Name = "product6",
                             Price = 16f
                         },
@@ -225,7 +272,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = 17,
+                            Huella = -20,
                             Name = "product7",
                             Price = 17f
                         },
@@ -235,7 +282,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 2,
+                            Huella = 46,
                             Name = "product8",
                             Price = 18f
                         },
@@ -245,7 +292,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 30,
+                            Huella = 13,
                             Name = "product9",
                             Price = 19f
                         },
@@ -255,7 +302,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 12,
+                            Huella = -8,
                             Name = "product10",
                             Price = 20f
                         });
@@ -274,7 +321,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 0,
+                            Huella = 41,
                             Name = "product1",
                             Price = 11f
                         },
@@ -284,7 +331,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 10,
+                            Huella = 25,
                             Name = "product2",
                             Price = 12f
                         },
@@ -294,7 +341,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = -3,
+                            Huella = 37,
                             Name = "product3",
                             Price = 13f
                         },
@@ -304,7 +351,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = -9,
+                            Huella = 2,
                             Name = "product4",
                             Price = 14f
                         },
@@ -314,7 +361,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 43,
+                            Huella = 46,
                             Name = "product5",
                             Price = 15f
                         });
@@ -333,7 +380,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 15,
+                            Huella = 7,
                             Name = "product11",
                             Price = 21f
                         },
@@ -343,7 +390,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = 33,
+                            Huella = -20,
                             Name = "product12",
                             Price = 22f
                         },
@@ -353,7 +400,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = 52,
+                            Huella = -2,
                             Name = "product13",
                             Price = 23f
                         },
@@ -363,7 +410,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 48,
+                            Huella = 37,
                             Name = "product14",
                             Price = 24f
                         },
@@ -373,39 +420,22 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 31,
+                            Huella = 51,
                             Name = "product15",
                             Price = 25f
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.Client", b =>
+            modelBuilder.Entity("SmartTrade.Models.Product", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.Person");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.HasDiscriminator().HasValue("Client");
+                    b.HasOne("SmartTrade.Models.List", null)
+                        .WithMany("Products")
+                        .HasForeignKey("List_code");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.SalesPerson", b =>
+            modelBuilder.Entity("SmartTrade.Models.List", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.Person");
-
-                    b.Property<string>("Company")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.ToTable("Person", t =>
-                        {
-                            t.Property("Password")
-                                .HasColumnName("SalesPerson_Password");
-                        });
-
-                    b.HasDiscriminator().HasValue("SalesPerson");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
