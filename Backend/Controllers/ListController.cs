@@ -1,4 +1,5 @@
-﻿using Backend.Utils;
+﻿using Backend.Domain.DesignPattern;
+using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
@@ -9,6 +10,7 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ListController : ControllerBase
     {
+        private ListFactory? _factory;
         private List? _domain;
         private readonly ILogger<ListController> _logger;
 
@@ -18,7 +20,7 @@ namespace Backend.Controllers
         }
 
         [Authorize(Roles = "client")]
-        [HttpGet("/wishList", Name = "GetWishList")]
+        [HttpGet("/List", Name = "GetList")]
 
         //Id de persona desde jwt, recuperar wishlist de persona
         public ActionResult<List> Get()
@@ -68,10 +70,17 @@ namespace Backend.Controllers
         }
 
 
-        [HttpDelete("/wishlists/{List_code}", Name = "DeleteList")]
-        public void Delete(int List_code)
+        [HttpDelete("/lists/{List_code}", Name = "DeleteList")]
+        public IActionResult DeleteProduct(Product product, string Email)
         {
-            _domain.DeleteList(List_code);
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            Email = AuthHelpers.GetEmail(token);
+            if (!string.IsNullOrEmpty(Email))
+            {
+                _domain.DeleteProduct(product);
+                return Ok();
+            }
+            return BadRequest("No contiene un Email válido");
         }
         
         }

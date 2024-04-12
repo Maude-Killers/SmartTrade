@@ -12,9 +12,10 @@ namespace SmartTrade.Models
 
         public abstract void EditList(int List_code, List item);
 
-        public abstract void DeleteList(int List_code);
+        public abstract void DeleteProduct(Product product);
 
         public abstract void AddProduct(Product product);
+
        
     }
 }
