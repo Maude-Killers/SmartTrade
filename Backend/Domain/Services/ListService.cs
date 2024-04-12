@@ -3,13 +3,18 @@ using SmartTrade.Models;
 
 namespace Backend.Services
 {
-    public class ListService : IListService
+    public class ListService : IListService<List>
     {
-        private readonly IListRepository _repository;
+        private readonly IListRepository<List> _repository;
 
-        public ListService(IListRepository repository)
+        public ListService(IListRepository<List> repository)
         {
             _repository = repository;
+        }
+
+        public void AddProduct(Product product)
+        {
+            throw new NotImplementedException();
         }
 
         public void Create(List item)

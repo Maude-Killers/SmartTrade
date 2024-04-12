@@ -4,9 +4,9 @@ namespace SmartTrade.Models
 {
     public partial class ListEntity
     {
-        private readonly IListService _service;
+        private readonly IListService<List> _service;
 
-        public ListEntity(IListService service)
+        public ListEntity(IListService<List> service)
         {
             _service = service;
         }

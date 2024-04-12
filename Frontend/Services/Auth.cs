@@ -10,7 +10,7 @@ public class AuthService
         _httpClient = httpClient;
     }
 
-    public async void Login(string emailInput, string passwordInput)
+    public async Task Login(string emailInput, string passwordInput)
     {
         // Send login request to the backend
         var loginRequest = new Person
@@ -18,8 +18,10 @@ public class AuthService
             Email = emailInput,
             Password = passwordInput
         };
-        var response = await _httpClient.PostAsJsonAsync("api/login",loginRequest);
-
+        var response = await _httpClient.PostAsJsonAsync("login",loginRequest);
+        Console.WriteLine(response.Content);
+        Console.WriteLine(response.StatusCode);
+        Console.WriteLine(response.Headers.ToString());
 
     }
 

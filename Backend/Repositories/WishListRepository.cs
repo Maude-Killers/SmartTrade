@@ -12,6 +12,11 @@ namespace Backend.Repositories
             _context = context;
         }
 
+        public void AddProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Create(WishList item)
         {
             _context.WishList.Add(item);

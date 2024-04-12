@@ -3,13 +3,18 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class ListRepository : IListRepository
+    public class ListRepository : IListRepository<List>
     {
         private readonly AppDbContext _context;
 
         public ListRepository(AppDbContext context)
         {
             _context = context;
+        }
+
+        public void AddProduct(Product product)
+        {
+            throw new NotImplementedException();
         }
 
         public void Create(List item)
