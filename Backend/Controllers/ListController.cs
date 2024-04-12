@@ -47,7 +47,7 @@ namespace Backend.Controllers
             Email = AuthHelpers.GetEmail(token);
             if (!string.IsNullOrEmpty(Email))
             {
-                _domain.AddProduct(product);
+                _domain.AddProduct(product, Email);
                 return Ok();
             }
             return BadRequest("No contiene un Email válido");
@@ -77,7 +77,7 @@ namespace Backend.Controllers
             Email = AuthHelpers.GetEmail(token);
             if (!string.IsNullOrEmpty(Email))
             {
-                _domain.DeleteProduct(product);
+                _domain.DeleteProduct(product, Email);
                 return Ok();
             }
             return BadRequest("No contiene un Email válido");

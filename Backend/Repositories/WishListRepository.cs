@@ -1,6 +1,8 @@
 ﻿using Backend.Controllers;
 using Backend.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -8,25 +10,23 @@ namespace Backend.Repositories
     public class WishListRepository : IWishListRepository
     {
         private readonly AppDbContext _context;
-        private readonly ListController _controller;
+        private readonly WishList _domain;
 
-        public WishListRepository(AppDbContext context, ListController controller)
+        public WishListRepository(AppDbContext context, ListController controller, WishList domain)
         {
             _context = context;
-            _controller= controller;
+            _domain = domain;
         }
 
-        public void Create(WishList item)
+        public void Create(string Email)
         {
-            _context.WishList.Add(item);
+            _context.WishList.Add(_domain.GetByEmail(Email));
             _context.SaveChanges();
         }
 
-        public void Delete(WishList item)
+        public void Delete(string Email)
         {
-            var targetWishList = _context.WishList
-                .Where(_item => _item.List_code == item.List_code)
-                .FirstOrDefault();
+            var targetWishList = _domain.GetByEmail(Email);
 
             if (targetWishList == null) throw new InvalidOperationException();
 
@@ -34,13 +34,35 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public ActionResult<List> Get(string Email)
+        public void AddProduct(Product product, string Email)
         {
-            //var targetitem = _context.WishList
-            //  .Where(_item => _item == _controller.Get())
-            //.FirstOrDefault();
-            var targetitem= _controller.Get();
-            return targetitem;
+            //_context.WishList.Products.Add(product);
+            var wishlist = _domain.GetByEmail(Email);
+
+            if (wishlist != null)
+            {
+                _context.Entry(wishlist).Collection(w => w.Products).Load();
+                wishlist.Products.Add(product);
+                _context.SaveChanges();
+            }
+        }
+        public void DeleteProduct(Product product, string Email) 
+        {
+            var wishlist = _domain.GetByEmail(Email);
+
+            if (wishlist != null && wishlist.Products.Contains(product))
+            {
+                _context.Entry(wishlist).Collection(w => w.Products).Load();
+                wishlist.Products.Remove(product);
+                _context.SaveChanges();
+            }
+
+        }
+
+        public WishList? Get(string Email)
+        {
+            WishList targetWishList = _domain.GetByEmail(Email);
+            return targetWishList;
         }
 
         public IEnumerable<WishList> GetAll()

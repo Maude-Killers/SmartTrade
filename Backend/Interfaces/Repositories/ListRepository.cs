@@ -1,16 +1,17 @@
-﻿using SmartTrade.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using SmartTrade.Models;
 
 namespace Backend.Interfaces
 {
-    public interface IListRepository<S, T>
+    public interface IListRepository<List, T>
     {
-        void AddProduct(Product product);
-        void Create(S item);
-        IEnumerable<S> GetAll();
-        S? Get(T item);
+        void AddProduct(Product product, string Email);
+        void Create(string Email);
+        IEnumerable<List> GetAll();
+        List Get(string Email);
 
-        void Delete(S item);
+        void Delete(string Email);
 
-        void DeleteProduct(Product product);
+        void DeleteProduct(Product product, string Email);
     }
 }

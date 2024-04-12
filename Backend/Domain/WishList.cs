@@ -21,24 +21,24 @@ namespace SmartTrade.Models
             return _service.Get(Email);
         }
         
-        public override void CreateList(List item)
+        public override void CreateList(string Email)
         {
-            _service.Create(item);
+            _service.Create(Email);
         }
 
-        public override void DeleteList(List item)
+        public override void DeleteList(string Email)
         {
-            _service.Delete(item);
+            _service.Delete(Email);
         }
 
-        public override void AddProduct(Product product) 
+        public override void AddProduct(Product product, string Email) 
         { 
-            _service.AddProduct(product);
+            _service.AddProduct(product, Email);
         }
 
-        public override void DeleteProduct(Product product)
+        public override void DeleteProduct(Product product, string Email)
         {
-            _service.DeleteProduct(product);
+            _service.DeleteProduct(product, Email);
         }
 
     }
