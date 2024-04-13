@@ -39,7 +39,8 @@ namespace Backend.Repositories
             return client;
         }
 
-        public Client? GetByCredentials(string Email, string Password) {
+        public Client? GetByCredentials(string Email, string Password)
+        {
             var client = _context.Client
                 .Where(client => client.Email == Email && client.Password == Password)
                 .FirstOrDefault();
@@ -58,7 +59,7 @@ namespace Backend.Repositories
                 .Where(client => client.Email == Email)
                 .FirstOrDefault();
 
-            if (actualClient== null) throw new InvalidOperationException();
+            if (actualClient == null) throw new InvalidOperationException();
 
             actualClient.Password = client.Password;
             _context.SaveChanges();

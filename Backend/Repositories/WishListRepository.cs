@@ -1,8 +1,4 @@
-﻿using Backend.Controllers;
-using Backend.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Backend.Interfaces;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -16,16 +12,18 @@ namespace Backend.Repositories
             _context = context;
         }
 
+        // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
         public void Create(string Email)
         {
-            var cliente= _context.Client
+            var cliente = _context.Client
             .Where(item => item.Email == Email)
             .FirstOrDefault();
-            
-            _context.WishList.Add(cliente.wishList);
+
+            _context.WishLists.Add(cliente.WishList);
             _context.SaveChanges();
         }
 
+        // Este metodo realmente hace falta? podemos borrarle la lista de deseos a un usuario?
         public void Delete(string Email)
         {
             var cliente = _context.Client
@@ -33,41 +31,42 @@ namespace Backend.Repositories
             .FirstOrDefault();
 
 
-            if (cliente.wishList == null) throw new InvalidOperationException();
+            if (cliente.WishList == null) throw new InvalidOperationException();
 
-            _context.WishList.Remove(cliente.wishList);
+            _context.WishLists.Remove(cliente.WishList);
             _context.SaveChanges();
         }
 
-        public void AddProduct(Product product, string Email)
+        public void AddProduct(Product product, Client client)
         {
-            //_context.WishList.Products.Add(product);
-            var cliente = _context.Client
-            .Where(item => item.Email == Email)
-            .FirstOrDefault();
-            var wishList = cliente.wishList;
+            _context.Entry(client).Reference(x => x.WishList).Load();
+            var wishList = client?.WishList;
 
             if (wishList != null)
             {
-                _context.Entry(wishList).Collection(w => w.Products).Load();
-                wishList.Products.Add(product);
+                var existsProduct = _context.Products.Where(item => item.Product_code == product.Product_code).FirstOrDefault();
+                if (existsProduct == null)
+                {
+                    _context.Products.Add(product);
+                    _context.SaveChanges();
+                }
+                _context.ListProducts.Add(new ListProduct { List_code = wishList.List_code, Product_code = product.Product_code });
                 _context.SaveChanges();
             }
         }
-        public void DeleteProduct(Product product, string Email) 
-        {
-            var cliente = _context.Client
-            .Where(item => item.Email == Email)
-            .FirstOrDefault();
-            var wishlist = cliente.wishList;
 
-            if (wishlist != null && wishlist.Products.Contains(product))
+        public void DeleteProduct(Product product, Client client)
+        {
+            var wishlist = client.WishList;
+            var productList = _context.ListProducts
+                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == wishlist.List_code)
+                .FirstOrDefault();
+
+            if (wishlist != null && productList != null)
             {
-                _context.Entry(wishlist).Collection(w => w.Products).Load();
-                wishlist.Products.Remove(product);
+                _context.ListProducts.Remove(productList);
                 _context.SaveChanges();
             }
-
         }
 
         public WishList? Get(string Email)
@@ -75,21 +74,20 @@ namespace Backend.Repositories
             var cliente = _context.Client
             .Where(item => item.Email == Email)
             .FirstOrDefault();
-            var wishList = cliente.wishList;
+            var wishList = cliente.WishList;
             return wishList;
         }
 
         public IEnumerable<WishList> GetAll()
         {
-            return _context.WishList.ToList();
+            return _context.WishLists.ToList();
         }
 
         public void Set(int List_code, WishList item)
         {
-            var actualWishList = _context.WishList
+            var actualWishList = _context.WishLists
                 .Where(item => item.List_code == List_code)
                 .FirstOrDefault();
         }
-
     }
 }

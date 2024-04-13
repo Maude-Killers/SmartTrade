@@ -1,12 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
-using System.Linq;
 
 public class AppDbContext : DbContext
 {
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     { }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.EnableSensitiveDataLogging();
+        optionsBuilder.EnableDetailedErrors();
+    }
 
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public DbSet<Product> Products { get; set; }
@@ -15,10 +20,11 @@ public class AppDbContext : DbContext
     public DbSet<GroceryProduct> GroceryProduct { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
     public DbSet<List> List { get; set; }
-    public DbSet<WishList> WishList { get; set; }
+    public DbSet<WishList> WishLists { get; set; }
     public DbSet<Person> Person { get; set; }
     public DbSet<Client> Client { get; set; }
     public DbSet<SalesPerson> SalesPerson { get; set; }
+    public DbSet<ListProduct> ListProducts { get; set; }
 
     private static readonly string[] Summaries = new[]
     {
@@ -37,98 +43,66 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
-        modelBuilder.Entity<SportProduct>().HasData(
-            Enumerable.Range(1, 5).Select(index => new SportProduct
-            {
-                Product_code = index,
-                Name = "product" + index,
-                Price = 10 + index,
-                Description = "descripcion" + index,
-                Features = "caracteristicas" + index,
-                Huella = Random.Shared.Next(-20, 55),
-            })
-            .ToArray()
-        );
-        modelBuilder.Entity<GroceryProduct>().HasData(
-            Enumerable.Range(6, 5).Select(index => new GroceryProduct
-            {
-                Product_code = index,
-                Name = "product" + index,
-                Price = 10 + index,
-                Description = "descripcion" + index,
-                Features = "caracteristicas" + index,
-                Huella = Random.Shared.Next(-20, 55),
-            })
-            .ToArray()
-        );
 
-        TechnoProduct productoDeseado = null;
-        modelBuilder.Entity<TechnoProduct>().HasData(
-            Enumerable.Range(11, 5).Select(index =>
-            {
-                var producto = new TechnoProduct
-                {
-                    Product_code = index,
-                    Name = "product" + index,
-                    Price = 10 + index,
-                    Description = "descripcion" + index,
-                    Features = "caracteristicas" + index,
-                    Huella = Random.Shared.Next(-20, 55),
-                };
-                if (index == 11) 
-                {
-                    productoDeseado = producto;
-                }
-                return producto;
-            })
-            .ToArray()
-        );
+        modelBuilder.Entity<ListProduct>()
+            .HasKey(ce => new { ce.Product_code, ce.List_code });
 
-        //crear wishlist
-
-        WishList wishlistC = new WishList
+        var clients = Enumerable.Range(1, 5).Select(index => new Client
         {
-            List_code = 1,
+            Email = $"prueba{index}@prueba.com",
+            Password = $"cliente{index}",
+            FullName = $"Cliente {index}",
+            PhoneNumber = 654654654 + index,
+        }).ToArray();
+        modelBuilder.Entity<Client>().HasData(clients);
+
+        var wishLists = Enumerable.Range(1, 5).Select(index => new WishList
+        {
+            List_code = index,
             Name = "WishList",
-        };
+            ClientEmail = clients[index - 1].Email
+        }).ToArray();
+        modelBuilder.Entity<WishList>().HasData(wishLists);
 
-        // Ahora que wishlistC está inicializado, puedes agregar productos a ella
-        wishlistC.Products = new List<Product>(); // Asegúrate de inicializar la lista de productos
-
-        modelBuilder.Entity<WishList>().HasData(new WishList[] { wishlistC });
-
-
-
-        modelBuilder.Entity<Client>().HasData(
-            Enumerable.Range(1, 5).Select(index => new Client
-             {
-                Email = $"prueba{index}@prueba.com",
-                Password = $"cliente{index}",
-                FullName = $"Cliente {index}",
-                PhoneNumber = 654654654 + index,
-                wishListId = wishlistC.List_code
-            })
-            .ToArray()
-        );
-
-        /*
-        modelBuilder.Entity<Client>().HasData(
-        new Client
+        var sportProducts = Enumerable.Range(1, 5).Select(index => new SportProduct
         {
-            Email = "cliente@ejemplo.com", // Utilizando el email como clave única
-            Password = "contraseña",
-            FullName = "Nombre del Cliente",
-            PhoneNumber = 123456789,
-            wishList = new WishList
-            {
-                List_code = 1,
-                Name = "Lista de Deseos del Cliente",
+            Product_code = index,
+            Name = "product" + index,
+            Price = 10 + index,
+            Description = "descripcion" + index,
+            Features = "caracteristicas" + index,
+            Huella = Random.Shared.Next(-20, 55),
+        }).ToArray();
+        modelBuilder.Entity<SportProduct>().HasData(sportProducts);
 
-            }
-       
+        var groceryProducts = Enumerable.Range(6, 5).Select(index => new GroceryProduct
+        {
+            Product_code = index,
+            Name = "product" + index,
+            Price = 10 + index,
+            Description = "descripcion" + index,
+            Features = "caracteristicas" + index,
+            Huella = Random.Shared.Next(-20, 55),
+        }).ToArray();
+        modelBuilder.Entity<GroceryProduct>().HasData(groceryProducts);
 
+        var technoProducts = Enumerable.Range(11, 5).Select(index => new TechnoProduct
+        {
+            Product_code = index,
+            Name = "product" + index,
+            Price = 10 + index,
+            Description = "descripcion" + index,
+            Features = "caracteristicas" + index,
+            Huella = Random.Shared.Next(-20, 55),
         });
-        */
+        modelBuilder.Entity<TechnoProduct>().HasData(technoProducts);
+
+        var listProducts = Enumerable.Range(1, 5).Select(index => new ListProduct
+        {
+            Product_code = index + 10,
+            List_code = index
+        });
+        modelBuilder.Entity<ListProduct>().HasData(listProducts);
 
     }
 }

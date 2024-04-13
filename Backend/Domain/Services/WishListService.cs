@@ -1,5 +1,4 @@
 ﻿using Backend.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
 namespace Backend.Services
@@ -7,9 +6,9 @@ namespace Backend.Services
     public class WishListService : IWishListService
     {
         private readonly IWishListRepository _repository;
-        private readonly IPersonRepository _personrepository;
+        private readonly IClientRepository _personrepository;
 
-        public WishListService(IWishListRepository repository, IPersonRepository personrepository)
+        public WishListService(IWishListRepository repository, IClientRepository personrepository)
         {
             _repository = repository;
             _personrepository = personrepository;
@@ -17,12 +16,14 @@ namespace Backend.Services
 
         public void AddProduct(Product product, string email)
         {
-           _repository.AddProduct(product, email); 
+            var client = _personrepository.Get(email);
+            _repository.AddProduct(product, client);
         }
 
         public void DeleteProduct(Product product, string email)
         {
-            _repository.DeleteProduct(product, email);
+            var client = _personrepository.Get(email);
+            _repository.DeleteProduct(product, client);
         }
 
         public void Create(string email)
@@ -32,6 +33,7 @@ namespace Backend.Services
 
         public void Delete(string email)
         {
+
             _repository.Delete(email);
         }
 
@@ -44,8 +46,5 @@ namespace Backend.Services
         {
             return _repository.GetAll();
         }
-
-        
-        
     }
 }

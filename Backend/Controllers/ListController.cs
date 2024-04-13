@@ -1,4 +1,5 @@
 ﻿using Backend.Domain.DesignPattern;
+using Backend.Domain.DesignPattern.FactoryMethod;
 using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace Backend.Controllers
             var email = AuthHelpers.GetEmail(token);
 
             var item = _domain.GetByEmail(email);
-            
+
             if (item == null)
             {
                 return NotFound();
@@ -38,13 +39,16 @@ namespace Backend.Controllers
             return item;
         }
 
-        
+
         //Recuperar correo de persona desde jwt y modificar addproduct
         [HttpPost("/productsList", Name = "addProduct")]
-        public IActionResult AddProduct(Product product, string email)
+        public IActionResult AddProduct(Product product)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
-            email = AuthHelpers.GetEmail(token);
+            var email = AuthHelpers.GetEmail(token);
+            _factory = new WishListFactory();
+            _domain = _factory.CreateList();
+
             if (!string.IsNullOrEmpty(email))
             {
                 _domain.AddProduct(product, email);
@@ -53,7 +57,7 @@ namespace Backend.Controllers
             return BadRequest("No contiene un Email válido");
         }
 
-        
+
         //Recuperar correo de persona desde jwt y modificar createwishlist/ Validar si hay una lista ligada al usuario
         [HttpPost(Name = "CreateList")]
         public IActionResult CreateList()
@@ -71,10 +75,13 @@ namespace Backend.Controllers
 
 
         [HttpDelete("/lists/{List_code}", Name = "DeleteList")]
-        public IActionResult DeleteProduct(Product product, string email)
+        public IActionResult DeleteProduct(Product product)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
-            email = AuthHelpers.GetEmail(token);
+            var email = AuthHelpers.GetEmail(token);
+            _factory = new WishListFactory();
+            _domain = _factory.CreateList();
+
             if (!string.IsNullOrEmpty(email))
             {
                 _domain.DeleteProduct(product, email);
@@ -82,6 +89,6 @@ namespace Backend.Controllers
             }
             return BadRequest("No contiene un Email válido");
         }
-        
-        }
+
     }
+}

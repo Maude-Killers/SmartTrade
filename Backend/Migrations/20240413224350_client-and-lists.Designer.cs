@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240413224350_client-and-lists")]
+    partial class clientandlists
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,11 +277,6 @@ namespace Backend.Migrations
                 {
                     b.HasBaseType("SmartTrade.Models.Person");
 
-                    b.Property<int>("wishListId")
-                        .HasColumnType("integer");
-
-                    b.HasIndex("wishListId");
-
                     b.HasDiscriminator().HasValue("Client");
 
                     b.HasData(
@@ -287,40 +285,35 @@ namespace Backend.Migrations
                             Email = "prueba1@prueba.com",
                             FullName = "Cliente 1",
                             Password = "cliente1",
-                            PhoneNumber = 654654655,
-                            wishListId = 1
+                            PhoneNumber = 654654655
                         },
                         new
                         {
                             Email = "prueba2@prueba.com",
                             FullName = "Cliente 2",
                             Password = "cliente2",
-                            PhoneNumber = 654654656,
-                            wishListId = 1
+                            PhoneNumber = 654654656
                         },
                         new
                         {
                             Email = "prueba3@prueba.com",
                             FullName = "Cliente 3",
                             Password = "cliente3",
-                            PhoneNumber = 654654657,
-                            wishListId = 1
+                            PhoneNumber = 654654657
                         },
                         new
                         {
                             Email = "prueba4@prueba.com",
                             FullName = "Cliente 4",
                             Password = "cliente4",
-                            PhoneNumber = 654654658,
-                            wishListId = 1
+                            PhoneNumber = 654654658
                         },
                         new
                         {
                             Email = "prueba5@prueba.com",
                             FullName = "Cliente 5",
                             Password = "cliente5",
-                            PhoneNumber = 654654659,
-                            wishListId = 1
+                            PhoneNumber = 654654659
                         });
                 });
 
@@ -539,17 +532,6 @@ namespace Backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Client");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Client", b =>
-                {
-                    b.HasOne("SmartTrade.Models.WishList", "wishList")
-                        .WithMany()
-                        .HasForeignKey("wishListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("wishList");
                 });
 
             modelBuilder.Entity("SmartTrade.Models.List", b =>
