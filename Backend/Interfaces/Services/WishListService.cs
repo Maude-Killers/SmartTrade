@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface IWishListService : IListService<WishList>
+    public interface IWishListService : IListService<WishList, string>
     {
     }
 

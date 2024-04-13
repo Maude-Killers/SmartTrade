@@ -1,6 +1,5 @@
 ﻿using Backend.Repositories;
 using Backend.Services;
-using Microsoft.AspNetCore.Http;
 using SmartTrade.Models;
 
 namespace Backend.Domain.DesignPattern
