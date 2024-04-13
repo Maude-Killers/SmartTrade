@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240413191512_migracionWishlist")]
+    partial class migracionWishlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,48 +23,6 @@ namespace Backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("ListProduct", b =>
-                {
-                    b.Property<int>("Product_code")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("List_code")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Product_code", "List_code");
-
-                    b.HasIndex("List_code");
-
-                    b.ToTable("ListProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            Product_code = 11,
-                            List_code = 1
-                        },
-                        new
-                        {
-                            Product_code = 12,
-                            List_code = 2
-                        },
-                        new
-                        {
-                            Product_code = 13,
-                            List_code = 3
-                        },
-                        new
-                        {
-                            Product_code = 14,
-                            List_code = 4
-                        },
-                        new
-                        {
-                            Product_code = 15,
-                            List_code = 5
-                        });
-                });
 
             modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
                 {
@@ -140,6 +101,7 @@ namespace Backend.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
 
                     b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
@@ -152,16 +114,21 @@ namespace Backend.Migrations
                     b.Property<string>("Features")
                         .HasColumnType("text");
 
-                    b.Property<int?>("Huella")
+                    b.Property<int>("Huella")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("List_code")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("numeric");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.HasKey("Product_code");
+
+                    b.HasIndex("List_code");
 
                     b.ToTable("Products");
 
@@ -195,32 +162,32 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2024, 4, 14, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7490),
-                            TemperatureC = 7
+                            Date = new DateTime(2024, 4, 14, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1038),
+                            TemperatureC = 36
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2024, 4, 15, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7508),
-                            TemperatureC = -11
+                            Date = new DateTime(2024, 4, 15, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1063),
+                            TemperatureC = 24
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2024, 4, 16, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7508),
-                            TemperatureC = 27
+                            Date = new DateTime(2024, 4, 16, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1064),
+                            TemperatureC = 14
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2024, 4, 17, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7509),
-                            TemperatureC = 46
+                            Date = new DateTime(2024, 4, 17, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1065),
+                            TemperatureC = 18
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2024, 4, 18, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7509),
-                            TemperatureC = 23
+                            Date = new DateTime(2024, 4, 18, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1066),
+                            TemperatureC = -17
                         });
                 });
 
@@ -228,45 +195,13 @@ namespace Backend.Migrations
                 {
                     b.HasBaseType("SmartTrade.Models.List");
 
-                    b.Property<string>("ClientEmail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasIndex("ClientEmail")
-                        .IsUnique();
-
                     b.HasDiscriminator().HasValue("WishList");
 
                     b.HasData(
                         new
                         {
                             List_code = 1,
-                            Name = "WishList",
-                            ClientEmail = "prueba1@prueba.com"
-                        },
-                        new
-                        {
-                            List_code = 2,
-                            Name = "WishList",
-                            ClientEmail = "prueba2@prueba.com"
-                        },
-                        new
-                        {
-                            List_code = 3,
-                            Name = "WishList",
-                            ClientEmail = "prueba3@prueba.com"
-                        },
-                        new
-                        {
-                            List_code = 4,
-                            Name = "WishList",
-                            ClientEmail = "prueba4@prueba.com"
-                        },
-                        new
-                        {
-                            List_code = 5,
-                            Name = "WishList",
-                            ClientEmail = "prueba5@prueba.com"
+                            Name = "WishList"
                         });
                 });
 
@@ -347,9 +282,9 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 0,
+                            Huella = 30,
                             Name = "product6",
-                            Price = 16m
+                            Price = 16f
                         },
                         new
                         {
@@ -357,9 +292,9 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = 47,
+                            Huella = 54,
                             Name = "product7",
-                            Price = 17m
+                            Price = 17f
                         },
                         new
                         {
@@ -367,9 +302,9 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 48,
+                            Huella = -20,
                             Name = "product8",
-                            Price = 18m
+                            Price = 18f
                         },
                         new
                         {
@@ -377,9 +312,9 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = -17,
+                            Huella = 36,
                             Name = "product9",
-                            Price = 19m
+                            Price = 19f
                         },
                         new
                         {
@@ -387,9 +322,9 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 46,
+                            Huella = 23,
                             Name = "product10",
-                            Price = 20m
+                            Price = 20f
                         });
                 });
 
@@ -406,9 +341,9 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 34,
+                            Huella = 40,
                             Name = "product1",
-                            Price = 11m
+                            Price = 11f
                         },
                         new
                         {
@@ -416,9 +351,9 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 33,
+                            Huella = 13,
                             Name = "product2",
-                            Price = 12m
+                            Price = 12f
                         },
                         new
                         {
@@ -426,9 +361,9 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 40,
+                            Huella = 33,
                             Name = "product3",
-                            Price = 13m
+                            Price = 13f
                         },
                         new
                         {
@@ -436,9 +371,9 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = 40,
+                            Huella = 35,
                             Name = "product4",
-                            Price = 14m
+                            Price = 14f
                         },
                         new
                         {
@@ -446,9 +381,9 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 26,
+                            Huella = -15,
                             Name = "product5",
-                            Price = 15m
+                            Price = 15f
                         });
                 });
 
@@ -465,9 +400,9 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 12,
+                            Huella = 52,
                             Name = "product11",
-                            Price = 21m
+                            Price = 21f
                         },
                         new
                         {
@@ -475,9 +410,9 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = -3,
+                            Huella = -5,
                             Name = "product12",
-                            Price = 22m
+                            Price = 22f
                         },
                         new
                         {
@@ -485,9 +420,9 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = -8,
+                            Huella = 17,
                             Name = "product13",
-                            Price = 23m
+                            Price = 23f
                         },
                         new
                         {
@@ -495,9 +430,9 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 9,
+                            Huella = 44,
                             Name = "product14",
-                            Price = 24m
+                            Price = 24f
                         },
                         new
                         {
@@ -505,40 +440,17 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 14,
+                            Huella = 16,
                             Name = "product15",
-                            Price = 25m
+                            Price = 25f
                         });
                 });
 
-            modelBuilder.Entity("ListProduct", b =>
+            modelBuilder.Entity("SmartTrade.Models.Product", b =>
                 {
-                    b.HasOne("SmartTrade.Models.List", "List")
-                        .WithMany("listProducts")
-                        .HasForeignKey("List_code")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SmartTrade.Models.Product", "Product")
-                        .WithMany("ListProducts")
-                        .HasForeignKey("Product_code")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("List");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.WishList", b =>
-                {
-                    b.HasOne("SmartTrade.Models.Client", "Client")
-                        .WithOne("WishList")
-                        .HasForeignKey("SmartTrade.Models.WishList", "ClientEmail")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
+                    b.HasOne("SmartTrade.Models.List", null)
+                        .WithMany("Products")
+                        .HasForeignKey("List_code");
                 });
 
             modelBuilder.Entity("SmartTrade.Models.Client", b =>
@@ -554,18 +466,7 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("SmartTrade.Models.List", b =>
                 {
-                    b.Navigation("listProducts");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Product", b =>
-                {
-                    b.Navigation("ListProducts");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Client", b =>
-                {
-                    b.Navigation("WishList")
-                        .IsRequired();
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
