@@ -1,15 +1,15 @@
 ﻿namespace SmartTrade.Models
 {
-    public abstract partial class Product
+    public partial class Product
     {
-        public abstract IEnumerable<Product> GetAll();
+        public virtual IEnumerable<Product> GetAll() { return null; }
 
-        public abstract Product? GetById(int Product_code);
+        public virtual Product? GetById(int Product_code) { return null; }
 
-        public abstract void CreateProduct(Product product);
+        public virtual void CreateProduct(Product product) { }
 
-        public abstract void EditProduct(int Product_code, Product product);
+        public virtual void EditProduct(int Product_code, Product product) { }
 
-        public abstract void DeleteProduct(int Product_code);
+        public virtual void DeleteProduct(int Product_code) { }
     }
 }

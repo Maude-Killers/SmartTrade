@@ -1,6 +1,4 @@
-﻿using Backend.Interfaces;
-
-namespace SmartTrade.Models
+﻿namespace SmartTrade.Models
 {
     public abstract partial class List
     {

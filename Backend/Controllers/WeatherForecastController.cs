@@ -2,7 +2,6 @@ using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace Backend.Controllers
 {
