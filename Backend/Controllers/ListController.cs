@@ -26,9 +26,9 @@ namespace Backend.Controllers
         public ActionResult<List> Get()
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
-            var Email = AuthHelpers.GetEmail(token);
+            var email = AuthHelpers.GetEmail(token);
 
-            var item = _domain.GetByEmail(Email);
+            var item = _domain.GetByEmail(email);
             
             if (item == null)
             {
@@ -41,13 +41,13 @@ namespace Backend.Controllers
         
         //Recuperar correo de persona desde jwt y modificar addproduct
         [HttpPost("/productsList", Name = "addProduct")]
-        public IActionResult AddProduct(Product product, string Email)
+        public IActionResult AddProduct(Product product, string email)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
-            Email = AuthHelpers.GetEmail(token);
-            if (!string.IsNullOrEmpty(Email))
+            email = AuthHelpers.GetEmail(token);
+            if (!string.IsNullOrEmpty(email))
             {
-                _domain.AddProduct(product, Email);
+                _domain.AddProduct(product, email);
                 return Ok();
             }
             return BadRequest("No contiene un Email válido");
@@ -59,25 +59,25 @@ namespace Backend.Controllers
         public IActionResult CreateList()
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
-            var Email = AuthHelpers.GetEmail(token);
-            if (string.IsNullOrEmpty(Email))
+            var email = AuthHelpers.GetEmail(token);
+            if (string.IsNullOrEmpty(email))
             {
                 return BadRequest("El token JWT no contiene un correo electrónico válido.");
             }
 
-            _domain.CreateList(Email);
+            _domain.CreateList(email);
             return Ok();
         }
 
 
         [HttpDelete("/lists/{List_code}", Name = "DeleteList")]
-        public IActionResult DeleteProduct(Product product, string Email)
+        public IActionResult DeleteProduct(Product product, string email)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
-            Email = AuthHelpers.GetEmail(token);
-            if (!string.IsNullOrEmpty(Email))
+            email = AuthHelpers.GetEmail(token);
+            if (!string.IsNullOrEmpty(email))
             {
-                _domain.DeleteProduct(product, Email);
+                _domain.DeleteProduct(product, email);
                 return Ok();
             }
             return BadRequest("No contiene un Email válido");

@@ -7,35 +7,37 @@ namespace Backend.Services
     public class WishListService : IWishListService
     {
         private readonly IWishListRepository _repository;
+        private readonly IPersonRepository _personrepository;
 
-        public WishListService(IWishListRepository repository)
+        public WishListService(IWishListRepository repository, IPersonRepository personrepository)
         {
             _repository = repository;
+            _personrepository = personrepository;
         }
 
-        public void AddProduct(Product product, string Email)
+        public void AddProduct(Product product, string email)
         {
-           _repository.AddProduct(product, Email); 
+           _repository.AddProduct(product, email); 
         }
 
-        public void DeleteProduct(Product product, string Email)
+        public void DeleteProduct(Product product, string email)
         {
-            _repository.DeleteProduct(product, Email);
+            _repository.DeleteProduct(product, email);
         }
 
-        public void Create(string Email)
+        public void Create(string email)
         {
-            _repository.Create(Email);
+            _repository.Create(email);
         }
 
-        public void Delete(string Email)
+        public void Delete(string email)
         {
-            _repository.Delete(Email);
+            _repository.Delete(email);
         }
 
-        public WishList? Get(string Email)
+        public WishList? Get(string email)
         {
-            return _repository.Get(Email);
+            return _repository.Get(email);
         }
 
         public IEnumerable<WishList> GetAll()

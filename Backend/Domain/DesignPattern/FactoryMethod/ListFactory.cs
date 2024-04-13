@@ -4,8 +4,7 @@ namespace Backend.Domain.DesignPattern
 {
     public abstract class ListFactory
     {
-        public abstract List AddProduct();
-        public abstract List DeleteProduct();
+        public abstract List CreateList();
 
     }
 }
