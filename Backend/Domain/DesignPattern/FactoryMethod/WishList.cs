@@ -9,8 +9,8 @@ namespace Backend.Domain.DesignPattern.FactoryMethod
         public override List CreateList()
         {
             var dbContext = AppServices.CreateDbContext();
-            var domain = new WishList();
-            return new WishList(new WishListService(new WishListRepository(dbContext,domain)));
+            var repos = new PersonRepository(dbContext);
+            return new WishList(new WishListService (new WishListRepository(dbContext), repos ));
         }
     }
 }

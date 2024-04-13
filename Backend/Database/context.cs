@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
+using System.Linq;
 
 public class AppDbContext : DbContext
 {
@@ -74,13 +75,33 @@ public class AppDbContext : DbContext
         );
         //crear wishlist
 
+        var existingProducts = new TechnoProduct
+        {
+            Product_code = 50,
+            Name = "product" + 50,
+            Price = 10 + 1,
+            Description = "descripcion" + 50,
+            Features = "caracteristicas" + 50,
+            Huella = Random.Shared.Next(-20, 55)
+        };
+
+        var wishlistC = new WishList
+        {
+            List_code = 50,
+            Name = "WishList" + 50,
+            Products = { existingProducts }
+        };
+        
+
+
         modelBuilder.Entity<Client>().HasData(
-            Enumerable.Range(1, 5).Select(index => new Client
+            Enumerable.Range(1, 5).Select(index => new Client()
              {
                 Email = $"prueba{index}@prueba.com",
                 Password = $"cliente{index}",
                 FullName = $"Cliente {index}",
-                PhoneNumber = 654654654 + index 
+                PhoneNumber = 654654654 + index,
+                wishList= wishlistC
             })
             .ToArray()
         );
