@@ -61,41 +61,53 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
+
+        TechnoProduct productoDeseado = null;
         modelBuilder.Entity<TechnoProduct>().HasData(
-            Enumerable.Range(11, 5).Select(index => new TechnoProduct
+            Enumerable.Range(11, 5).Select(index =>
             {
-                Product_code = index,
-                Name = "product" + index,
-                Price = 10 + index,
-                Description = "descripcion" + index,
-                Features = "caracteristicas" + index,
-                Huella = Random.Shared.Next(-20, 55),
+                var producto = new TechnoProduct
+                {
+                    Product_code = index,
+                    Name = "product" + index,
+                    Price = 10 + index,
+                    Description = "descripcion" + index,
+                    Features = "caracteristicas" + index,
+                    Huella = Random.Shared.Next(-20, 55),
+                };
+                if (index == 11) 
+                {
+                    productoDeseado = producto;
+                }
+                return producto;
             })
             .ToArray()
         );
+
         //crear wishlist
+        
+        WishList wishlistC = null;
+        modelBuilder.Entity<WishList>().HasData(
+            Enumerable.Range(1, 1).Select(index =>
+            {
+                wishlistC = new WishList
+                {
 
-        var existingProducts = new TechnoProduct
-        {
-            Product_code = 50,
-            Name = "product" + 50,
-            Price = 10 + 1,
-            Description = "descripcion" + 50,
-            Features = "caracteristicas" + 50,
-            Huella = Random.Shared.Next(-20, 55)
-        };
-
-        var wishlistC = new WishList
-        {
-            List_code = 50,
-            Name = "WishList" + 50,
-            Products = { existingProducts }
-        };
+                    List_code = 1,
+                    Name = "WishList",
+                };
+                if (productoDeseado != null) { 
+                wishlistC.Products.Add(productoDeseado);
+                }
+            return wishlistC;
+            })
+            .ToArray()
+        );
         
 
-
+        
         modelBuilder.Entity<Client>().HasData(
-            Enumerable.Range(1, 5).Select(index => new Client()
+            Enumerable.Range(1, 5).Select(index => new Client
              {
                 Email = $"prueba{index}@prueba.com",
                 Password = $"cliente{index}",
@@ -106,7 +118,24 @@ public class AppDbContext : DbContext
             .ToArray()
         );
 
-        
+        /*
+        modelBuilder.Entity<Client>().HasData(
+        new Client
+        {
+            Email = "cliente@ejemplo.com", // Utilizando el email como clave única
+            Password = "contraseña",
+            FullName = "Nombre del Cliente",
+            PhoneNumber = 123456789,
+            wishList = new WishList
+            {
+                List_code = 1,
+                Name = "Lista de Deseos del Cliente",
+
+            }
+       
+
+        });
+        */
 
     }
 }
