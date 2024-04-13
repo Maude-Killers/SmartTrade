@@ -12,7 +12,7 @@ namespace Backend.Repositories
         private readonly AppDbContext _context;
         private readonly WishList _domain;
 
-        public WishListRepository(AppDbContext context, ListController controller, WishList domain)
+        public WishListRepository(AppDbContext context, WishList domain)
         {
             _context = context;
             _domain = domain;
