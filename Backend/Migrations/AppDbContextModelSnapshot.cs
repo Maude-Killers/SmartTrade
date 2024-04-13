@@ -159,31 +159,31 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2024, 4, 12, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2100),
-                            TemperatureC = -11
+                            Date = new DateTime(2024, 4, 14, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1038),
+                            TemperatureC = 36
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2024, 4, 13, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2122),
-                            TemperatureC = -12
+                            Date = new DateTime(2024, 4, 15, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1063),
+                            TemperatureC = 24
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2024, 4, 14, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2123),
-                            TemperatureC = -8
+                            Date = new DateTime(2024, 4, 16, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1064),
+                            TemperatureC = 14
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2024, 4, 15, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2124),
-                            TemperatureC = 11
+                            Date = new DateTime(2024, 4, 17, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1065),
+                            TemperatureC = 18
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2024, 4, 16, 15, 23, 55, 545, DateTimeKind.Utc).AddTicks(2125),
+                            Date = new DateTime(2024, 4, 18, 19, 15, 11, 985, DateTimeKind.Utc).AddTicks(1066),
                             TemperatureC = -17
                         });
                 });
@@ -193,11 +193,23 @@ namespace Backend.Migrations
                     b.HasBaseType("SmartTrade.Models.List");
 
                     b.HasDiscriminator().HasValue("WishList");
+
+                    b.HasData(
+                        new
+                        {
+                            List_code = 1,
+                            Name = "WishList"
+                        });
                 });
 
             modelBuilder.Entity("SmartTrade.Models.Client", b =>
                 {
                     b.HasBaseType("SmartTrade.Models.Person");
+
+                    b.Property<int>("wishListId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("wishListId");
 
                     b.HasDiscriminator().HasValue("Client");
 
@@ -207,35 +219,40 @@ namespace Backend.Migrations
                             Email = "prueba1@prueba.com",
                             FullName = "Cliente 1",
                             Password = "cliente1",
-                            PhoneNumber = 654654655
+                            PhoneNumber = 654654655,
+                            wishListId = 1
                         },
                         new
                         {
                             Email = "prueba2@prueba.com",
                             FullName = "Cliente 2",
                             Password = "cliente2",
-                            PhoneNumber = 654654656
+                            PhoneNumber = 654654656,
+                            wishListId = 1
                         },
                         new
                         {
                             Email = "prueba3@prueba.com",
                             FullName = "Cliente 3",
                             Password = "cliente3",
-                            PhoneNumber = 654654657
+                            PhoneNumber = 654654657,
+                            wishListId = 1
                         },
                         new
                         {
                             Email = "prueba4@prueba.com",
                             FullName = "Cliente 4",
                             Password = "cliente4",
-                            PhoneNumber = 654654658
+                            PhoneNumber = 654654658,
+                            wishListId = 1
                         },
                         new
                         {
                             Email = "prueba5@prueba.com",
                             FullName = "Cliente 5",
                             Password = "cliente5",
-                            PhoneNumber = 654654659
+                            PhoneNumber = 654654659,
+                            wishListId = 1
                         });
                 });
 
@@ -262,7 +279,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 43,
+                            Huella = 30,
                             Name = "product6",
                             Price = 16f
                         },
@@ -272,7 +289,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = -20,
+                            Huella = 54,
                             Name = "product7",
                             Price = 17f
                         },
@@ -282,7 +299,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 46,
+                            Huella = -20,
                             Name = "product8",
                             Price = 18f
                         },
@@ -292,7 +309,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 13,
+                            Huella = 36,
                             Name = "product9",
                             Price = 19f
                         },
@@ -302,7 +319,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = -8,
+                            Huella = 23,
                             Name = "product10",
                             Price = 20f
                         });
@@ -321,7 +338,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 41,
+                            Huella = 40,
                             Name = "product1",
                             Price = 11f
                         },
@@ -331,7 +348,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 25,
+                            Huella = 13,
                             Name = "product2",
                             Price = 12f
                         },
@@ -341,7 +358,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 37,
+                            Huella = 33,
                             Name = "product3",
                             Price = 13f
                         },
@@ -351,7 +368,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = 2,
+                            Huella = 35,
                             Name = "product4",
                             Price = 14f
                         },
@@ -361,7 +378,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 46,
+                            Huella = -15,
                             Name = "product5",
                             Price = 15f
                         });
@@ -380,7 +397,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 7,
+                            Huella = 52,
                             Name = "product11",
                             Price = 21f
                         },
@@ -390,7 +407,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = -20,
+                            Huella = -5,
                             Name = "product12",
                             Price = 22f
                         },
@@ -400,7 +417,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = -2,
+                            Huella = 17,
                             Name = "product13",
                             Price = 23f
                         },
@@ -410,7 +427,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 37,
+                            Huella = 44,
                             Name = "product14",
                             Price = 24f
                         },
@@ -420,7 +437,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 51,
+                            Huella = 16,
                             Name = "product15",
                             Price = 25f
                         });
@@ -431,6 +448,17 @@ namespace Backend.Migrations
                     b.HasOne("SmartTrade.Models.List", null)
                         .WithMany("Products")
                         .HasForeignKey("List_code");
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Client", b =>
+                {
+                    b.HasOne("SmartTrade.Models.WishList", "wishList")
+                        .WithMany()
+                        .HasForeignKey("wishListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("wishList");
                 });
 
             modelBuilder.Entity("SmartTrade.Models.List", b =>

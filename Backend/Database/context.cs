@@ -85,27 +85,20 @@ public class AppDbContext : DbContext
         );
 
         //crear wishlist
-        
-        WishList wishlistC = null;
-        modelBuilder.Entity<WishList>().HasData(
-            Enumerable.Range(1, 1).Select(index =>
-            {
-                wishlistC = new WishList
-                {
 
-                    List_code = 1,
-                    Name = "WishList",
-                };
-                if (productoDeseado != null) { 
-                wishlistC.Products.Add(productoDeseado);
-                }
-            return wishlistC;
-            })
-            .ToArray()
-        );
-        
+        WishList wishlistC = new WishList
+        {
+            List_code = 1,
+            Name = "WishList",
+        };
 
-        
+        // Ahora que wishlistC está inicializado, puedes agregar productos a ella
+        wishlistC.Products = new List<Product>(); // Asegúrate de inicializar la lista de productos
+
+        modelBuilder.Entity<WishList>().HasData(new WishList[] { wishlistC });
+
+
+
         modelBuilder.Entity<Client>().HasData(
             Enumerable.Range(1, 5).Select(index => new Client
              {
@@ -113,7 +106,7 @@ public class AppDbContext : DbContext
                 Password = $"cliente{index}",
                 FullName = $"Cliente {index}",
                 PhoneNumber = 654654654 + index,
-                wishList= wishlistC
+                wishListId = wishlistC.List_code
             })
             .ToArray()
         );
