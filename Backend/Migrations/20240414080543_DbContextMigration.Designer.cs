@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240413224350_client-and-lists")]
-    partial class clientandlists
+    [Migration("20240414080543_DbContextMigration")]
+    partial class DbContextMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -198,32 +198,32 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2024, 4, 14, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7490),
-                            TemperatureC = 7
+                            Date = new DateTime(2024, 4, 15, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(16),
+                            TemperatureC = 17
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2024, 4, 15, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7508),
-                            TemperatureC = -11
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2024, 4, 16, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7508),
+                            Date = new DateTime(2024, 4, 16, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(39),
                             TemperatureC = 27
                         },
                         new
                         {
+                            Id = 3,
+                            Date = new DateTime(2024, 4, 17, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(40),
+                            TemperatureC = -4
+                        },
+                        new
+                        {
                             Id = 4,
-                            Date = new DateTime(2024, 4, 17, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7509),
-                            TemperatureC = 46
+                            Date = new DateTime(2024, 4, 18, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(41),
+                            TemperatureC = 27
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2024, 4, 18, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7509),
-                            TemperatureC = 23
+                            Date = new DateTime(2024, 4, 19, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(42),
+                            TemperatureC = -7
                         });
                 });
 
@@ -340,7 +340,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 0,
+                            Huella = 35,
                             Name = "product6",
                             Price = 16m
                         },
@@ -350,7 +350,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = 47,
+                            Huella = -3,
                             Name = "product7",
                             Price = 17m
                         },
@@ -360,7 +360,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 48,
+                            Huella = -17,
                             Name = "product8",
                             Price = 18m
                         },
@@ -370,7 +370,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = -17,
+                            Huella = 18,
                             Name = "product9",
                             Price = 19m
                         },
@@ -380,7 +380,7 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 46,
+                            Huella = 28,
                             Name = "product10",
                             Price = 20m
                         });
@@ -399,7 +399,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 34,
+                            Huella = 12,
                             Name = "product1",
                             Price = 11m
                         },
@@ -419,7 +419,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 40,
+                            Huella = 24,
                             Name = "product3",
                             Price = 13m
                         },
@@ -429,7 +429,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = 40,
+                            Huella = 4,
                             Name = "product4",
                             Price = 14m
                         },
@@ -439,7 +439,7 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 26,
+                            Huella = 45,
                             Name = "product5",
                             Price = 15m
                         });
@@ -458,7 +458,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 12,
+                            Huella = 22,
                             Name = "product11",
                             Price = 21m
                         },
@@ -468,7 +468,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = -3,
+                            Huella = -2,
                             Name = "product12",
                             Price = 22m
                         },
@@ -478,7 +478,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = -8,
+                            Huella = 11,
                             Name = "product13",
                             Price = 23m
                         },
@@ -488,7 +488,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 9,
+                            Huella = -6,
                             Name = "product14",
                             Price = 24m
                         },
@@ -498,7 +498,7 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 14,
+                            Huella = 26,
                             Name = "product15",
                             Price = 25m
                         });

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -8,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class clientandlists : Migration
+    public partial class DbContextMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -138,21 +139,21 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, "Sports", "descripcion1", "SportProduct", "caracteristicas1", 34, "product1", 11m },
+                    { 1, "Sports", "descripcion1", "SportProduct", "caracteristicas1", 12, "product1", 11m },
                     { 2, "Sports", "descripcion2", "SportProduct", "caracteristicas2", 33, "product2", 12m },
-                    { 3, "Sports", "descripcion3", "SportProduct", "caracteristicas3", 40, "product3", 13m },
-                    { 4, "Sports", "descripcion4", "SportProduct", "caracteristicas4", 40, "product4", 14m },
-                    { 5, "Sports", "descripcion5", "SportProduct", "caracteristicas5", 26, "product5", 15m },
-                    { 6, "Grocery", "descripcion6", "GroceryProduct", "caracteristicas6", 0, "product6", 16m },
-                    { 7, "Grocery", "descripcion7", "GroceryProduct", "caracteristicas7", 47, "product7", 17m },
-                    { 8, "Grocery", "descripcion8", "GroceryProduct", "caracteristicas8", 48, "product8", 18m },
-                    { 9, "Grocery", "descripcion9", "GroceryProduct", "caracteristicas9", -17, "product9", 19m },
-                    { 10, "Grocery", "descripcion10", "GroceryProduct", "caracteristicas10", 46, "product10", 20m },
-                    { 11, "Techno", "descripcion11", "TechnoProduct", "caracteristicas11", 12, "product11", 21m },
-                    { 12, "Techno", "descripcion12", "TechnoProduct", "caracteristicas12", -3, "product12", 22m },
-                    { 13, "Techno", "descripcion13", "TechnoProduct", "caracteristicas13", -8, "product13", 23m },
-                    { 14, "Techno", "descripcion14", "TechnoProduct", "caracteristicas14", 9, "product14", 24m },
-                    { 15, "Techno", "descripcion15", "TechnoProduct", "caracteristicas15", 14, "product15", 25m }
+                    { 3, "Sports", "descripcion3", "SportProduct", "caracteristicas3", 24, "product3", 13m },
+                    { 4, "Sports", "descripcion4", "SportProduct", "caracteristicas4", 4, "product4", 14m },
+                    { 5, "Sports", "descripcion5", "SportProduct", "caracteristicas5", 45, "product5", 15m },
+                    { 6, "Grocery", "descripcion6", "GroceryProduct", "caracteristicas6", 35, "product6", 16m },
+                    { 7, "Grocery", "descripcion7", "GroceryProduct", "caracteristicas7", -3, "product7", 17m },
+                    { 8, "Grocery", "descripcion8", "GroceryProduct", "caracteristicas8", -17, "product8", 18m },
+                    { 9, "Grocery", "descripcion9", "GroceryProduct", "caracteristicas9", 18, "product9", 19m },
+                    { 10, "Grocery", "descripcion10", "GroceryProduct", "caracteristicas10", 28, "product10", 20m },
+                    { 11, "Techno", "descripcion11", "TechnoProduct", "caracteristicas11", 22, "product11", 21m },
+                    { 12, "Techno", "descripcion12", "TechnoProduct", "caracteristicas12", -2, "product12", 22m },
+                    { 13, "Techno", "descripcion13", "TechnoProduct", "caracteristicas13", 11, "product13", 23m },
+                    { 14, "Techno", "descripcion14", "TechnoProduct", "caracteristicas14", -6, "product14", 24m },
+                    { 15, "Techno", "descripcion15", "TechnoProduct", "caracteristicas15", 26, "product15", 25m }
                 });
 
             migrationBuilder.InsertData(
@@ -160,11 +161,11 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 14, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7490), null, 7 },
-                    { 2, new DateTime(2024, 4, 15, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7508), null, -11 },
-                    { 3, new DateTime(2024, 4, 16, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7508), null, 27 },
-                    { 4, new DateTime(2024, 4, 17, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7509), null, 46 },
-                    { 5, new DateTime(2024, 4, 18, 22, 43, 50, 282, DateTimeKind.Utc).AddTicks(7509), null, 23 }
+                    { 1, new DateTime(2024, 4, 15, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(16), null, 17 },
+                    { 2, new DateTime(2024, 4, 16, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(39), null, 27 },
+                    { 3, new DateTime(2024, 4, 17, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(40), null, -4 },
+                    { 4, new DateTime(2024, 4, 18, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(41), null, 27 },
+                    { 5, new DateTime(2024, 4, 19, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(42), null, -7 }
                 });
 
             migrationBuilder.InsertData(
