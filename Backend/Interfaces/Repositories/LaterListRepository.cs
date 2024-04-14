@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface ILaterListRepository : IListRepository<LaterList>
+    public interface ILaterListRepository : IListRepository<LaterList,string>
     {
     }
 }

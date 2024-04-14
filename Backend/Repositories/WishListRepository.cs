@@ -85,7 +85,7 @@ namespace Backend.Repositories
 
         public void Set(int List_code, WishList item)
         {
-            var actualWishList = _context.WishLists
+            var actualWishList = _context.WishList
                 .Where(item => item.List_code == List_code)
                 .FirstOrDefault();
         }

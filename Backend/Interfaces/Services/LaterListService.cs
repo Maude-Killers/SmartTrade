@@ -2,7 +2,7 @@
 
 namespace Backend.Interfaces
 {
-    public interface ILaterListService : IListService<LaterList>
+    public interface ILaterListService : IListService<LaterList,string>
     {
     }
 
