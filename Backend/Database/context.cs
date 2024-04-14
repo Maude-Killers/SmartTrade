@@ -67,6 +67,14 @@ public class AppDbContext : DbContext
         }).ToArray();
         modelBuilder.Entity<WishList>().HasData(wishLists);
 
+        var laterLists = Enumerable.Range(6, 10).Select(index => new LaterList
+        {
+            List_code = index,
+            Name = "LaterList",
+            ClientEmail = clients[index - 1].Email
+        }).ToArray();
+        modelBuilder.Entity<LaterList>().HasData(laterLists);
+
         var sportProducts = Enumerable.Range(1, 5).Select(index => new SportProduct
         {
             Product_code = index,

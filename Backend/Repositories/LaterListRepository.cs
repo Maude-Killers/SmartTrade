@@ -88,9 +88,6 @@ namespace Backend.Repositories
             var actualLaterList = _context.LaterList
                 .Where(item => item.List_code == List_code)
                 .FirstOrDefault();
-        }ListRepository(AppDbContext context)
-        {
-            _context = context;
         }
     }
 }
