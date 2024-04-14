@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -88,6 +89,13 @@ namespace Backend.Repositories
             var actualLaterList = _context.LaterList
                 .Where(item => item.List_code == List_code)
                 .FirstOrDefault();
+        }
+        public async Task<List<ListProduct>> GetProductsAsync(int list_code)
+        {
+            return await _context.ListProducts
+                .Include(lp => lp.Product)
+                .Where(lp => lp.List_code == list_code)
+                .ToListAsync();
         }
     }
 }

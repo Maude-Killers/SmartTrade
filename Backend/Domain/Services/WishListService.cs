@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Backend.Repositories;
 using SmartTrade.Models;
 
 namespace Backend.Services
@@ -45,6 +46,10 @@ namespace Backend.Services
         public IEnumerable<WishList> GetAll()
         {
             return _repository.GetAll();
+        }
+        public async Task<List<ListProduct>> GetProductsAsync(int list_code)
+        {
+            return await _repository.GetProductsAsync(list_code);
         }
     }
 }

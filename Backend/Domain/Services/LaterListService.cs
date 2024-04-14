@@ -46,5 +46,9 @@ namespace Backend.Services
         {
             return _repository.GetAll();
         }
+        public async Task<List<ListProduct>> GetProductsAsync(int list_code)
+        {
+            return await _repository.GetProductsAsync(list_code);
+        }
     }
 }

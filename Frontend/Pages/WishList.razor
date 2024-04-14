@@ -1,40 +1,31 @@
 ﻿@page "/wishlist"
+@inject HttpClient Http
+@inject NavigationManager nav
+
 
 <PageTitle>Lista de Deseos</PageTitle>
 
 <CabeceraList />
 
-<tbody>
-    @foreach (var item in WishlistItems)
-    {
-        <ItemList ProductName="@item.ProductName" Price="@item.Price" ImageUrl="@item.ImageUrl" />
-        //<WishlistItem ProductName="@item.ProductName" Price="@item.Price" ImageUrl="@item.ImageUrl" />
-    }
-
-</tbody>
+@foreach (var item in listProducts)
+{
+    
+}
 
 @code {
-    // Aquí deberías tener una propiedad que almacene la lista de elementos de la lista de deseos
-    // Puedes obtenerlos de donde sea que los estés almacenando en tu aplicación
-    private List<Product> WishlistItems { get; set; }
+    private List<ListProduct> listProducts = new List<ListProduct>();
 
-    // Método para cargar la lista de deseos correspondiente
-    protected override void OnInitialized()
-    {
-        // Aquí obtienes la lista de deseos correspondiente según algún criterio, por ejemplo, el código de la lista
-        // Supongamos que tienes la variable 'listCode' que contiene el código de la lista específica que deseas mostrar
-        WishlistItems = ObtenerWishlistItems(listCode);
-    }
 
-    // Método para obtener los elementos de la lista de deseos correspondiente
-    private List<Product> ObtenerWishlistItems(string listCode)
+    [Parameter]
+    public int List_Code { get; set; }
+
+
+
+    protected override async void OnInitialized()
     {
-        // Aquí realizas la lógica para obtener los elementos de la lista de deseos correspondiente,
-        // por ejemplo, mediante una consulta a la base de datos
-        // Supongamos que tienes una lista de Productos (Product) asociados a la lista de deseos con el código 'listCode'
-        // Puedes usar .Where(p => p.List.ListCode == listCode) para filtrar los productos correspondientes
-        // y luego obtener una lista con esos productos
-        // Ejemplo:
-        // return dbContext.Products.Where(p => p.List.ListCode == listCode).ToList();
+
+        listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"{List_Code}/Wproducts") ?? new List<ListProduct>();
+        
+
     }
 }
