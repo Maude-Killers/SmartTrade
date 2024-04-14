@@ -2,44 +2,44 @@
 
 namespace SmartTrade.Models
 {
-    public partial class LaterList
+    public partial class LaterList : List
     {
-        private readonly ILaterListService _service;
+        private readonly IListService<LaterList, string> _service;
 
         public LaterList(ILaterListService service)
         {
             _service = service;
         }
 
-        public IEnumerable<LaterList> GetAll()
+        public override IEnumerable<LaterList> GetAll()
         {
             return _service.GetAll();
         }
 
-        public LaterList? GetByList_code(int List_code)
+        public override LaterList? GetByEmail(string Email)
         {
-            return _service.Get(List_code);
+            return _service.Get(Email);
         }
 
-        public void CreateLaterList(LaterList item)
+        public override void CreateList(string Email)
         {
-            _service.Create(item);
+            _service.Create(Email);
         }
 
-        public void EditLaterList(int List_code, LaterList item)
+        public override void DeleteList(string Email)
         {
-            _service.Set(List_code, item);
+            _service.Delete(Email);
         }
 
-        public void DeleteLaterList(int List_code)
+        public override void AddProduct(Product product, string Email)
         {
-            _service.Delete(List_code);
+            _service.AddProduct(product, Email);
         }
 
-        public void AddProduct(Product product) 
-        { 
-            _service.AddProduct(product);
+        public override void DeleteProduct(Product product, string Email)
+        {
+            _service.DeleteProduct(product, Email);
         }
-       
+
     }
 }

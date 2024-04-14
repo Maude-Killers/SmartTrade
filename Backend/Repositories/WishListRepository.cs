@@ -19,7 +19,7 @@ namespace Backend.Repositories
             .Where(item => item.Email == Email)
             .FirstOrDefault();
 
-            _context.WishLists.Add(cliente.WishList);
+            _context.WishList.Add(cliente.WishList);
             _context.SaveChanges();
         }
 
@@ -33,7 +33,7 @@ namespace Backend.Repositories
 
             if (cliente.WishList == null) throw new InvalidOperationException();
 
-            _context.WishLists.Remove(cliente.WishList);
+            _context.WishList.Remove(cliente.WishList);
             _context.SaveChanges();
         }
 
@@ -80,7 +80,7 @@ namespace Backend.Repositories
 
         public IEnumerable<WishList> GetAll()
         {
-            return _context.WishLists.ToList();
+            return _context.WishList.ToList();
         }
 
         public void Set(int List_code, WishList item)
