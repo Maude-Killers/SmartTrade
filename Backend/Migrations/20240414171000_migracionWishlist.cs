@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class DbContextMigration : Migration
+    public partial class migracionWishlist : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -85,7 +85,8 @@ namespace Backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
-                    ClientEmail = table.Column<string>(type: "text", nullable: true)
+                    ClientEmail = table.Column<string>(type: "text", nullable: true),
+                    WishList_ClientEmail = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,6 +94,12 @@ namespace Backend.Migrations
                     table.ForeignKey(
                         name: "FK_List_Person_ClientEmail",
                         column: x => x.ClientEmail,
+                        principalTable: "Person",
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_List_Person_WishList_ClientEmail",
+                        column: x => x.WishList_ClientEmail,
                         principalTable: "Person",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
@@ -139,21 +146,21 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, "Sports", "descripcion1", "SportProduct", "caracteristicas1", 12, "product1", 11m },
-                    { 2, "Sports", "descripcion2", "SportProduct", "caracteristicas2", 33, "product2", 12m },
-                    { 3, "Sports", "descripcion3", "SportProduct", "caracteristicas3", 24, "product3", 13m },
-                    { 4, "Sports", "descripcion4", "SportProduct", "caracteristicas4", 4, "product4", 14m },
-                    { 5, "Sports", "descripcion5", "SportProduct", "caracteristicas5", 45, "product5", 15m },
-                    { 6, "Grocery", "descripcion6", "GroceryProduct", "caracteristicas6", 35, "product6", 16m },
-                    { 7, "Grocery", "descripcion7", "GroceryProduct", "caracteristicas7", -3, "product7", 17m },
-                    { 8, "Grocery", "descripcion8", "GroceryProduct", "caracteristicas8", -17, "product8", 18m },
-                    { 9, "Grocery", "descripcion9", "GroceryProduct", "caracteristicas9", 18, "product9", 19m },
-                    { 10, "Grocery", "descripcion10", "GroceryProduct", "caracteristicas10", 28, "product10", 20m },
-                    { 11, "Techno", "descripcion11", "TechnoProduct", "caracteristicas11", 22, "product11", 21m },
-                    { 12, "Techno", "descripcion12", "TechnoProduct", "caracteristicas12", -2, "product12", 22m },
-                    { 13, "Techno", "descripcion13", "TechnoProduct", "caracteristicas13", 11, "product13", 23m },
-                    { 14, "Techno", "descripcion14", "TechnoProduct", "caracteristicas14", -6, "product14", 24m },
-                    { 15, "Techno", "descripcion15", "TechnoProduct", "caracteristicas15", 26, "product15", 25m }
+                    { 1, "Sports", "descripcion1", "SportProduct", "caracteristicas1", 6, "product1", 11m },
+                    { 2, "Sports", "descripcion2", "SportProduct", "caracteristicas2", 4, "product2", 12m },
+                    { 3, "Sports", "descripcion3", "SportProduct", "caracteristicas3", 27, "product3", 13m },
+                    { 4, "Sports", "descripcion4", "SportProduct", "caracteristicas4", 9, "product4", 14m },
+                    { 5, "Sports", "descripcion5", "SportProduct", "caracteristicas5", -15, "product5", 15m },
+                    { 6, "Grocery", "descripcion6", "GroceryProduct", "caracteristicas6", -6, "product6", 16m },
+                    { 7, "Grocery", "descripcion7", "GroceryProduct", "caracteristicas7", -5, "product7", 17m },
+                    { 8, "Grocery", "descripcion8", "GroceryProduct", "caracteristicas8", 51, "product8", 18m },
+                    { 9, "Grocery", "descripcion9", "GroceryProduct", "caracteristicas9", 38, "product9", 19m },
+                    { 10, "Grocery", "descripcion10", "GroceryProduct", "caracteristicas10", 16, "product10", 20m },
+                    { 11, "Techno", "descripcion11", "TechnoProduct", "caracteristicas11", 43, "product11", 21m },
+                    { 12, "Techno", "descripcion12", "TechnoProduct", "caracteristicas12", 23, "product12", 22m },
+                    { 13, "Techno", "descripcion13", "TechnoProduct", "caracteristicas13", 14, "product13", 23m },
+                    { 14, "Techno", "descripcion14", "TechnoProduct", "caracteristicas14", 12, "product14", 24m },
+                    { 15, "Techno", "descripcion15", "TechnoProduct", "caracteristicas15", 8, "product15", 25m }
                 });
 
             migrationBuilder.InsertData(
@@ -161,16 +168,16 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 15, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(16), null, 17 },
-                    { 2, new DateTime(2024, 4, 16, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(39), null, 27 },
-                    { 3, new DateTime(2024, 4, 17, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(40), null, -4 },
-                    { 4, new DateTime(2024, 4, 18, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(41), null, 27 },
-                    { 5, new DateTime(2024, 4, 19, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(42), null, -7 }
+                    { 1, new DateTime(2024, 4, 15, 17, 10, 0, 649, DateTimeKind.Utc).AddTicks(988), null, 12 },
+                    { 2, new DateTime(2024, 4, 16, 17, 10, 0, 649, DateTimeKind.Utc).AddTicks(1015), null, -14 },
+                    { 3, new DateTime(2024, 4, 17, 17, 10, 0, 649, DateTimeKind.Utc).AddTicks(1016), null, 38 },
+                    { 4, new DateTime(2024, 4, 18, 17, 10, 0, 649, DateTimeKind.Utc).AddTicks(1017), null, -4 },
+                    { 5, new DateTime(2024, 4, 19, 17, 10, 0, 649, DateTimeKind.Utc).AddTicks(1018), null, 8 }
                 });
 
             migrationBuilder.InsertData(
                 table: "List",
-                columns: new[] { "List_code", "ClientEmail", "Discriminator", "Name" },
+                columns: new[] { "List_code", "WishList_ClientEmail", "Discriminator", "Name" },
                 values: new object[,]
                 {
                     { 1, "prueba1@prueba.com", "WishList", "WishList" },
@@ -178,6 +185,18 @@ namespace Backend.Migrations
                     { 3, "prueba3@prueba.com", "WishList", "WishList" },
                     { 4, "prueba4@prueba.com", "WishList", "WishList" },
                     { 5, "prueba5@prueba.com", "WishList", "WishList" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "List",
+                columns: new[] { "List_code", "ClientEmail", "Discriminator", "Name" },
+                values: new object[,]
+                {
+                    { 6, "prueba1@prueba.com", "LaterList", "LaterList" },
+                    { 7, "prueba2@prueba.com", "LaterList", "LaterList" },
+                    { 8, "prueba3@prueba.com", "LaterList", "LaterList" },
+                    { 9, "prueba4@prueba.com", "LaterList", "LaterList" },
+                    { 10, "prueba5@prueba.com", "LaterList", "LaterList" }
                 });
 
             migrationBuilder.InsertData(
@@ -196,6 +215,12 @@ namespace Backend.Migrations
                 name: "IX_List_ClientEmail",
                 table: "List",
                 column: "ClientEmail",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_List_WishList_ClientEmail",
+                table: "List",
+                column: "WishList_ClientEmail",
                 unique: true);
 
             migrationBuilder.CreateIndex(

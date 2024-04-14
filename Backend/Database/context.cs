@@ -69,7 +69,7 @@ public class AppDbContext : DbContext
 
         var laterLists = Enumerable.Range(1, 5).Select(index => new LaterList
         {
-            List_code = index,
+            List_code = index+5,
             Name = "LaterList",
             ClientEmail = clients[index - 1].Email
         }).ToArray();
