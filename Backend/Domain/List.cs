@@ -1,6 +1,4 @@
-﻿using Backend.Interfaces;
-
-namespace SmartTrade.Models
+﻿namespace SmartTrade.Models
 {
     public abstract partial class List
     {
@@ -10,11 +8,11 @@ namespace SmartTrade.Models
 
         public abstract void CreateList(string Email);
 
-        public abstract void EditList(int List_code, List item);
+        public abstract void DeleteList(string Email);
 
-        public abstract void DeleteProduct(Product product);
+        public abstract void DeleteProduct(Product product, string Email);
 
-        public abstract void AddProduct(Product product);
+        public abstract void AddProduct(Product product , string Email);
 
        
     }

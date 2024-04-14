@@ -2,7 +2,8 @@ namespace SmartTrade.Models
 {
     public partial class Client : Person
     {
-
-        public Client() : base() {}
+        public virtual WishList WishList { get; set; }
+        public Client() : base()
+        { }
     }
 }

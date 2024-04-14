@@ -21,11 +21,14 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 
 builder.Services.AddScoped<ISalesPersonRepository, SalesPersonRepository>();
 builder.Services.AddScoped<ISalesPersonService, SalesPersonService>();
+
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
+
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<Person>();
+
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 builder.Services.AddScoped<WeatherForecastEntity>();

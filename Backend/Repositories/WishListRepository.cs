@@ -12,41 +12,80 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public void Create(WishList item)
+        // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
+        public void Create(string Email)
         {
-            _context.WishList.Add(item);
+            var cliente = _context.Client
+            .Where(item => item.Email == Email)
+            .FirstOrDefault();
+
+            _context.WishLists.Add(cliente.WishList);
             _context.SaveChanges();
         }
 
-        public void Delete(int List_code)
+        // Este metodo realmente hace falta? podemos borrarle la lista de deseos a un usuario?
+        public void Delete(string Email)
         {
-            var targetWishList = _context.WishList
-                .Where(item => item.List_code == List_code)
-                .FirstOrDefault();
+            var cliente = _context.Client
+            .Where(item => item.Email == Email)
+            .FirstOrDefault();
 
-            if (targetWishList == null) throw new InvalidOperationException();
 
-            _context.WishList.Remove(targetWishList);
+            if (cliente.WishList == null) throw new InvalidOperationException();
+
+            _context.WishLists.Remove(cliente.WishList);
             _context.SaveChanges();
         }
 
-        public WishList? Get(int List_code)
+        public void AddProduct(Product product, Client client)
         {
-            var item = _context.WishList
-                .Where(item => item.List_code == List_code)
+            _context.Entry(client).Reference(x => x.WishList).Load();
+            var wishList = client?.WishList;
+
+            if (wishList != null)
+            {
+                var existsProduct = _context.Products.Where(item => item.Product_code == product.Product_code).FirstOrDefault();
+                if (existsProduct == null)
+                {
+                    _context.Products.Add(product);
+                    _context.SaveChanges();
+                }
+                _context.ListProducts.Add(new ListProduct { List_code = wishList.List_code, Product_code = product.Product_code });
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteProduct(Product product, Client client)
+        {
+            var wishlist = client.WishList;
+            var productList = _context.ListProducts
+                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == wishlist.List_code)
                 .FirstOrDefault();
 
-            return item;
+            if (wishlist != null && productList != null)
+            {
+                _context.ListProducts.Remove(productList);
+                _context.SaveChanges();
+            }
+        }
+
+        public WishList? Get(string Email)
+        {
+            var cliente = _context.Client
+            .Where(item => item.Email == Email)
+            .FirstOrDefault();
+            var wishList = cliente.WishList;
+            return wishList;
         }
 
         public IEnumerable<WishList> GetAll()
         {
-            return _context.WishList.ToList();
+            return _context.WishLists.ToList();
         }
 
         public void Set(int List_code, WishList item)
         {
-            var actualWishList = _context.WishList
+            var actualWishList = _context.WishLists
                 .Where(item => item.List_code == List_code)
                 .FirstOrDefault();
         }

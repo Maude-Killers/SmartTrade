@@ -4,42 +4,42 @@ namespace SmartTrade.Models
 {
     public partial class WishList : List
     {
-        private readonly IWishListService _service;
+        private readonly IListService<WishList, string> _service;
 
         public WishList(IWishListService service)
         {
             _service = service;
         }
 
-        public IEnumerable<WishList> GetAll()
+        public override IEnumerable<WishList> GetAll()
         {
             return _service.GetAll();
         }
 
-        public WishList? GetByList_code(int List_code)
+        public override WishList? GetByEmail(string Email)
         {
-            return _service.Get(List_code);
+            return _service.Get(Email);
+        }
+        
+        public override void CreateList(string Email)
+        {
+            _service.Create(Email);
         }
 
-        public void CreateWishList(WishList item)
+        public override void DeleteList(string Email)
         {
-            _service.Create(item);
+            _service.Delete(Email);
         }
 
-        public void EditWishList(int List_code, WishList item)
-        {
-            _service.Set(List_code, item);
-        }
-
-        public void DeleteWishList(int List_code)
-        {
-            _service.Delete(List_code);
-        }
-
-        public void AddProduct(Product product) 
+        public override void AddProduct(Product product, string Email) 
         { 
-            _service.AddProduct(product);
+            _service.AddProduct(product, Email);
         }
-       
+
+        public override void DeleteProduct(Product product, string Email)
+        {
+            _service.DeleteProduct(product, Email);
+        }
+
     }
 }
