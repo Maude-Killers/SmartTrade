@@ -18,10 +18,7 @@ public class AuthService
             Email = emailInput,
             Password = passwordInput
         };
-        var response = await _httpClient.PostAsJsonAsync("login",loginRequest);
-        Console.WriteLine(response.Content);
-        Console.WriteLine(response.StatusCode);
-        Console.WriteLine(response.Headers.ToString());
+        var response = await _httpClient.PostAsJsonAsync("login", loginRequest);
 
     }
 
