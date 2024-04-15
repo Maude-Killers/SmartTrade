@@ -9,7 +9,7 @@
 
 @foreach (var item in listProducts)
 {
-    <ItemList ProductName="@item.Product.Name" Price="@item.Product.Price.ToString()" />
+    <ItemList ProductImage="" ProductName="@item.Product.Name" Price="@item.Product.Price.ToString()" />
 }
 
 @code {
@@ -24,8 +24,7 @@
     protected override async void OnInitialized()
     {
 
-        listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"{List_Code}/Wproducts") ?? new List<ListProduct>();
-        
+        listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"{List_Code}/Wproducts") ?? new List<ListProduct>();  
 
     }
 }
