@@ -9,7 +9,7 @@
 
 @foreach (var item in listProducts)
 {
-    
+    <ItemList ProductName="@item.Product.Name" Price="@item.Product.Price.ToString()" />
 }
 
 @code {

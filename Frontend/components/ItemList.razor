@@ -3,9 +3,6 @@
 
 
 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-    <td class="p-4" style="max-height: 70px;">
-        <img src="@ImageUrl" class="w-12 h-12 md:w-32 md:h-32 max-w-full max-h-full" alt="@ProductName">
-    </td>
     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
         @ProductName
     </td>
@@ -23,8 +20,5 @@
 
     [Parameter]
     public string Price { get; set; }
-
-    [Parameter]
-    public string ImageUrl { get; set; }
 }
 
