@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.DesignPattern;
 using Backend.Domain.DesignPattern.FactoryMethod;
+using Backend.Services;
 using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace Backend.Controllers
         private ListFactory? _factory;
         private List? _domain;
         private readonly ILogger<ListController> _logger;
+        private readonly WishListService _wishListService;
 
         public ListController(ILogger<ListController> logger)
         {
@@ -88,6 +90,18 @@ namespace Backend.Controllers
                 return Ok();
             }
             return BadRequest("No contiene un Email válido");
+        }
+
+        [HttpGet("{listId}/Wproducts")]
+        public async Task<ActionResult<List<ListProduct>>> GetWishListProductsAsync(int list_code)
+        {
+            var products = await _wishListService.GetProductsAsync(list_code);
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(products);
         }
 
     }

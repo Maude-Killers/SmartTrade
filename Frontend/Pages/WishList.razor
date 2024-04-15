@@ -1,73 +1,31 @@
 ﻿@page "/wishlist"
+@inject HttpClient Http
+@inject NavigationManager nav
+
 
 <PageTitle>Lista de Deseos</PageTitle>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-16 py-3">
-                    <span class="sr-only">Image</span>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Product
-                </th>
-                
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="p-4" style="max-height: 70px;">
-                    <img src="https://private-user-images.githubusercontent.com/39051892/321293780-24ca91f7-d00b-4bac-a08b-84effbc1258a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTI3NjY4NTQsIm5iZiI6MTcxMjc2NjU1NCwicGF0aCI6Ii8zOTA1MTg5Mi8zMjEyOTM3ODAtMjRjYTkxZjctZDAwYi00YmFjLWEwOGItODRlZmZiYzEyNThhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MTAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDEwVDE2MjkxNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTRhNzlkZmFkODliYWNmNGNhNGQ2ZmNhNjQxOWNkMGQxNWY3ZWYzZmJjNTM4ODQzZjc1ZGNhMDY4ZDY1NDcxNmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.6KTxnVxDLBufV4557TWl4_kxdY3ruBohgEnmXR-gFhw" class="w-12 h-12 md:w-32 md:h-32 max-w-full max-h-full" alt="Apple Watch">
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    Apple Watch
-                </td>
-                
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    $599
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="p-4" style="max-height: 70px;">
-                    <img src="https://private-user-images.githubusercontent.com/39051892/321293780-24ca91f7-d00b-4bac-a08b-84effbc1258a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTI3NjY4NTQsIm5iZiI6MTcxMjc2NjU1NCwicGF0aCI6Ii8zOTA1MTg5Mi8zMjEyOTM3ODAtMjRjYTkxZjctZDAwYi00YmFjLWEwOGItODRlZmZiYzEyNThhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MTAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDEwVDE2MjkxNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTRhNzlkZmFkODliYWNmNGNhNGQ2ZmNhNjQxOWNkMGQxNWY3ZWYzZmJjNTM4ODQzZjc1ZGNhMDY4ZDY1NDcxNmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.6KTxnVxDLBufV4557TWl4_kxdY3ruBohgEnmXR-gFhw" class="w-12 h-12 md:w-32 md:h-32 max-w-full max-h-full" alt="Apple iMac">
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    iMac 27"
-                </td>
-                
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    $2499
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="p-4" style="max-height: 70px;">
-                    <img src="https://private-user-images.githubusercontent.com/39051892/321293780-24ca91f7-d00b-4bac-a08b-84effbc1258a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTI3NjY4NTQsIm5iZiI6MTcxMjc2NjU1NCwicGF0aCI6Ii8zOTA1MTg5Mi8zMjEyOTM3ODAtMjRjYTkxZjctZDAwYi00YmFjLWEwOGItODRlZmZiYzEyNThhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MTAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDEwVDE2MjkxNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTRhNzlkZmFkODliYWNmNGNhNGQ2ZmNhNjQxOWNkMGQxNWY3ZWYzZmJjNTM4ODQzZjc1ZGNhMDY4ZDY1NDcxNmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.6KTxnVxDLBufV4557TWl4_kxdY3ruBohgEnmXR-gFhw" class="w-12 h-12 md:w-32 md:h-32 max-w-full max-h-full" alt="iPhone 12">
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    IPhone 12
-                </td>
-                
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    $999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<CabeceraList />
+
+@foreach (var item in listProducts)
+{
+	<ItemList ProductImage="" ProductName="@item.Product.Name" Price="@item.Product.Price.ToString()" />
+}
+
+@code {
+	private List<ListProduct> listProducts = new List<ListProduct>();
+
+
+	[Parameter]
+	public int List_Code { get; set; }
+
+
+
+	protected override async void OnInitialized()
+	{
+
+		listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"{List_Code}/Wproducts") ?? new List<ListProduct>();
+
+	}
+}
 
