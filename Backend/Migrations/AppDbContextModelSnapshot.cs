@@ -79,6 +79,11 @@ namespace Backend.Migrations
                     b.ToTable("Gallery");
                 });
 
+<<<<<<< HEAD
+            modelBuilder.Entity("SmartTrade.Models.List", b =>
+||||||| a13fd3b
+            modelBuilder.Entity("SmartTrade.Models.Product", b =>
+=======
             modelBuilder.Entity("SmartTrade.Models.List", b =>
                 {
                     b.Property<int>("List_code")
@@ -103,6 +108,91 @@ namespace Backend.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("SmartTrade.Models.Person", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("Person");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Product", b =>
+>>>>>>> Inicio-sesión
+                {
+                    b.Property<int>("List_code")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("List_code"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+<<<<<<< HEAD
+||||||| a13fd3b
+                    b.Property<string>("Features")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Huella")
+                        .HasColumnType("integer");
+
+=======
+                    b.Property<string>("Features")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Huella")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("List_code")
+                        .HasColumnType("integer");
+
+>>>>>>> Inicio-sesión
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("List_code");
+
+                    b.ToTable("List");
+
+<<<<<<< HEAD
+                    b.HasDiscriminator<string>("Discriminator").HasValue("List");
+||||||| a13fd3b
+                    b.ToTable("Products");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
+=======
+                    b.HasIndex("List_code");
+
+                    b.ToTable("Products");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
+>>>>>>> Inicio-sesión
+
+                    b.UseTphMappingStrategy();
+                });
+
+<<<<<<< HEAD
             modelBuilder.Entity("SmartTrade.Models.Person", b =>
                 {
                     b.Property<string>("Email")
@@ -170,6 +260,80 @@ namespace Backend.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+||||||| a13fd3b
+            modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
+                {
+                    b.Property<int>("Product_code")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
+                    b.HasKey("Product_code");
+
+                    b.ToTable("Gallery");
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Person", b =>
+                {
+                    b.Property<int>("Email")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Email"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("Person");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Product", b =>
+                {
+                    b.Property<int>("Product_code")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Features")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Huella")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.HasKey("Product_code");
+
+                    b.ToTable("Product");
+                });
+
+=======
+>>>>>>> Inicio-sesión
             modelBuilder.Entity("SmartTrade.Models.WeatherForecast", b =>
                 {
                     b.Property<int>("Id")
@@ -195,35 +359,76 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 4, 15, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(16),
                             TemperatureC = 17
+||||||| a13fd3b
+                            Date = new DateTime(2024, 4, 1, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3129),
+                            TemperatureC = 44
+=======
+                            Date = new DateTime(2024, 4, 13, 19, 4, 46, 899, DateTimeKind.Utc).AddTicks(9548),
+                            TemperatureC = 49
+>>>>>>> Inicio-sesión
                         },
                         new
                         {
                             Id = 2,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 4, 16, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(39),
                             TemperatureC = 27
+||||||| a13fd3b
+                            Date = new DateTime(2024, 4, 2, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3143),
+                            TemperatureC = -7
+=======
+                            Date = new DateTime(2024, 4, 14, 19, 4, 46, 899, DateTimeKind.Utc).AddTicks(9563),
+                            TemperatureC = -20
+>>>>>>> Inicio-sesión
                         },
                         new
                         {
                             Id = 3,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 4, 17, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(40),
                             TemperatureC = -4
+||||||| a13fd3b
+                            Date = new DateTime(2024, 4, 3, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3144),
+                            TemperatureC = 40
+=======
+                            Date = new DateTime(2024, 4, 15, 19, 4, 46, 899, DateTimeKind.Utc).AddTicks(9564),
+                            TemperatureC = 47
+>>>>>>> Inicio-sesión
                         },
                         new
                         {
                             Id = 4,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 4, 18, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(41),
                             TemperatureC = 27
+||||||| a13fd3b
+                            Date = new DateTime(2024, 4, 4, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3144),
+                            TemperatureC = -12
+=======
+                            Date = new DateTime(2024, 4, 16, 19, 4, 46, 899, DateTimeKind.Utc).AddTicks(9564),
+                            TemperatureC = 31
+>>>>>>> Inicio-sesión
                         },
                         new
                         {
                             Id = 5,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 4, 19, 8, 5, 43, 50, DateTimeKind.Utc).AddTicks(42),
                             TemperatureC = -7
+||||||| a13fd3b
+                            Date = new DateTime(2024, 4, 5, 12, 48, 38, 746, DateTimeKind.Utc).AddTicks(3145),
+                            TemperatureC = 52
+=======
+                            Date = new DateTime(2024, 4, 17, 19, 4, 46, 899, DateTimeKind.Utc).AddTicks(9565),
+                            TemperatureC = 52
+>>>>>>> Inicio-sesión
                         });
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("SmartTrade.Models.WishList", b =>
                 {
                     b.HasBaseType("SmartTrade.Models.List");
@@ -324,6 +529,70 @@ namespace Backend.Migrations
                     b.HasDiscriminator().HasValue("SalesPerson");
                 });
 
+||||||| a13fd3b
+=======
+            modelBuilder.Entity("SmartTrade.Models.WishList", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.List");
+
+                    b.HasDiscriminator().HasValue("WishList");
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Client", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.Person");
+
+                    b.HasDiscriminator().HasValue("Client");
+
+                    b.HasData(
+                        new
+                        {
+                            Email = "prueba1@prueba.com",
+                            FullName = "Cliente 1",
+                            Password = "cliente1",
+                            PhoneNumber = 654654655
+                        },
+                        new
+                        {
+                            Email = "prueba2@prueba.com",
+                            FullName = "Cliente 2",
+                            Password = "cliente2",
+                            PhoneNumber = 654654656
+                        },
+                        new
+                        {
+                            Email = "prueba3@prueba.com",
+                            FullName = "Cliente 3",
+                            Password = "cliente3",
+                            PhoneNumber = 654654657
+                        },
+                        new
+                        {
+                            Email = "prueba4@prueba.com",
+                            FullName = "Cliente 4",
+                            Password = "cliente4",
+                            PhoneNumber = 654654658
+                        },
+                        new
+                        {
+                            Email = "prueba5@prueba.com",
+                            FullName = "Cliente 5",
+                            Password = "cliente5",
+                            PhoneNumber = 654654659
+                        });
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.SalesPerson", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.Person");
+
+                    b.Property<string>("Company")
+                        .HasColumnType("text");
+
+                    b.HasDiscriminator().HasValue("SalesPerson");
+                });
+
+>>>>>>> Inicio-sesión
             modelBuilder.Entity("SmartTrade.Models.GroceryProduct", b =>
                 {
                     b.HasBaseType("SmartTrade.Models.Product");
@@ -337,7 +606,13 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion6",
                             Features = "caracteristicas6",
+<<<<<<< HEAD
                             Huella = 35,
+||||||| a13fd3b
+                            Huella = 19,
+=======
+                            Huella = 32,
+>>>>>>> Inicio-sesión
                             Name = "product6",
                             Price = 16m
                         },
@@ -347,7 +622,13 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion7",
                             Features = "caracteristicas7",
+<<<<<<< HEAD
                             Huella = -3,
+||||||| a13fd3b
+                            Huella = 17,
+=======
+                            Huella = 24,
+>>>>>>> Inicio-sesión
                             Name = "product7",
                             Price = 17m
                         },
@@ -357,7 +638,13 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion8",
                             Features = "caracteristicas8",
+<<<<<<< HEAD
                             Huella = -17,
+||||||| a13fd3b
+                            Huella = 2,
+=======
+                            Huella = -18,
+>>>>>>> Inicio-sesión
                             Name = "product8",
                             Price = 18m
                         },
@@ -367,7 +654,13 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion9",
                             Features = "caracteristicas9",
+<<<<<<< HEAD
                             Huella = 18,
+||||||| a13fd3b
+                            Huella = 30,
+=======
+                            Huella = 40,
+>>>>>>> Inicio-sesión
                             Name = "product9",
                             Price = 19m
                         },
@@ -377,7 +670,13 @@ namespace Backend.Migrations
                             Category = "Grocery",
                             Description = "descripcion10",
                             Features = "caracteristicas10",
+<<<<<<< HEAD
                             Huella = 28,
+||||||| a13fd3b
+                            Huella = 12,
+=======
+                            Huella = -15,
+>>>>>>> Inicio-sesión
                             Name = "product10",
                             Price = 20m
                         });
@@ -396,7 +695,13 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion1",
                             Features = "caracteristicas1",
+<<<<<<< HEAD
                             Huella = 12,
+||||||| a13fd3b
+                            Huella = 0,
+=======
+                            Huella = 32,
+>>>>>>> Inicio-sesión
                             Name = "product1",
                             Price = 11m
                         },
@@ -406,7 +711,13 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion2",
                             Features = "caracteristicas2",
+<<<<<<< HEAD
                             Huella = 33,
+||||||| a13fd3b
+                            Huella = 10,
+=======
+                            Huella = 12,
+>>>>>>> Inicio-sesión
                             Name = "product2",
                             Price = 12m
                         },
@@ -426,7 +737,13 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion4",
                             Features = "caracteristicas4",
+<<<<<<< HEAD
                             Huella = 4,
+||||||| a13fd3b
+                            Huella = -9,
+=======
+                            Huella = 17,
+>>>>>>> Inicio-sesión
                             Name = "product4",
                             Price = 14m
                         },
@@ -436,7 +753,13 @@ namespace Backend.Migrations
                             Category = "Sports",
                             Description = "descripcion5",
                             Features = "caracteristicas5",
+<<<<<<< HEAD
                             Huella = 45,
+||||||| a13fd3b
+                            Huella = 43,
+=======
+                            Huella = 27,
+>>>>>>> Inicio-sesión
                             Name = "product5",
                             Price = 15m
                         });
@@ -455,7 +778,13 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion11",
                             Features = "caracteristicas11",
+<<<<<<< HEAD
                             Huella = 22,
+||||||| a13fd3b
+                            Huella = 15,
+=======
+                            Huella = 53,
+>>>>>>> Inicio-sesión
                             Name = "product11",
                             Price = 21m
                         },
@@ -465,7 +794,13 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion12",
                             Features = "caracteristicas12",
+<<<<<<< HEAD
                             Huella = -2,
+||||||| a13fd3b
+                            Huella = 33,
+=======
+                            Huella = 11,
+>>>>>>> Inicio-sesión
                             Name = "product12",
                             Price = 22m
                         },
@@ -475,7 +810,13 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion13",
                             Features = "caracteristicas13",
+<<<<<<< HEAD
                             Huella = 11,
+||||||| a13fd3b
+                            Huella = 52,
+=======
+                            Huella = 18,
+>>>>>>> Inicio-sesión
                             Name = "product13",
                             Price = 23m
                         },
@@ -485,7 +826,13 @@ namespace Backend.Migrations
                             Category = "Techno",
                             Description = "descripcion14",
                             Features = "caracteristicas14",
+<<<<<<< HEAD
                             Huella = -6,
+||||||| a13fd3b
+                            Huella = 48,
+=======
+                            Huella = 15,
+>>>>>>> Inicio-sesión
                             Name = "product14",
                             Price = 24m
                         },
@@ -501,6 +848,7 @@ namespace Backend.Migrations
                         });
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("ListProduct", b =>
                 {
                     b.HasOne("SmartTrade.Models.List", "List")
@@ -542,9 +890,51 @@ namespace Backend.Migrations
                 });
 
             modelBuilder.Entity("SmartTrade.Models.Client", b =>
+||||||| a13fd3b
+            modelBuilder.Entity("SmartTrade.Models.Client", b =>
+=======
+            modelBuilder.Entity("SmartTrade.Models.Product", b =>
+>>>>>>> Inicio-sesión
                 {
+<<<<<<< HEAD
                     b.Navigation("WishList")
                         .IsRequired();
+||||||| a13fd3b
+                    b.HasBaseType("SmartTrade.Models.Person");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.HasDiscriminator().HasValue("Client");
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.SalesPerson", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.Person");
+
+                    b.Property<string>("Company")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.ToTable("Person", t =>
+                        {
+                            t.Property("Password")
+                                .HasColumnName("SalesPerson_Password");
+                        });
+
+                    b.HasDiscriminator().HasValue("SalesPerson");
+=======
+                    b.HasOne("SmartTrade.Models.List", null)
+                        .WithMany("Products")
+                        .HasForeignKey("List_code");
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.List", b =>
+                {
+                    b.Navigation("Products");
+>>>>>>> Inicio-sesión
                 });
 #pragma warning restore 612, 618
         }
