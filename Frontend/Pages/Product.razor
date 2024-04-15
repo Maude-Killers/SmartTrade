@@ -6,14 +6,14 @@
         <div id="carousel" class="relative w-full" data-carousel="static">
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                @foreach (var img in images)
+                @foreach (var img in product.Images)
                 {
-                    <ImageCarrousel ImgURL="@img" />
+                    <ImageCarrousel ImgURL="@img.Image" />
                 }
             </div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                @for (int i = 0; i <images.Count() ;i++)
+                @for (int i = 0; i <product.Images.Count() ;i++)
                 {
                     <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label=$"Slide {i}"
                             data-carousel-slide-to=$"{i}"></button>
@@ -65,7 +65,6 @@
     protected override async Task OnInitializedAsync()
     {
         product = await service.GetProductAsync(int.Parse(product_code));
-        images = await service.GetProductImagesAsync(int.Parse(product_code));
         StateHasChanged();
     }
 }

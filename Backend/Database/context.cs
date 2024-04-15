@@ -32,42 +32,42 @@ public class AppDbContext : DbContext
             })
             .ToArray()
         );
-        modelBuilder.Entity<SportProduct>().HasData(
-            Enumerable.Range(1, 5).Select(index => new SportProduct
-            {
-                Product_code = index,
-                Name = "product" + index,
-                Price = 10 + index,
-                Description = "descripcion" + index,
-                Features = "caracteristicas" + index,
-                Huella = Random.Shared.Next(-20, 55),
-            })
-            .ToArray()
-        );
-        modelBuilder.Entity<GroceryProduct>().HasData(
-            Enumerable.Range(6, 5).Select(index => new GroceryProduct
-            {
-                Product_code = index,
-                Name = "product" + index,
-                Price = 10 + index,
-                Description = "descripcion" + index,
-                Features = "caracteristicas" + index,
-                Huella = Random.Shared.Next(-20, 55),
-            })
-            .ToArray()
-        );
-        modelBuilder.Entity<TechnoProduct>().HasData(
-            Enumerable.Range(11, 5).Select(index => new TechnoProduct
-            {
-                Product_code = index,
-                Name = "product" + index,
-                Price = 10 + index,
-                Description = "descripcion" + index,
-                Features = "caracteristicas" + index,
-                Huella = Random.Shared.Next(-20, 55),
-            })
-            .ToArray()
-        );
+        var mondongo = Enumerable.Range(1, 5).Select(index => new SportProduct
+        {
+            Product_code = index,
+            Name = "product" + index,
+            Price = 10 + index,
+            Description = "descripcion" + index,
+            Features = "caracteristicas" + index,
+            Huella = Random.Shared.Next(-20, 55),
+        }).ToArray();
+
+        modelBuilder.Entity<SportProduct>().HasData(mondongo);
+
+        var creeper = Enumerable.Range(6, 5).Select(index => new GroceryProduct
+        {
+            Product_code = index,
+            Name = "product" + index,
+            Price = 10 + index,
+            Description = "descripcion" + index,
+            Features = "caracteristicas" + index,
+            Huella = Random.Shared.Next(-20, 55),
+        }).ToArray();
+
+        modelBuilder.Entity<GroceryProduct>().HasData(creeper);
+
+        var patricioApruebame = Enumerable.Range(11, 5).Select(index => new TechnoProduct
+        {
+            Product_code = index,
+            Name = "product" + index,
+            Price = 10 + index,
+            Description = "descripcion" + index,
+            Features = "caracteristicas" + index,
+            Huella = Random.Shared.Next(-20, 55),
+        }).ToArray();
+
+        modelBuilder.Entity<TechnoProduct>().HasData(patricioApruebame);
+
         Gallery[] images = {
             new Gallery {
                 Image ="https://i.imgur.com/WtfQOF3.png",
@@ -146,7 +146,25 @@ public class AppDbContext : DbContext
                 Category_name=SmartTrade.Models.Gallery.Category.Techno
             }
         };
-        modelBuilder.Entity<Gallery>().HasData(images); 
-        
+        modelBuilder.Entity<Gallery>().HasData(images);
+
+       /* for (int mindingi = 0; mindingi< mondongo.Length; mindingi++)
+        {
+            mondongo[mindingi].Images.Add(images[mindingi]);
+        }
+        modelBuilder.Entity<SportProduct>().HasData(mondongo);
+
+        for (int mindingi = 0; mindingi < creeper.Length; mindingi++)
+        {
+            creeper[mindingi].Images.Add(images[mindingi + 5]);
+        }
+        modelBuilder.Entity<GroceryProduct>().HasData(creeper);
+
+        for (int mindingi = 0; mindingi < patricioApruebame.Length; mindingi++)
+        {
+            patricioApruebame[mindingi].Images.Add(images[mindingi+10]);
+        }
+        modelBuilder.Entity< Add(images[mindingi + 10])TechnoProduct >().HasData(patricioApruebame);*/
+
     }
 }

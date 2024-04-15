@@ -8,8 +8,9 @@ namespace SmartTrade.Models
     {
         [Key]
         public string? Image { get; set; }
-        [ForeignKey(nameof(Product))]
+        [ForeignKey("Product")]
         public int? Product_code { get; set; }
+        public virtual Product Product { get; set; }
         public Category? Category_name { get; set; }
         public enum Category
         {

@@ -1,4 +1,5 @@
 using Backend.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -24,12 +25,18 @@ namespace Backend.Repositories
 
         public Product? Get(int id)
         {
-            return _context.Products.Where(product => product.Product_code == id).FirstOrDefault();
+            var yoda =  _context.Products.Include(p => p.Images).FirstOrDefault(product => product.Product_code == id);
+            return yoda;
         }
 
         public IEnumerable<Product> GetAll()
         {
-            return _context.Products.ToList();
+            var asoka = _context.Products.ToList();
+            foreach (var image in asoka) 
+            {
+                _context.Products.Include(p => p.Images).ToList();
+            }
+            return asoka;
         }
 
         public void Set(int id, Product item)
