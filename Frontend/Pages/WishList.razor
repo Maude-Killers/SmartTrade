@@ -2,6 +2,9 @@
 @inject HttpClient Http
 @inject NavigationManager nav
 
+@inject HttpClient Http
+@inject NavigationManager nav
+
 
 <PageTitle>Lista de Deseos</PageTitle>
 
@@ -24,7 +27,7 @@
 	protected override async void OnInitialized()
 	{
 
-		listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"{List_Code}/Wproducts") ?? new List<ListProduct>();
+		listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"List/{List_Code}/Wproducts") ?? new List<ListProduct>();
 
 	}
 }

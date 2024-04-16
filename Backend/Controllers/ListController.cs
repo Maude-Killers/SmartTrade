@@ -16,6 +16,7 @@ namespace Backend.Controllers
         private List? _domain;
         private readonly ILogger<ListController> _logger;
         private readonly WishListService _wishListService;
+        private readonly WishListService _laterListService;
 
         public ListController(ILogger<ListController> logger)
         {
@@ -104,5 +105,16 @@ namespace Backend.Controllers
             return Ok(products);
         }
 
+        [HttpGet("{listId}/Lproducts")]
+        public async Task<ActionResult<List<ListProduct>>> GetLaterListProductsAsync(int list_code)
+        {
+            var products = await _laterListService.GetProductsAsync(list_code);
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(products);
+        }
     }
 }

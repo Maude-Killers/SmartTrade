@@ -1,15 +1,14 @@
 ﻿using Backend.Interfaces;
-using Backend.Repositories;
 using SmartTrade.Models;
 
 namespace Backend.Services
 {
-    public class WishListService : IWishListService
+    public class LaterListService : ILaterListService
     {
-        private readonly IWishListRepository _repository;
+        private readonly ILaterListRepository _repository;
         private readonly IClientRepository _personrepository;
 
-        public WishListService(IWishListRepository repository, IClientRepository personrepository)
+        public LaterListService(ILaterListRepository repository, IClientRepository personrepository)
         {
             _repository = repository;
             _personrepository = personrepository;
@@ -38,20 +37,18 @@ namespace Backend.Services
             _repository.Delete(email);
         }
 
-        public WishList? Get(string email)
+        public LaterList? Get(string email)
         {
             return _repository.Get(email);
         }
 
-        public IEnumerable<WishList> GetAll()
+        public IEnumerable<LaterList> GetAll()
         {
             return _repository.GetAll();
         }
-
         public async Task<List<ListProduct>> GetProductsAsync(int list_code)
         {
             return await _repository.GetProductsAsync(list_code);
         }
-
     }
 }

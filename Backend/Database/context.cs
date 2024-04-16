@@ -20,7 +20,10 @@ public class AppDbContext : DbContext
     public DbSet<GroceryProduct> GroceryProduct { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
     public DbSet<List> List { get; set; }
-    public DbSet<WishList> WishLists { get; set; }
+
+    public DbSet<WishList> WishList { get; set; }
+    public DbSet<LaterList> LaterList { get; set; }
+
     public DbSet<Person> Person { get; set; }
     public DbSet<Client> Client { get; set; }
     public DbSet<SalesPerson> SalesPerson { get; set; }
@@ -63,6 +66,14 @@ public class AppDbContext : DbContext
             ClientEmail = clients[index - 1].Email
         }).ToArray();
         modelBuilder.Entity<WishList>().HasData(wishLists);
+
+        var laterLists = Enumerable.Range(1, 5).Select(index => new LaterList
+        {
+            List_code = index+5,
+            Name = "LaterList",
+            ClientEmail = clients[index - 1].Email
+        }).ToArray();
+        modelBuilder.Entity<LaterList>().HasData(laterLists);
 
         var sportProducts = Enumerable.Range(1, 5).Select(index => new SportProduct
         {

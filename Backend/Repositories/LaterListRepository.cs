@@ -4,28 +4,23 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class WishListRepository : IWishListRepository
+    public class LaterListRepository : ILaterListRepository
     {
         private readonly AppDbContext _context;
 
-        public WishListRepository(AppDbContext context)
+        public LaterListRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public void AddProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-                // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
+        // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
         public void Create(string Email)
         {
             var cliente = _context.Client
             .Where(item => item.Email == Email)
             .FirstOrDefault();
 
-            _context.WishList.Add(cliente.WishList);
+            _context.LaterList.Add(cliente.LaterList);
             _context.SaveChanges();
         }
 
@@ -37,18 +32,18 @@ namespace Backend.Repositories
             .FirstOrDefault();
 
 
-            if (cliente.WishList == null) throw new InvalidOperationException();
+            if (cliente.LaterList == null) throw new InvalidOperationException();
 
-            _context.WishList.Remove(cliente.WishList);
+            _context.LaterList.Remove(cliente.LaterList);
             _context.SaveChanges();
         }
 
         public void AddProduct(Product product, Client client)
         {
-            _context.Entry(client).Reference(x => x.WishList).Load();
-            var wishList = client?.WishList;
+            _context.Entry(client).Reference(x => x.LaterList).Load();
+            var laterList = client?.LaterList;
 
-            if (wishList != null)
+            if (laterList != null)
             {
                 var existsProduct = _context.Products.Where(item => item.Product_code == product.Product_code).FirstOrDefault();
                 if (existsProduct == null)
@@ -56,46 +51,45 @@ namespace Backend.Repositories
                     _context.Products.Add(product);
                     _context.SaveChanges();
                 }
-                _context.ListProducts.Add(new ListProduct { List_code = wishList.List_code, Product_code = product.Product_code });
+                _context.ListProducts.Add(new ListProduct { List_code = laterList.List_code, Product_code = product.Product_code });
                 _context.SaveChanges();
             }
         }
 
         public void DeleteProduct(Product product, Client client)
         {
-            var wishlist = client.WishList;
+            var laterlist = client.LaterList;
             var productList = _context.ListProducts
-                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == wishlist.List_code)
+                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == laterlist.List_code)
                 .FirstOrDefault();
 
-            if (wishlist != null && productList != null)
+            if (laterlist != null && productList != null)
             {
                 _context.ListProducts.Remove(productList);
                 _context.SaveChanges();
             }
         }
 
-        public WishList? Get(string Email)
+        public LaterList? Get(string Email)
         {
             var cliente = _context.Client
             .Where(item => item.Email == Email)
             .FirstOrDefault();
-            var wishList = cliente.WishList;
-            return wishList;
+            var laterList = cliente.LaterList;
+            return laterList;
         }
 
-        public IEnumerable<WishList> GetAll()
+        public IEnumerable<LaterList> GetAll()
         {
-            return _context.WishList.ToList();
+            return _context.LaterList.ToList();
         }
 
-        public void Set(int List_code, WishList item)
+        public void Set(int List_code, LaterList item)
         {
-            var actualWishList = _context.WishList
+            var actualLaterList = _context.LaterList
                 .Where(item => item.List_code == List_code)
                 .FirstOrDefault();
         }
-
         public async Task<List<ListProduct>> GetProductsAsync(int list_code)
         {
             return await _context.ListProducts
