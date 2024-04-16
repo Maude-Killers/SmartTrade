@@ -12,13 +12,13 @@ namespace Backend.Repositories
         {
             _context = context;
         }
-
+        /*
         public void AddProduct(Product product)
         {
             throw new NotImplementedException();
         }
-
-                // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
+        */
+        // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
         public void Create(string Email)
         {
             var cliente = _context.Client

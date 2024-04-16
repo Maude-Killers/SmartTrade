@@ -12,7 +12,12 @@ namespace Backend.Repositories
         {
             _context = context;
         }
-
+        /*
+        public void AddProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+        */
         // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
         public void Create(string Email)
         {
@@ -90,12 +95,19 @@ namespace Backend.Repositories
                 .Where(item => item.List_code == List_code)
                 .FirstOrDefault();
         }
-        public async Task<List<ListProduct>> GetProductsAsync(int list_code)
+        public List<Product> GetProducts(Person person)
         {
-            return await _context.ListProducts
+            var cliente = (Client)person;
+
+            _context.Entry((Client)person).Reference(client => client.LaterList).Load();
+
+            var listCodes = _context.ListProducts
                 .Include(lp => lp.Product)
-                .Where(lp => lp.List_code == list_code)
-                .ToListAsync();
+                .Include(lp => lp.Product.Images)
+                .Where(lp => lp.List_code == cliente.LaterList.List_code)
+                .ToList();
+
+            return listCodes.Select(lc => lc.Product).ToList();
         }
     }
 }

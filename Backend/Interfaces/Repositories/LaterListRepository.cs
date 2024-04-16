@@ -4,6 +4,6 @@ namespace Backend.Interfaces
 {
     public interface ILaterListRepository : IListRepository<LaterList,string>
     {
-        Task<List<ListProduct>> GetProductsAsync(int list_code);
+        public List<Product> GetProducts(Person person);
     }
 }

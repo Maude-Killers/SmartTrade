@@ -3,28 +3,31 @@
 @inject NavigationManager nav
 
 
-<PageTitle>Lista Para más tarde</PageTitle>
+<PageTitle>Lista para más tarde</PageTitle>
 
-<CabeceraList />
-
-@foreach (var item in listProducts)
-{
-    <ItemList ProductImage="" ProductName="@item.Product.Name" Price="@item.Product.Price.ToString()" />
-}
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+	<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+		<CabeceraList />
+		@foreach (var item in listProducts)
+		{
+			<ItemList product="@item" />
+		}
+	</table>
+</div>
 
 @code {
-    private List<ListProduct> listProducts = new List<ListProduct>();
+	private List<Product> listProducts = new List<Product>();
 
+	[Parameter]
+	public int List_Code { get; set; }
 
-    [Parameter]
-    public int List_Code { get; set; }
+	protected override async void OnInitialized()
+	{
+		var request = new HttpRequestMessage(HttpMethod.Get, "laterlist");
 
-
-
-    protected override async void OnInitialized()
-    {
-
-        listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"List/{List_Code}/Lproducts") ?? new List<ListProduct>();
-
-    }
+		request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+		var result = await Http.SendAsync(request);
+		listProducts = await result.Content.ReadFromJsonAsync<List<Product>>();
+		StateHasChanged();
+	}
 }

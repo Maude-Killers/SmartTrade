@@ -8,7 +8,7 @@ namespace SmartTrade.Models
         [ForeignKey("Client")]
         public string ClientEmail { get; set; }
         public virtual Client Client { get; set; }
-        public LaterList()
+        public LaterList() : base()
         {
             Name = "LaterList";
         }

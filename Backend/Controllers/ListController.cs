@@ -17,12 +17,13 @@ namespace Backend.Controllers
         private List? _domain;
         private readonly ILogger<ListController> _logger;
         private readonly IWishListService _wishListService;
-        private readonly WishListService _laterListService;
+        private readonly ILaterListService _laterListService;
 
-        public ListController(IWishListService wishList, ILogger<ListController> logger)
+        public ListController(IWishListService wishList, ILaterListService laterlist, ILogger<ListController> logger)
         {
             _logger = logger;
             _wishListService = wishList;
+            _laterListService = laterlist;
         }
 
         [Authorize(Roles = "client")]
@@ -109,12 +110,12 @@ namespace Backend.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{list_code}/Lproducts")]
-        public async Task<ActionResult<List<ListProduct>>> GetLaterListProductsAsync(int list_code)
+        [HttpGet("/laterlist")]
+        public ActionResult<List<ListProduct>> GetLaterListProducts()
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var products = _wishListService.GetProducts(email);
+            var products = _laterListService.GetProducts(email);
             if (products == null)
             {
                 return NotFound();
