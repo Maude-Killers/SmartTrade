@@ -1,6 +1,7 @@
 using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
+using Backend.Utils;
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
@@ -9,15 +10,29 @@ DotEnv.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?? builder.Configuration.GetConnectionString("PostgresDbContext");
 
 // Add services to the container.
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
+
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<ISalesPersonRepository, SalesPersonRepository>();
+builder.Services.AddScoped<ISalesPersonService, SalesPersonService>();
+
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
+
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<Person>();
 
 builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastsRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 builder.Services.AddScoped<WeatherForecastEntity>();
+builder.Services.AddScoped<AuthHelpers>();
+
+
 builder.Services.AddScoped<ISportProductRepository, SportProductRepository>();
 builder.Services.AddScoped<ISportProductService, SportProductService>();
 builder.Services.AddScoped<SportProduct>();
@@ -29,6 +44,14 @@ builder.Services.AddScoped<GroceryProduct>();
 builder.Services.AddScoped<ITechnoProductRepository, TechnoProductRepository>();
 builder.Services.AddScoped<ITechnoProductService, TechnoProductService>();
 builder.Services.AddScoped<TechnoProduct>();
+
+builder.Services.AddScoped<IWishListRepository, WishListRepository>();
+builder.Services.AddScoped<IWishListService, WishListService>();
+builder.Services.AddScoped<WishList>();
+
+builder.Services.AddScoped<ILaterListRepository, LaterListRepository>();
+builder.Services.AddScoped<ILaterListService, LaterListService>();
+builder.Services.AddScoped<LaterList>();
 
 builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
 builder.Services.AddScoped<IGalleryService, GalleryService>();
@@ -54,6 +77,8 @@ builder.Services.AddCors(options =>
 });
 AppServices.Configure(builder.Services.BuildServiceProvider());
 
+builder.Services.ConfigureJwtAuthentication(builder.Configuration);
+
 var app = builder.Build();
 
 app.UseCors("AllowAnyOrigin");
@@ -78,8 +103,11 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Docker")
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+

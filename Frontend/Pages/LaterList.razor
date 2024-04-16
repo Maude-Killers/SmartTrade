@@ -1,0 +1,30 @@
+﻿@page "/laterlist"
+@inject HttpClient Http
+@inject NavigationManager nav
+
+
+<PageTitle>Lista Para más tarde</PageTitle>
+
+<CabeceraList />
+
+@foreach (var item in listProducts)
+{
+    <ItemList ProductImage="" ProductName="@item.Product.Name" Price="@item.Product.Price.ToString()" />
+}
+
+@code {
+    private List<ListProduct> listProducts = new List<ListProduct>();
+
+
+    [Parameter]
+    public int List_Code { get; set; }
+
+
+
+    protected override async void OnInitialized()
+    {
+
+        listProducts = await Http.GetFromJsonAsync<List<ListProduct>>($"List/{List_Code}/Lproducts") ?? new List<ListProduct>();
+
+    }
+}

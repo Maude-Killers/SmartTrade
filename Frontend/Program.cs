@@ -11,5 +11,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) 
 builder.Services.AddScoped<WeatherForecastService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<AuthService>();
 
 await builder.Build().RunAsync();

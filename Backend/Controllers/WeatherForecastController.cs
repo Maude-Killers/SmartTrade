@@ -1,4 +1,4 @@
-using Backend.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -15,13 +15,14 @@ namespace Backend.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly WeatherForecastEntity _domain;
-
+        
         public WeatherForecastController(WeatherForecastEntity domain, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
             _domain = domain;
         }
 
+        [Authorize(Roles = "client")]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {

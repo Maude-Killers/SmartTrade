@@ -78,8 +78,8 @@
     private SmartTrade.Models.Product[] originalProducts = Array.Empty<SmartTrade.Models.Product>();
     private SmartTrade.Models.Product[] products = Array.Empty<SmartTrade.Models.Product>();
     private int resultCount { get; set; } = 0;
-    private float minPrice { get; set; } = 0;
-    private float maxPrice { get; set; } = 0;
+    private decimal minPrice { get; set; } = 0;
+    private decimal maxPrice { get; set; } = 0;
     private int currentPrice { get; set; } = 0;
     private int minFingerPrint { get; set; } = 0;
     private int maxFingerPrint { get; set; } = 0;
@@ -98,12 +98,12 @@
 
             resultCount = products.Count();
 
-            minPrice = products.MinBy(product => product.Price).Price;
-            maxPrice = products.MaxBy(product => product.Price).Price;
+            minPrice = products.MinBy(product => product.Price).Price ?? new decimal(0);
+            maxPrice = products.MaxBy(product => product.Price).Price ?? new decimal(0);
             currentPrice = Convert.ToInt32((maxPrice + minPrice) / 2);
 
-            minFingerPrint = products.MinBy(product => product.Huella).Huella;
-            maxFingerPrint = products.MaxBy(product => product.Huella).Huella;
+            minFingerPrint = products.MinBy(product => product.Huella).Huella ?? 0;
+            maxFingerPrint = products.MaxBy(product => product.Huella).Huella ?? 0;
             currentFingerPrint = (maxFingerPrint + minFingerPrint) / 2;
             // recuperar primera imagen de cada producto
             // images =

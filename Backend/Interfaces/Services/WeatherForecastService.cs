@@ -2,7 +2,7 @@ using SmartTrade.Models;
 
 namespace Backend.Interfaces
 {
-    public interface IWeatherForecastService : EntityService<WeatherForecast>
+    public interface IWeatherForecastService : EntityService<WeatherForecast, int>
     {
     }
 

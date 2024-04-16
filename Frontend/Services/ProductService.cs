@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Json;
 using SmartTrade.Models;
 
@@ -26,5 +25,23 @@ public class ProductService
     {
         var result = await _httpClient.GetFromJsonAsync<Gallery[]>($"galleries/{product_code}") ?? Array.Empty<Gallery>();
         return result.Select(gallery => gallery.Image).ToArray();
+    }
+
+    public async Task SaveProductAsync(Product product)
+    {
+        if (product.Product_code == 0)
+        {
+            await _httpClient.PostAsJsonAsync("/product", product);
+        }
+        else
+        {
+            await _httpClient.PutAsJsonAsync($"product/{product.Product_code}", product);
+        }
+    }
+
+    public async Task DeleteProductAsync(int Product_code)
+    {
+        var response= await _httpClient.DeleteAsync($"product/{Product_code}");
+        //if (response.StatusCode == System.Net.HttpStatusCode.NotFound) { throw new }
     }
 }
