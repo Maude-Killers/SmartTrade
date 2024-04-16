@@ -43,5 +43,10 @@ namespace Backend.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Product> Search(string searchTerm)
+        {
+            return _context.Products.Where(product => product.Name.Contains(searchTerm)).ToList();
+        }
     }
 }

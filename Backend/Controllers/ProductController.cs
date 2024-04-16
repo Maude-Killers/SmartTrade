@@ -58,6 +58,15 @@ namespace Backend.Controllers
             return _domain.GetAll();
         }
 
+        [HttpGet("/search")]
+        public IEnumerable<Product> SearchProducts([FromQuery] string? value)
+        {
+            if(string.IsNullOrEmpty(value)) return Enumerable.Empty<Product>();
+            _factory = new GenericProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.Search(value);
+        }
+
         [HttpPost("/products", Name = "CreateProduct")]
         public void Post(Product product)
         {
