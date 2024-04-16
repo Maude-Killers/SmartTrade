@@ -1,12 +1,13 @@
 ﻿using Backend.Interfaces;
+using Backend.Services;
 
 namespace SmartTrade.Models
 {
-    public partial class GalleryEntity
+    public partial class Gallery
     {
         private readonly IGalleryService _service;
 
-        public GalleryEntity(IGalleryService service)
+        public Gallery(IGalleryService service)
         {
             _service = service;
         }
@@ -34,6 +35,12 @@ namespace SmartTrade.Models
         public void DeleteGallery(int Product_code)
         {
             _service.Delete(Product_code);
+        }
+        public Gallery[] GetAllImages(int Product_code) 
+        {
+            GalleryService galleryService = _service as GalleryService;
+            Gallery[] galleries = galleryService.GetAllImages(Product_code);
+            return galleries;
         }
     }
 }

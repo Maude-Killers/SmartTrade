@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Backend.Repositories;
 using SmartTrade.Models;
 
 namespace Backend.Services
@@ -35,6 +36,12 @@ namespace Backend.Services
         public void Set(int Product_code, Gallery item)
         {
             _repository.Set(Product_code, item);
+        }
+        public Gallery[] GetAllImages(int Product_code) 
+        {
+            GalleryRepository galleryRepository = _repository as GalleryRepository;
+            Gallery[] galleries = galleryRepository.GetAllImages(Product_code).ToArray();
+            return galleries;
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime Js
 
-<div class="page dark:bg-gray-800">
+<div class="min-h-screen page dark:bg-gray-800">
     <div>
         <NavMenu />
     </div>
 
-    <main class="p-4 sm:ml-64">
-        <article>
+    <main class="p-4">
+        <article class="overflow-auto">
             @Body
         </article>
     </main>

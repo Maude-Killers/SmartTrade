@@ -1,4 +1,5 @@
-﻿using Backend.Interfaces;
+using Backend.Domain.DesignPattern;
+using Backend.Domain.DesignPattern.FactoryMethod;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -8,35 +9,56 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
+        private ProductFactory? _factory;
+        private Product? _domain;
         private readonly ILogger<ProductController> _logger;
-        private readonly ProductEntity _domain;
 
-        public ProductController(ProductEntity domain, ILogger<ProductController> logger)
+        public ProductController(ILogger<ProductController> logger)
         {
             _logger = logger;
-            _domain = domain;
         }
 
-        [HttpGet(Name = "GetProduct")]
+        [HttpGet("/products", Name = "GetProduct")]
         public IEnumerable<Product> Get()
         {
+            _factory = new GenericProductFactory();
+            _domain = _factory.CreateProduct();
             return _domain.GetAll();
         }
 
-        [HttpGet("/product/{Product_code}", Name = "GetProductByProduct_code")]
+        [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
         public ActionResult<Product> Get(int Product_code)
         {
-            var product = _domain.GetById(Product_code);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return product;
+            _factory = new GenericProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetById(Product_code);
         }
 
-        [HttpPost(Name = "CreateProduct")]
+        [HttpGet("/products/Sport")]
+        public IEnumerable<Product> GetSportProducts()
+        {
+            _factory = new SportProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetAll();
+        }
+
+        [HttpGet("/products/Grocery")]
+        public IEnumerable<Product> GetGroceryProducts()
+        {
+            _factory = new GroceryProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetAll();
+        }
+
+        [HttpGet("/products/Technology")]
+        public IEnumerable<Product> GetTechnoProducts()
+        {
+            _factory = new TechnoProductFactory();
+            _domain = _factory.CreateProduct();
+            return _domain.GetAll();
+        }
+
+        [HttpPost("/products", Name = "CreateProduct")]
         public void Post(Product product)
         {
             _domain.CreateProduct(product);
@@ -48,7 +70,7 @@ namespace Backend.Controllers
             _domain.EditProduct(Product_code, product);
         }
 
-        [HttpDelete("/Product/{Product_code}", Name = "DeleteProduct")]
+        [HttpDelete("/products/{Product_code}", Name = "DeleteProduct")]
         public void Delete(int product_code)
         {
             _domain.DeleteProduct(product_code);

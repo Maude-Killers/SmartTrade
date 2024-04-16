@@ -2,38 +2,31 @@
 
 namespace SmartTrade.Models
 {
-    public partial class ProductEntity
+    public partial class Product
     {
-        private readonly IProductService _service;
-
-        public ProductEntity(IProductService service)
+        private readonly IProductService<Product> _service;
+        public Product(IProductService<Product> service)
         {
             _service = service;
         }
 
-        public IEnumerable<Product> GetAll()
+        public virtual IEnumerable<Product> GetAll()
         {
             return _service.GetAll();
         }
 
-        public Product? GetById(int Product_code)
+        public virtual Product? GetById(int Product_code)
         {
             return _service.Get(Product_code);
         }
 
-        public void CreateProduct(Product product)
-        {
-            _service.Create(product);
-        }
+        public virtual void CreateProduct(Product product)
+        { }
 
-        public void EditProduct(int Product_code, Product product)
-        {
-            _service.Set(Product_code, product);
-        }
+        public virtual void EditProduct(int Product_code, Product product)
+        { }
 
-        public void DeleteProduct(int Product_code)
-        {
-            _service.Delete(Product_code);
-        }
+        public virtual void DeleteProduct(int Product_code)
+        { }
     }
 }

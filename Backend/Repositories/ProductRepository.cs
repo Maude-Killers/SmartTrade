@@ -1,63 +1,47 @@
-﻿using Backend.Interfaces;
+using Backend.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository<Product>
     {
         private readonly AppDbContext _context;
 
         public ProductRepository(AppDbContext context)
         {
-            _context = context;
+             _context = context;
         }
 
-        public void Create(Product product)
+        public void Create(Product item)
         {
-            _context.Product.Add(product);
-            _context.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Delete(int Product_code)
+        public void Delete(int id)
         {
-            var targetProduct = _context.Product
-                .Where(product => product.Product_code == Product_code)
-                .FirstOrDefault();
-
-            if (targetProduct == null) throw new InvalidOperationException();
-
-            _context.Product.Remove(targetProduct);
-            _context.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public Product? Get(int Product_code)
+        public Product? Get(int id)
         {
-            var product = _context.Product
-                .Where(product => product.Product_code == Product_code)
-                .FirstOrDefault();
-
-            return product;
+            var yoda =  _context.Products.Include(p => p.Images).FirstOrDefault(product => product.Product_code == id);
+            return yoda;
         }
 
         public IEnumerable<Product> GetAll()
         {
-            return _context.Product.ToList();
+            var asoka = _context.Products.ToList();
+            foreach (var image in asoka) 
+            {
+                _context.Products.Include(p => p.Images).ToList();
+            }
+            return asoka;
         }
 
-        public void Set(int Product_code, Product product)
+        public void Set(int id, Product item)
         {
-            var actualProduct = _context.Product
-                .Where(product => product.Product_code == Product_code)
-                .FirstOrDefault();
-
-            if (actualProduct == null) throw new InvalidOperationException();
-
-            actualProduct.Name = product.Name;
-            actualProduct.Price = product.Price;
-            actualProduct.Description = product.Description;
-            actualProduct.Features = product.Features;
-            actualProduct.Huella = product.Huella;
-            _context.SaveChanges();
+            throw new NotImplementedException();
         }
     }
 }
