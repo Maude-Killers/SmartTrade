@@ -12,7 +12,7 @@
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Inicio de Sesión
                 </h1>
-                <form class="space-y-4 md:space-y-6" @onsubmit:preventDefault>
+                <form class="space-y-4 md:space-y-6" @onsubmit="HandleSubmit">
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="email" name="email" id="email"
@@ -39,7 +39,7 @@
                             class="text-sm font-light text-gray-500 hover:underline dark:text-gray-400">¿Te has olvidado de tu contraseña?
                             </a>
                     </div>
-                    <button @onclick="Login"
+                    <button type="submit"
                         class="w-full text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Iniciar
                         Sesión
                     </button>
@@ -58,7 +58,7 @@
     private string? emailInput { get; set; }
     private string? passwordInput { get; set; }
     private string? errorMessage { get; set; } 
-    private async void Login()
+    private async void HandleSubmit()
     {
         await service.Login(emailInput, passwordInput);
     }

@@ -19,7 +19,6 @@ public class AuthService
             Password = passwordInput
         };
         var response = await _httpClient.PostAsJsonAsync("login", loginRequest);
-
     }
 
     public async Task DeleteForecastAsync(int id)
