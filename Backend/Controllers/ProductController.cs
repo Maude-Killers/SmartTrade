@@ -1,4 +1,4 @@
-﻿using Backend.Domain.DesignPattern;
+using Backend.Domain.DesignPattern;
 using Backend.Domain.DesignPattern.FactoryMethod;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
@@ -70,19 +70,19 @@ namespace Backend.Controllers
         [HttpPost("/products", Name = "CreateProduct")]
         public void Post(Product product)
         {
-            return;
+            _domain.CreateProduct(product);
         }
 
-        [HttpPut("/products/{Product_code}", Name = "EditProduct")]
+        [HttpPut("/product/{Product_code}", Name = "EditProduct")]
         public void Put(int Product_code, Product product)
         {
-            return;
+            _domain.EditProduct(Product_code, product);
         }
 
         [HttpDelete("/products/{Product_code}", Name = "DeleteProduct")]
         public void Delete(int product_code)
         {
-            return;
+            _domain.DeleteProduct(product_code);
         }
     }
 }

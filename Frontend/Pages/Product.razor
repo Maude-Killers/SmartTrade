@@ -6,21 +6,18 @@
         <div id="carousel" class="relative w-full" data-carousel="static">
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                @foreach (var img in images)
+                @foreach (var img in product.Images)
                 {
-                    <ImageCarrousel ImgURL="@img" />
+                    <ImageCarrousel ImgURL="@img.Image" />
                 }
             </div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-                    data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
-                    data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
-                    data-carousel-slide-to="2"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4"
-                    data-carousel-slide-to="3"></button>
+                @for (int i = 0; i <product.Images.Count() ;i++)
+                {
+                    <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label=$"Slide {i}"
+                            data-carousel-slide-to=$"{i}"></button>
+                }
             </div>
             <!-- Slider controls -->
             <button type="button"
@@ -63,15 +60,11 @@
     public string product_code { get; set; }
     private SmartTrade.Models.Product product = new SmartTrade.Models.Product();
 
-    private string[] images = {
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbeSNjjkXNJLBfkX-Gzp3jWcAXJDyq2g5hpkDenwr4fEJxhWpgn_mljvQDKV1c-OMGCLw&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSobyGWbM6CDCkCJiSuhAmPwTvuYMFgqPgHrMNckM05BA&s",
-        "https://pbs.twimg.com/media/EvTu0czXMAEwN7B.jpg",
-        "https://preview.redd.it/illojuan-chino-v0-apmof54j5f0a1.jpg?auto=webp&s=c63ea61ed40b94dde6e3b212c738453b4fe793fd"
-    };
+    private string[] images = Array.Empty<string>();
 
     protected override async Task OnInitializedAsync()
     {
         product = await service.GetProductAsync(int.Parse(product_code));
+        StateHasChanged();
     }
 }

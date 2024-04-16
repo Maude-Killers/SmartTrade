@@ -85,8 +85,8 @@ namespace Backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.Property<string>("Summary")
                         .HasColumnType("text");
@@ -306,6 +306,20 @@ namespace Backend.Migrations
                             Name = "product15",
                             Price = 25f
                         });
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
+                {
+                    b.HasOne("SmartTrade.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("Product_code");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.Product", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

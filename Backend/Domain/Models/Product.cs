@@ -22,6 +22,8 @@ namespace SmartTrade.Models
         
         public string Category { get; set; }
 
+        public ICollection<Gallery> Images { get; set; }
+
         public Product()
         {
         }

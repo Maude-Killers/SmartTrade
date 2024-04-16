@@ -1,3 +1,4 @@
+using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -27,7 +28,7 @@ namespace Backend.Controllers
             return _domain.GetAll();
         }
 
-        [HttpGet("/weatherforecasts/{id}", Name = "GetWeatherForecastById")]
+        [HttpGet("/weatherforecast/{id}", Name = "GetWeatherForecastById")]
         public ActionResult<WeatherForecast> Get(int id)
         {
             var forecast = _domain.GetById(id);
@@ -46,13 +47,13 @@ namespace Backend.Controllers
             _domain.CreateForecast(forecast);
         }
 
-        [HttpPut("/weatherforecasts/{id}", Name = "EditWeatherForecast")]
+        [HttpPut("/weatherforecast/{id}", Name = "EditWeatherForecast")]
         public void Put(int id, WeatherForecast forecast)
         {
             _domain.EditForecast(id, forecast);
         }
 
-        [HttpDelete("/weatherforecasts/{id}", Name = "DeleteWeatherForecast")]
+        [HttpDelete("/weatherforecast/{id}", Name = "DeleteWeatherForecast")]
         public void Delete(int id)
         {
             _domain.DeleteForecast(id);

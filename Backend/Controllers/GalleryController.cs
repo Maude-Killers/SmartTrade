@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Backend.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
 namespace Backend.Controllers
@@ -8,9 +9,9 @@ namespace Backend.Controllers
     public class GalleryController : ControllerBase
     {
         private readonly ILogger<GalleryController> _logger;
-        private readonly GalleryEntity _domain;
+        private readonly Gallery _domain;
 
-        public GalleryController(GalleryEntity domain, ILogger<GalleryController> logger)
+        public GalleryController(Gallery domain, ILogger<GalleryController> logger)
         {
             _logger = logger;
             _domain = domain;
@@ -21,18 +22,11 @@ namespace Backend.Controllers
         {
             return _domain.GetAll();
         }
-
-        [HttpGet("/galleries/{Product_code}", Name = "GetGalleryByProduct_code")]
-        public ActionResult<Gallery> Get(int Product_code)
+        [HttpGet("/galleries/{Product_code}", Name = "GetAllGalleryByProduct_code")]
+        public Gallery[] GetAllImages(int Product_code)
         {
-            var item = _domain.GetByProduct_code(Product_code);
-
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return item;
+            Gallery[] images = _domain.GetAllImages(Product_code);
+            return images;
         }
 
         [HttpPost(Name = "CreateGallery")]
@@ -41,13 +35,13 @@ namespace Backend.Controllers
             _domain.CreateGallery(item);
         }
 
-        [HttpPut("/galleries/{Product_code}", Name = "EditGallery")]
+        [HttpPut("/gallery/{Product_code}", Name = "EditGallery")]
         public void Put(int Product_code, Gallery item)
         {
             _domain.EditGallery(Product_code, item);
         }
 
-        [HttpDelete("/galleries/{Product_code}", Name = "DeleteGallery")]
+        [HttpDelete("/gallery/{Product_code}", Name = "DeleteGallery")]
         public void Delete(int product_code)
         {
             _domain.DeleteGallery(product_code);
