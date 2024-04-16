@@ -93,7 +93,7 @@ namespace Backend.Controllers
             return BadRequest("No contiene un Email válido");
         }
 
-        [HttpGet("{listId}/Wproducts")]
+        [HttpGet("{list_cpde}/Wproducts")]
         public async Task<ActionResult<List<ListProduct>>> GetWishListProductsAsync(int list_code)
         {
             var products = await _wishListService.GetProductsAsync(list_code);
@@ -105,7 +105,7 @@ namespace Backend.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{listId}/Lproducts")]
+        [HttpGet("{list_code}/Lproducts")]
         public async Task<ActionResult<List<ListProduct>>> GetLaterListProductsAsync(int list_code)
         {
             var products = await _laterListService.GetProductsAsync(list_code);
