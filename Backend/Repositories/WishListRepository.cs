@@ -96,12 +96,19 @@ namespace Backend.Repositories
                 .FirstOrDefault();
         }
 
-        public async Task<List<ListProduct>> GetProductsAsync(int list_code)
+        public List<Product> GetProducts(Person person)
         {
-            return await _context.ListProducts
+            var cliente = (Client) person;
+
+            _context.Entry((Client)person).Reference(client => client.WishList).Load();
+
+            var listCodes = _context.ListProducts
                 .Include(lp => lp.Product)
-                .Where(lp => lp.List_code == list_code)
-                .ToListAsync();
+                .Include(lp => lp.Product.Images)
+                .Where(lp => lp.List_code == cliente.WishList.List_code)
+                .ToList();
+            
+            return listCodes.Select(lc => lc.Product).ToList();
         }
     }
 }

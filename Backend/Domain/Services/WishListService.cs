@@ -47,9 +47,11 @@ namespace Backend.Services
             return _repository.GetAll();
         }
 
-        public async Task<List<ListProduct>> GetProductsAsync(int list_code)
+        public List<Product> GetProducts(string email)
         {
-            return await _repository.GetProductsAsync(list_code);
+            Person person = _personrepository.Get(email);
+
+            return _repository.GetProducts(person);
         }
 
     }

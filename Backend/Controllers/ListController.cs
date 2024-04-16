@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.DesignPattern;
 using Backend.Domain.DesignPattern.FactoryMethod;
+using Backend.Interfaces;
 using Backend.Services;
 using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
@@ -15,12 +16,13 @@ namespace Backend.Controllers
         private ListFactory? _factory;
         private List? _domain;
         private readonly ILogger<ListController> _logger;
-        private readonly WishListService _wishListService;
+        private readonly IWishListService _wishListService;
         private readonly WishListService _laterListService;
 
-        public ListController(ILogger<ListController> logger)
+        public ListController(IWishListService wishList, ILogger<ListController> logger)
         {
             _logger = logger;
+            _wishListService = wishList;
         }
 
         [Authorize(Roles = "client")]
@@ -93,10 +95,12 @@ namespace Backend.Controllers
             return BadRequest("No contiene un Email válido");
         }
 
-        [HttpGet("{list_cpde}/Wproducts")]
-        public async Task<ActionResult<List<ListProduct>>> GetWishListProductsAsync(int list_code)
+        [HttpGet("/wishlist")]
+        public ActionResult<List<ListProduct>> GetWishListProducts()
         {
-            var products = await _wishListService.GetProductsAsync(list_code);
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var products = _wishListService.GetProducts(email);
             if (products == null)
             {
                 return NotFound();
@@ -108,7 +112,9 @@ namespace Backend.Controllers
         [HttpGet("{list_code}/Lproducts")]
         public async Task<ActionResult<List<ListProduct>>> GetLaterListProductsAsync(int list_code)
         {
-            var products = await _laterListService.GetProductsAsync(list_code);
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var products = _wishListService.GetProducts(email);
             if (products == null)
             {
                 return NotFound();
