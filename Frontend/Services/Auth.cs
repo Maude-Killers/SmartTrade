@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using SmartTrade.Models;
 
 public class AuthService
@@ -18,7 +19,14 @@ public class AuthService
             Email = emailInput,
             Password = passwordInput
         };
-        var response = await _httpClient.PostAsJsonAsync("login", loginRequest);
+
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5173/login")
+        { 
+            Content = JsonContent.Create(loginRequest)
+        };
+        
+        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+        var result = await _httpClient.SendAsync(request);
     }
 
     public async Task DeleteForecastAsync(int id)

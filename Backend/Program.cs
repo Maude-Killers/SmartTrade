@@ -68,20 +68,25 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAnyOrigin", policy =>
-    {
-        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    });
-});
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AllowAnyOrigin", policy =>
+//     {
+//         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+//     });
+// });
 AppServices.Configure(builder.Services.BuildServiceProvider());
 
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseCors("AllowAnyOrigin");
+app.UseCors(x => x
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials()
+);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Docker")
