@@ -1,6 +1,7 @@
 ﻿using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
+using System;
 
 namespace Backend.Repositories
 {
@@ -84,9 +85,19 @@ namespace Backend.Repositories
             return wishList;
         }
 
-        public IEnumerable<WishList> GetAll()
+        public IEnumerable<Product> GetAll(Client client)
         {
-            return _context.WishList.ToList();
+        
+
+            _context.Entry(client).Reference(client => client.WishList).Load();
+
+            var listCodes = _context.ListProducts
+                .Include(lp => lp.Product)
+                .Include(lp => lp.Product.Images)
+                .Where(lp => lp.List_code == client.WishList.List_code)
+                .ToList();
+
+            return listCodes.Select(lc => lc.Product).ToList();
         }
 
         public void Set(int List_code, WishList item)

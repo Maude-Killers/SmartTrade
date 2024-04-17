@@ -11,9 +11,9 @@ namespace SmartTrade.Models
             _service = service;
         }
 
-        public override IEnumerable<LaterList> GetAll()
+        public override IEnumerable<Product> GetAll(string email)
         {
-            return _service.GetAll();
+            return _service.GetAll(email);
         }
 
         public override LaterList? GetByEmail(string Email)

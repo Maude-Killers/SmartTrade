@@ -84,11 +84,6 @@ namespace Backend.Repositories
             return laterList;
         }
 
-        public IEnumerable<LaterList> GetAll()
-        {
-            return _context.LaterList.ToList();
-        }
-
         public void Set(int List_code, LaterList item)
         {
             var actualLaterList = _context.LaterList
@@ -108,6 +103,11 @@ namespace Backend.Repositories
                 .ToList();
 
             return listCodes.Select(lc => lc.Product).ToList();
+        }
+
+        IEnumerable<Product> IListRepository<LaterList, string>.GetAll(Client client)
+        {
+            throw new NotImplementedException();
         }
     }
 }

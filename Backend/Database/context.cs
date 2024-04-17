@@ -117,6 +117,13 @@ public class AppDbContext : DbContext
         });
         modelBuilder.Entity<ListProduct>().HasData(listProducts);
 
+        var laterProducts = Enumerable.Range(1, 5).Select(index => new ListProduct
+        {
+            Product_code = index + 5,
+            List_code = index + 5
+        });
+        modelBuilder.Entity<ListProduct>().HasData(laterProducts);
+
         Gallery[] images = {
             new Gallery {
                 Image ="https://i.imgur.com/WtfQOF3.png",

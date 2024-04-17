@@ -16,18 +16,14 @@ namespace Backend.Controllers
         private ListFactory? _factory;
         private List? _domain;
         private readonly ILogger<ListController> _logger;
-        private readonly IWishListService _wishListService;
-        private readonly ILaterListService _laterListService;
 
-        public ListController(IWishListService wishList, ILaterListService laterlist, ILogger<ListController> logger)
+        public ListController(ILogger<ListController> logger)
         {
             _logger = logger;
-            _wishListService = wishList;
-            _laterListService = laterlist;
         }
 
         [Authorize(Roles = "client")]
-        [HttpGet("/List", Name = "GetList")]
+        [HttpGet("/list", Name = "GetList")]
 
         //Id de persona desde jwt, recuperar wishlist de persona
         public ActionResult<List> Get()
@@ -47,8 +43,9 @@ namespace Backend.Controllers
 
 
         //Recuperar correo de persona desde jwt y modificar addproduct
-        [HttpPost("/productsList", Name = "addProduct")]
-        public IActionResult AddProduct(Product product)
+        [Authorize(Roles = "client")]
+        [HttpPost("/wishlist")]
+        public IActionResult AddProductWishlist(Product product)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
@@ -63,21 +60,23 @@ namespace Backend.Controllers
             return BadRequest("No contiene un Email válido");
         }
 
-
-        //Recuperar correo de persona desde jwt y modificar createwishlist/ Validar si hay una lista ligada al usuario
-        [HttpPost(Name = "CreateList")]
-        public IActionResult CreateList()
+        [Authorize(Roles = "client")]
+        [HttpPost("/laterlist")]
+        public IActionResult AddProductLaterlist(Product product)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            if (string.IsNullOrEmpty(email))
-            {
-                return BadRequest("El token JWT no contiene un correo electrónico válido.");
-            }
+            _factory = new LaterListFactory();
+            _domain = _factory.CreateList();
 
-            _domain.CreateList(email);
-            return Ok();
+            if (!string.IsNullOrEmpty(email))
+            {
+                _domain.AddProduct(product, email);
+                return Ok();
+            }
+            return BadRequest("No contiene un Email válido");
         }
+
 
 
         [HttpDelete("/lists/{List_code}", Name = "DeleteList")]
@@ -101,7 +100,9 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var products = _wishListService.GetProducts(email);
+            _factory = new WishListFactory();
+            _domain = _factory.CreateList();
+            var products = _domain.GetAll(email);
             if (products == null)
             {
                 return NotFound();
@@ -115,7 +116,7 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var products = _laterListService.GetProducts(email);
+            var products = _domain.GetAll(email);
             if (products == null)
             {
                 return NotFound();

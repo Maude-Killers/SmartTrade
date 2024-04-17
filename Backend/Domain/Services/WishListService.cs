@@ -42,14 +42,16 @@ namespace Backend.Services
             return _repository.Get(email);
         }
 
-        public IEnumerable<WishList> GetAll()
+        public IEnumerable<Product> GetAll(string email)
         {
-            return _repository.GetAll();
+            Client person = _personrepository.Get(email);
+
+            return _repository.GetAll(person);
         }
 
         public List<Product> GetProducts(string email)
         {
-            Person person = _personrepository.Get(email);
+            Client person = _personrepository.Get(email);
 
             return _repository.GetProducts(person);
         }

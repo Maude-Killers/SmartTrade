@@ -11,9 +11,9 @@ namespace SmartTrade.Models
             _service = service;
         }
 
-        public override IEnumerable<WishList> GetAll()
+        public override IEnumerable<Product> GetAll(string email)
         {
-            return _service.GetAll();
+            return _service.GetAll(email);
         }
 
         public override WishList? GetByEmail(string Email)
