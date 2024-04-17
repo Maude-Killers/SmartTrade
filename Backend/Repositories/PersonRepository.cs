@@ -40,13 +40,13 @@ namespace Backend.Repositories
             return person;
         }
 
-        public Person GetByCredentials(string email, string password)
+        public Person Get(string email, string password)
         {
             var person = _context.Person
                 .Where(person => person.Email == email && person.Password == password)
                 .FirstOrDefault();
 
-            return person;
+            return person ?? throw new ResourceNotFound("Doesn't exists a person with this credentials", new { email, password });
         }
 
         public IEnumerable<Person> GetAll()

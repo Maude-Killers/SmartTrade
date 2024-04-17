@@ -30,13 +30,12 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public Client? Get(string Email)
+        public Client Get(string email)
         {
             var client = _context.Client
-                .Where(client => client.Email == Email)
+                .Where(client => client.Email == email)
                 .FirstOrDefault();
-
-            return client;
+            return client ?? throw new ResourceNotFound("Client email don't exists", email);
         }
 
         public Client? GetByCredentials(string Email, string Password)

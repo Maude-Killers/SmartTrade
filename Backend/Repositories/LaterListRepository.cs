@@ -12,36 +12,6 @@ namespace Backend.Repositories
         {
             _context = context;
         }
-        /*
-        public void AddProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
-        */
-        // Este metodo no deberia ser necesario porque todos los clientes tienen una wishList por defecto
-        public void Create(string Email)
-        {
-            var cliente = _context.Client
-            .Where(item => item.Email == Email)
-            .FirstOrDefault();
-
-            _context.LaterList.Add(cliente.LaterList);
-            _context.SaveChanges();
-        }
-
-        // Este metodo realmente hace falta? podemos borrarle la lista de deseos a un usuario?
-        public void Delete(string Email)
-        {
-            var cliente = _context.Client
-            .Where(item => item.Email == Email)
-            .FirstOrDefault();
-
-
-            if (cliente.LaterList == null) throw new InvalidOperationException();
-
-            _context.LaterList.Remove(cliente.LaterList);
-            _context.SaveChanges();
-        }
 
         public void AddProduct(Product product, Client client)
         {
@@ -75,39 +45,17 @@ namespace Backend.Repositories
             }
         }
 
-        public LaterList? Get(string Email)
+        public List<Product> GetProducts(Client client)
         {
-            var cliente = _context.Client
-            .Where(item => item.Email == Email)
-            .FirstOrDefault();
-            var laterList = cliente.LaterList;
-            return laterList;
-        }
-
-        public void Set(int List_code, LaterList item)
-        {
-            var actualLaterList = _context.LaterList
-                .Where(item => item.List_code == List_code)
-                .FirstOrDefault();
-        }
-        public List<Product> GetProducts(Person person)
-        {
-            var cliente = (Client)person;
-
-            _context.Entry((Client)person).Reference(client => client.LaterList).Load();
+            _context.Entry(client).Reference(client => client.LaterList).Load();
 
             var listCodes = _context.ListProducts
                 .Include(lp => lp.Product)
                 .Include(lp => lp.Product.Images)
-                .Where(lp => lp.List_code == cliente.LaterList.List_code)
+                .Where(lp => lp.List_code == client.LaterList.List_code)
                 .ToList();
 
             return listCodes.Select(lc => lc.Product).ToList();
-        }
-
-        IEnumerable<Product> IListRepository<LaterList, string>.GetAll(Client client)
-        {
-            throw new NotImplementedException();
         }
     }
 }

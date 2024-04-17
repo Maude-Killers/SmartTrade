@@ -9,73 +9,10 @@ namespace Backend.Controllers
     {
 
         private readonly ILogger<ClientController> _logger;
-        private readonly Client _domain;
-        private readonly HttpClient _httpClient;
 
-        public ClientController(Client domain, ILogger<ClientController> logger, HttpClient httpClient)
+        public ClientController(ILogger<ClientController> logger)
         {
             _logger = logger;
-            _domain = domain;
-            _httpClient = httpClient;
-        }
-
-        // [HttpPost("login")]
-        // public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
-        // {
-        //     // Delegate authentication to AuthController
-        //     // Call AuthController's login action and handle the response
-        //     var response = await _httpClient.PostAsJsonAsync("/api/auth/login", loginRequest);
-
-        //     if (response.IsSuccessStatusCode)
-        //     {
-        //         // Handle successful login
-        //         var loginResult = await response.Content.ReadAsAsync<LoginResult>();
-        //         return Ok(loginResult);
-        //     }
-        //     else
-        //     {
-        //         // Handle failed login
-        //         return BadRequest("Invalid email or password");
-        //     }
-        // }
-
-        
-
-        [HttpGet(Name = "GetClient")]
-        public IEnumerable<Client> Get()
-        {
-            return _domain.GetAll();
-        }
-
-        [HttpGet("/client/{Email}", Name = "GetClientByEmail")]
-        public ActionResult<Client> Get(string Email)
-        {
-            var client = _domain.GetById(Email);
-
-            if (client == null)
-            {
-                return NotFound();
-            }
-
-            return client;
-        }
-
-        [HttpPost(Name = "CreateClient")]
-        public void Post(Client client)
-        {
-            _domain.CreateClient(client);
-        }
-
-        [HttpPut("/client/{Email}", Name = "EditClient")]
-        public void Put(string Email, Client client)
-        {
-            _domain.EditClient(Email, client);
-        }
-
-        [HttpDelete("/client/{Email}", Name = "DeleteClient")]
-        public void Delete(string Email)
-        {
-            _domain.DeleteClient(Email);
         }
     }
 }

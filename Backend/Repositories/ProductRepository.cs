@@ -10,7 +10,7 @@ namespace Backend.Repositories
 
         public ProductRepository(AppDbContext context)
         {
-             _context = context;
+            _context = context;
         }
 
         public void Create(Product item)
@@ -23,16 +23,16 @@ namespace Backend.Repositories
             throw new NotImplementedException();
         }
 
-        public Product? Get(int id)
+        public Product Get(int id)
         {
-            var yoda =  _context.Products.Include(p => p.Images).FirstOrDefault(product => product.Product_code == id);
-            return yoda;
+            var yoda = _context.Products.Include(p => p.Images).FirstOrDefault(product => product.Product_code == id);
+            return yoda ?? throw new ResourceNotFound("product not fount", id);
         }
 
         public IEnumerable<Product> GetAll()
         {
             var asoka = _context.Products.ToList();
-            foreach (var image in asoka) 
+            foreach (var image in asoka)
             {
                 _context.Products.Include(p => p.Images).ToList();
             }

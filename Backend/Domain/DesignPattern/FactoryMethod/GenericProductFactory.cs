@@ -1,5 +1,3 @@
-using Backend.Repositories;
-using Backend.Services;
 using SmartTrade.Models;
 
 namespace Backend.Domain.DesignPattern.FactoryMethod
@@ -8,8 +6,7 @@ namespace Backend.Domain.DesignPattern.FactoryMethod
     {
         public override Product CreateProduct()
         {
-            var dbContext = AppServices.CreateDbContext();
-            return new Product(new ProductService<Product>(new ProductRepository(dbContext)));
+            return new Product();
         }
     }
 }

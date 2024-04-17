@@ -1,3 +1,4 @@
+using Backend.Interfaces;
 using Backend.Utils;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
@@ -9,36 +10,29 @@ namespace Backend.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthHelpers _authService;
-        private readonly Person _domain;
+        private readonly IPersonRepository _personRepository;
 
-        public AuthController(AuthHelpers authService, Person domain)
+        public AuthController(AuthHelpers authService, IPersonRepository personRepository)
         {
             _authService = authService;
-            _domain = domain;
+            _personRepository = personRepository;
         }
 
         [HttpPost("/login")]
         public void Login([FromBody] Person loginRequest)
         {
-            // Perform authentication
-            var result = _domain.ValidateEmail(loginRequest.Email, loginRequest.Password);
-            if (result != null)
+            var result = _personRepository.Get(loginRequest.Email, loginRequest.Password);
+            string token;
+            if (result is Client) { token = _authService.GenerateJWTToken(result, "client"); }
+            else { token = _authService.GenerateJWTToken(result, "salesPerson"); }
+
+            var cookieOptions = new CookieOptions
             {
-                string token;
-                //Llamar helper para generar token
-                if (result is Client) { token = _authService.GenerateJWTToken(result, "client"); }
-                else { token = _authService.GenerateJWTToken(result, "salesPerson"); }
+                HttpOnly = true,
+                Expires = DateTime.Now.AddDays(1),
+            };
 
-                var cookieOptions = new CookieOptions
-                {
-                    HttpOnly = true,
-                    Expires = DateTime.Now.AddDays(1),
-                };
-
-                // Enviar la cookie
-                Response.Cookies.Append("JWTToken", token, cookieOptions);
-            }
-            else { }
+            Response.Cookies.Append("JWTToken", token, cookieOptions);
         }
     }
 }
