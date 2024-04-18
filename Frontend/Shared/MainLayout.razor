@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime Js
+
+<div class="min-h-screen page dark:bg-gray-800">
+    <div>
+        <NavMenu />
+    </div>
+
+    <main class="p-4">
+        <article class="overflow-auto">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool isFirstRender)
+    {
+        await Js.InvokeVoidAsync("window.initializeFlowbite");
+    }
+}

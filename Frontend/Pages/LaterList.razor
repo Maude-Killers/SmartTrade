@@ -1,0 +1,33 @@
+﻿@page "/laterlist"
+@inject HttpClient Http
+@inject NavigationManager nav
+
+
+<PageTitle>Lista para más tarde</PageTitle>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+	<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+		<CabeceraList />
+		@foreach (var item in listProducts)
+		{
+			<ItemList product="@item" />
+		}
+	</table>
+</div>
+
+@code {
+	private List<Product> listProducts = new List<Product>();
+
+	[Parameter]
+	public int List_Code { get; set; }
+
+	protected override async void OnInitialized()
+	{
+		var request = new HttpRequestMessage(HttpMethod.Get, "laterlist");
+
+		request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+		var result = await Http.SendAsync(request);
+		listProducts = await result.Content.ReadFromJsonAsync<List<Product>>() ?? new List<Product>();
+		StateHasChanged();
+	}
+}
