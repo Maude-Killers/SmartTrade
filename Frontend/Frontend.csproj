@@ -14,5 +14,9 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataTransferObject\DataTransferObject.csproj" />
+  </ItemGroup>
+
 
 </Project>

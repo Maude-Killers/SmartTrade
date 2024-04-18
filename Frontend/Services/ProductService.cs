@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using DataTransferObject;
 using SmartTrade.Models;
 
 public class ProductService
@@ -16,32 +17,19 @@ public class ProductService
     }
 
 
-    public async Task <Product[]> SearchProduct(string searchValue)
+    public async Task<Product[]> SearchProduct(string searchValue)
     {
-        return await _httpClient.GetFromJsonAsync<Product[]>($"search?value={searchValue}") ?? Array.Empty<Product>();  
-    }
-  
-    public async Task<String[]> GetProductImagesAsync(int product_code) 
-    {
-        var result = await _httpClient.GetFromJsonAsync<Gallery[]>($"galleries/{product_code}") ?? Array.Empty<Gallery>();
-        return result.Select(gallery => gallery.Image).ToArray();
+        return await _httpClient.GetFromJsonAsync<Product[]>($"search?value={searchValue}") ?? Array.Empty<Product>();
     }
 
-    public async Task SaveProductAsync(Product product)
+    public async Task SaveProductAsync(ProductDTO product)
     {
-        if (product.Product_code == 0)
-        {
-            await _httpClient.PostAsJsonAsync("/product", product);
-        }
-        else
-        {
-            await _httpClient.PutAsJsonAsync($"product/{product.Product_code}", product);
-        }
+        await _httpClient.PostAsJsonAsync("/products", product);
     }
 
     public async Task DeleteProductAsync(int Product_code)
     {
-        var response= await _httpClient.DeleteAsync($"product/{Product_code}");
+        var response = await _httpClient.DeleteAsync($"product/{Product_code}");
         //if (response.StatusCode == System.Net.HttpStatusCode.NotFound) { throw new }
     }
 }

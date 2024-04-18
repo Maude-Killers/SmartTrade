@@ -7,7 +7,7 @@ public static class AppServices
         Instance = serviceProvider;
     }
 
-    public static AppDbContext CreateDbContext()
+    public static AppDbContext GetDbContext()
     {
         return Instance.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
     }

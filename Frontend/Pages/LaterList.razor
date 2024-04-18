@@ -27,7 +27,7 @@
 
 		request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
 		var result = await Http.SendAsync(request);
-		listProducts = await result.Content.ReadFromJsonAsync<List<Product>>();
+		listProducts = await result.Content.ReadFromJsonAsync<List<Product>>() ?? new List<Product>();
 		StateHasChanged();
 	}
 }

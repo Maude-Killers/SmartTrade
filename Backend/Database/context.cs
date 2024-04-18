@@ -13,7 +13,6 @@ public class AppDbContext : DbContext
         optionsBuilder.EnableDetailedErrors();
     }
 
-    public DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<TechnoProduct> TechnoProduct { get; set; }
     public DbSet<SportProduct> SportProduct { get; set; }
@@ -36,16 +35,6 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-        modelBuilder.Entity<WeatherForecast>().HasData(
-            Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Id = index,
-                Date = DateTime.UtcNow.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-            })
-            .ToArray()
-        );
         modelBuilder.Entity<ListProduct>()
             .HasKey(ce => new { ce.Product_code, ce.List_code });
 
@@ -189,17 +178,17 @@ public class AppDbContext : DbContext
             new Gallery
             {
                 Image="https://www.timeshighereducation.com/student/sites/default/files/styles/default/public/different_sports.jpg",
-                Category_name=SmartTrade.Models.Gallery.Category.Sport
+                Category=Category.Sport
             },
             new Gallery
             {
                 Image="https://hips.hearstapps.com/hmg-prod/images/online-buying-and-delivery-concept-royalty-free-image-1675370119.jpg",
-                Category_name=SmartTrade.Models.Gallery.Category.Grocery
+                Category=Category.Grocery
             },
             new Gallery
             {
                 Image="https://miro.medium.com/v2/resize:fit:720/format:webp/1*f9N5gbBNXLGqD7NgjzVg5g.jpeg",
-                Category_name=SmartTrade.Models.Gallery.Category.Techno
+                Category=Category.Techno
             }
         };
         modelBuilder.Entity<Gallery>().HasData(images);

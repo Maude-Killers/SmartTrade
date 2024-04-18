@@ -34,14 +34,14 @@
         }
     }
 
-    private async Task HandleValidSubmit()
+    private void HandleValidSubmit()
     {
-        await service.SaveProductAsync(product);
         nav.NavigateTo("/wishlist");
     }
 
     private async Task HandleDelete()
     {
+        if (product_code == null) return;
         await service.DeleteProductAsync(int.Parse(product_code));
         nav.NavigateTo("/wishlist");
     }

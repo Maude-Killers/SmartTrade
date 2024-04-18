@@ -1,7 +1,5 @@
-﻿using Backend.Domain.DesignPattern;
-using Backend.Domain.DesignPattern.FactoryMethod;
-using Backend.Interfaces;
-using Backend.Services;
+﻿using Backend.Interfaces;
+using Backend.Repositories;
 using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,116 +11,79 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ListController : ControllerBase
     {
-        private ListFactory? _factory;
-        private List? _domain;
         private readonly ILogger<ListController> _logger;
+        private readonly IWishListRepository _wishListRepository;
+        private readonly ILaterListRepository _laterListRepository;
+        private readonly IClientRepository _clientRepository;
 
-        public ListController(ILogger<ListController> logger)
+        public ListController(IWishListRepository wishListRepository, ILaterListRepository laterListRepository, IClientRepository clientRepository, ILogger<ListController> logger)
         {
             _logger = logger;
+            _wishListRepository = wishListRepository;
+            _laterListRepository = laterListRepository;
+            _clientRepository = clientRepository;
         }
 
-        [Authorize(Roles = "client")]
-        [HttpGet("/list", Name = "GetList")]
-
-        //Id de persona desde jwt, recuperar wishlist de persona
-        public ActionResult<List> Get()
-        {
-            var token = HttpContext.Request.Cookies["JWTToken"];
-            var email = AuthHelpers.GetEmail(token);
-
-            var item = _domain.GetByEmail(email);
-
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return item;
-        }
-
-
-        //Recuperar correo de persona desde jwt y modificar addproduct
         [Authorize(Roles = "client")]
         [HttpPost("/wishlist")]
-        public IActionResult AddProductWishlist(Product product)
+        public void AddProductWishlist(Product product)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            _factory = new WishListFactory();
-            _domain = _factory.CreateList();
-
-            if (!string.IsNullOrEmpty(email))
-            {
-                _domain.AddProduct(product, email);
-                return Ok();
-            }
-            return BadRequest("No contiene un Email válido");
+            var client = _clientRepository.Get(email);
+            _wishListRepository.AddProduct(product, client);
         }
 
         [Authorize(Roles = "client")]
         [HttpPost("/laterlist")]
-        public IActionResult AddProductLaterlist(Product product)
+        public void AddProductLaterlist(Product product)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            _factory = new LaterListFactory();
-            _domain = _factory.CreateList();
-
-            if (!string.IsNullOrEmpty(email))
-            {
-                _domain.AddProduct(product, email);
-                return Ok();
-            }
-            return BadRequest("No contiene un Email válido");
+            var client = _clientRepository.Get(email);
+            _laterListRepository.AddProduct(product, client);
         }
 
-
-
-        [HttpDelete("/lists/{List_code}", Name = "DeleteList")]
-        public IActionResult DeleteProduct(Product product)
+        [Authorize(Roles = "client")]
+        [HttpDelete("/wishlist/{List_code}")]
+        public void DeleteProductFromWishlist(Product product)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            _factory = new WishListFactory();
-            _domain = _factory.CreateList();
-
-            if (!string.IsNullOrEmpty(email))
-            {
-                _domain.DeleteProduct(product, email);
-                return Ok();
-            }
-            return BadRequest("No contiene un Email válido");
+            var client = _clientRepository.Get(email);
+            _wishListRepository.DeleteProduct(product, client);
         }
 
+        [Authorize(Roles = "client")]
+        [HttpDelete("/laterlist/{List_code}")]
+        public void DeleteProductFromLaterlist(Product product)
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            _laterListRepository.DeleteProduct(product, client);
+        }
+
+        [Authorize(Roles = "client")]
         [HttpGet("/wishlist")]
-        public ActionResult<List<ListProduct>> GetWishListProducts()
+        public List<Product> GetWishListProducts()
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            _factory = new WishListFactory();
-            _domain = _factory.CreateList();
-            var products = _domain.GetAll(email);
-            if (products == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(products);
+            var client = _clientRepository.Get(email);
+            var products = _wishListRepository.GetProducts(client);
+            return products;
         }
 
+        [Authorize(Roles = "client")]
         [HttpGet("/laterlist")]
-        public ActionResult<List<ListProduct>> GetLaterListProducts()
+        public List<Product> GetLaterListProducts()
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var products = _domain.GetAll(email);
-            if (products == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(products);
+            var client = _clientRepository.Get(email);
+            var products = _laterListRepository.GetProducts(client);
+            return products;
         }
     }
 }

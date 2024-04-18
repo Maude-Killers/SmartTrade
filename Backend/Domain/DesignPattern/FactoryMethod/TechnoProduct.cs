@@ -1,6 +1,4 @@
-﻿using Backend.Repositories;
-using Backend.Services;
-using SmartTrade.Models;
+﻿using SmartTrade.Models;
 
 namespace Backend.Domain.DesignPattern
 {
@@ -8,8 +6,7 @@ namespace Backend.Domain.DesignPattern
     {
         public override Product CreateProduct()
         {
-            var dbContext = AppServices.CreateDbContext();
-            return new TechnoProduct(new TechnoProductService(new TechnoProductRepository(dbContext)));
+            return new TechnoProduct();
         }
     }
 

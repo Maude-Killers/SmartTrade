@@ -98,15 +98,19 @@
 
             resultCount = products.Count();
 
-            minPrice = products.MinBy(product => product.Price).Price ?? new decimal(0);
-            maxPrice = products.MaxBy(product => product.Price).Price ?? new decimal(0);
+            var minPriceProduct = products.MinBy(product => product.Price);
+            minPrice = minPriceProduct?.Price ?? default;
+
+            var maxPriceProduct = products.MaxBy(product => product.Price);
+            maxPrice = maxPriceProduct?.Price ?? default;
             currentPrice = Convert.ToInt32((maxPrice + minPrice) / 2);
 
-            minFingerPrint = products.MinBy(product => product.Huella).Huella ?? 0;
-            maxFingerPrint = products.MaxBy(product => product.Huella).Huella ?? 0;
+            var minFingerProduct = products.MinBy(product => product.Huella);
+            minFingerPrint = minFingerProduct?.Huella ?? 0;
+
+            var maxFingerProduct = products.MaxBy(product => product.Huella);
+            maxFingerPrint = maxFingerProduct?.Huella ?? 0;
             currentFingerPrint = (maxFingerPrint + minFingerPrint) / 2;
-            // recuperar primera imagen de cada producto
-            // images =
             StateHasChanged();
         }
     }
@@ -124,19 +128,19 @@
     private void SportFilter()
     {
         if (isSport)
-            products = products.Where(product => product.Category == "Sport").ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Sport).ToArray();
     }
 
     private void TechFilter()
     {
         if (isTech)
-            products = products.Where(product => product.Category == "Techno").ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Techno).ToArray();
     }
 
     private void GroceryFilter()
     {
         if (isGrocery)
-            products = products.Where(product => product.Category == "Grocery").ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Grocery).ToArray();
     }
 
     private void PriceFilter()

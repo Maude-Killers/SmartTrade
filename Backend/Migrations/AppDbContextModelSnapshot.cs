@@ -60,6 +60,31 @@ namespace Backend.Migrations
                         {
                             Product_code = 15,
                             List_code = 5
+                        },
+                        new
+                        {
+                            Product_code = 6,
+                            List_code = 6
+                        },
+                        new
+                        {
+                            Product_code = 7,
+                            List_code = 7
+                        },
+                        new
+                        {
+                            Product_code = 8,
+                            List_code = 8
+                        },
+                        new
+                        {
+                            Product_code = 9,
+                            List_code = 9
+                        },
+                        new
+                        {
+                            Product_code = 10,
+                            List_code = 10
                         });
                 });
 
@@ -68,7 +93,7 @@ namespace Backend.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
-                    b.Property<int?>("Category_name")
+                    b.Property<int?>("Category")
                         .HasColumnType("integer");
 
                     b.Property<int?>("Product_code")
@@ -159,17 +184,17 @@ namespace Backend.Migrations
                         new
                         {
                             Image = "https://www.timeshighereducation.com/student/sites/default/files/styles/default/public/different_sports.jpg",
-                            Category_name = 2
+                            Category = 2
                         },
                         new
                         {
                             Image = "https://hips.hearstapps.com/hmg-prod/images/online-buying-and-delivery-concept-royalty-free-image-1675370119.jpg",
-                            Category_name = 1
+                            Category = 1
                         },
                         new
                         {
                             Image = "https://miro.medium.com/v2/resize:fit:720/format:webp/1*f9N5gbBNXLGqD7NgjzVg5g.jpeg",
-                            Category_name = 0
+                            Category = 0
                         });
                 });
 
@@ -233,10 +258,11 @@ namespace Backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Product_code"));
 
-                    b.Property<string>("Category")
-                        .HasColumnType("text");
+                    b.Property<int>("Category")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Discriminator")
@@ -246,13 +272,14 @@ namespace Backend.Migrations
                     b.Property<string>("Features")
                         .HasColumnType("text");
 
-                    b.Property<int?>("Huella")
+                    b.Property<int>("Huella")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.HasKey("Product_code");
@@ -262,60 +289,6 @@ namespace Backend.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Product");
 
                     b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.WeatherForecast", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Summary")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TemperatureC")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WeatherForecasts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2024, 4, 17, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(929),
-                            TemperatureC = 43
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2024, 4, 18, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(946),
-                            TemperatureC = 53
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2024, 4, 19, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(947),
-                            TemperatureC = 19
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = new DateTime(2024, 4, 20, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(947),
-                            TemperatureC = 30
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Date = new DateTime(2024, 4, 21, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(948),
-                            TemperatureC = 9
-                        });
                 });
 
             modelBuilder.Entity("SmartTrade.Models.LaterList", b =>
@@ -480,50 +453,50 @@ namespace Backend.Migrations
                         new
                         {
                             Product_code = 6,
-                            Category = "Grocery",
+                            Category = 1,
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 3,
+                            Huella = -15,
                             Name = "product6",
                             Price = 16m
                         },
                         new
                         {
                             Product_code = 7,
-                            Category = "Grocery",
+                            Category = 1,
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = 42,
+                            Huella = 9,
                             Name = "product7",
                             Price = 17m
                         },
                         new
                         {
                             Product_code = 8,
-                            Category = "Grocery",
+                            Category = 1,
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 36,
+                            Huella = 2,
                             Name = "product8",
                             Price = 18m
                         },
                         new
                         {
                             Product_code = 9,
-                            Category = "Grocery",
+                            Category = 1,
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 10,
+                            Huella = 28,
                             Name = "product9",
                             Price = 19m
                         },
                         new
                         {
                             Product_code = 10,
-                            Category = "Grocery",
+                            Category = 1,
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = -10,
+                            Huella = -14,
                             Name = "product10",
                             Price = 20m
                         });
@@ -539,50 +512,50 @@ namespace Backend.Migrations
                         new
                         {
                             Product_code = 1,
-                            Category = "Sports",
+                            Category = 2,
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 33,
+                            Huella = -18,
                             Name = "product1",
                             Price = 11m
                         },
                         new
                         {
                             Product_code = 2,
-                            Category = "Sports",
+                            Category = 2,
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 8,
+                            Huella = 12,
                             Name = "product2",
                             Price = 12m
                         },
                         new
                         {
                             Product_code = 3,
-                            Category = "Sports",
+                            Category = 2,
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 44,
+                            Huella = -7,
                             Name = "product3",
                             Price = 13m
                         },
                         new
                         {
                             Product_code = 4,
-                            Category = "Sports",
+                            Category = 2,
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = 10,
+                            Huella = 36,
                             Name = "product4",
                             Price = 14m
                         },
                         new
                         {
                             Product_code = 5,
-                            Category = "Sports",
+                            Category = 2,
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 9,
+                            Huella = -3,
                             Name = "product5",
                             Price = 15m
                         });
@@ -598,50 +571,50 @@ namespace Backend.Migrations
                         new
                         {
                             Product_code = 11,
-                            Category = "Techno",
+                            Category = 0,
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = -20,
+                            Huella = 45,
                             Name = "product11",
                             Price = 21m
                         },
                         new
                         {
                             Product_code = 12,
-                            Category = "Techno",
+                            Category = 0,
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = 4,
+                            Huella = 41,
                             Name = "product12",
                             Price = 22m
                         },
                         new
                         {
                             Product_code = 13,
-                            Category = "Techno",
+                            Category = 0,
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = -13,
+                            Huella = 24,
                             Name = "product13",
                             Price = 23m
                         },
                         new
                         {
                             Product_code = 14,
-                            Category = "Techno",
+                            Category = 0,
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 14,
+                            Huella = 40,
                             Name = "product14",
                             Price = 24m
                         },
                         new
                         {
                             Product_code = 15,
-                            Category = "Techno",
+                            Category = 0,
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 50,
+                            Huella = -20,
                             Name = "product15",
                             Price = 25m
                         });
