@@ -1,4 +1,7 @@
 @inject ProductService service;
+@inject WishListService WishListService;
+@inject LaterListService LaterListService;
+
 @page "/product/{product_code}"
 
 <main class="grid grid-cols-2 justify-items-center">
@@ -53,8 +56,8 @@
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@product.Name</h5>
         <p class="font-normal text-gray-700 dark:text-gray-400">@product.Description</p>
         <div class="h-64 flex flex-row justify-end items-end"
-           <button class="h-16 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de deseos</button>
-           <button class="h-16 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar a la lista para más tarde</button>
+           <button @onclick="AñadirWishList" class="h-16 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de deseos</button>
+           <button @onclick="AñadirLaterList" class="h-16 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar a la lista para más tarde</button>
        </div>
     </aside>
 </main>
@@ -62,7 +65,7 @@
 @code {
     [Parameter]
     public string product_code { get; set; } = "0";
-    private SmartTrade.Models.Product product = new SmartTrade.Models.Product();
+    public SmartTrade.Models.Product product = new SmartTrade.Models.Product();
 
     private string[] images = Array.Empty<string>();
 
@@ -71,4 +74,14 @@
         product = await service.GetProductAsync(int.Parse(product_code));
         StateHasChanged();
     }
+    /*
+    protected async void AñadirWishList()
+    {
+        await WishListService.PostAsJsonAsync("/wishlist", product);
+    }
+    private async void AñadirLaterList()
+    {
+        await LaterListService.PostAsJsonAsync("/laterlist", product);
+    }
+    */
 }

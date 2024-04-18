@@ -1,5 +1,6 @@
 @using SmartTrade.Models;
 @inject AuthService service
+@inject NavigationManager nav
 
 <section class="bg-gray-50 dark:bg-gray-900 flex-col">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -47,7 +48,7 @@
                     </div>
                     <button type="submit"
                         class="w-full text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Iniciar
-                        Sesión
+                        Sesión 
                     </button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                         ¿No tienes una cuenta? <a href="#"
@@ -86,5 +87,7 @@
     private async void HandleSubmit()
     {
         await service.Login(emailInput, passwordInput);
+        nav.NavigateTo("/");
     }
+
 }

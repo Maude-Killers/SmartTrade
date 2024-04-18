@@ -23,7 +23,12 @@ namespace Backend.Controllers
         {
             var result = _personRepository.Get(loginRequest.Email, loginRequest.Password);
             string token;
-            if (result is Client) { token = _authService.GenerateJWTToken(result, "client"); }
+            if (result is Client) 
+            { 
+                token = _authService.GenerateJWTToken(result, "client"); 
+                
+            }
+
             else { token = _authService.GenerateJWTToken(result, "salesPerson"); }
 
             var cookieOptions = new CookieOptions
