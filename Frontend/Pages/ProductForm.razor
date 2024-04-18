@@ -34,9 +34,8 @@
         }
     }
 
-    private async Task HandleValidSubmit()
+    private void HandleValidSubmit()
     {
-        await service.SaveProductAsync(product);
         nav.NavigateTo("/wishlist");
     }
 

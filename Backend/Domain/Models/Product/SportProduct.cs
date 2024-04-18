@@ -4,7 +4,7 @@
     {
         public SportProduct() : base()
         {
-            Category = "Sports";
+            Category = SmartTrade.Models.Category.Sport;
         }
     }
 }

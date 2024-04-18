@@ -1,9 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace SmartTrade.Models
 {
+    public enum Category
+    {
+        Techno,
+        [Description("Grocery Items")]
+        Grocery,
+        Sport
+    }
     public partial class Product
     {
         [Key]
@@ -18,9 +26,9 @@ namespace SmartTrade.Models
 
         public string? Features { get; set; }
 
-        public int? Huella { get; set; }
+        public int Huella { get; set; }
 
-        public string? Category { get; set; }
+        public Category Category { get; set; }
         public List<ListProduct> ListProducts { get; set; }
 
         public ICollection<Gallery> Images { get; set; }

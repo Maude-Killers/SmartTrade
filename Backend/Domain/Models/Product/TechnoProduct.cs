@@ -4,7 +4,7 @@
     {
         public TechnoProduct() : base()
         {
-            Category = "Techno";
+            Category = Category.Techno;
         }
     }
 }

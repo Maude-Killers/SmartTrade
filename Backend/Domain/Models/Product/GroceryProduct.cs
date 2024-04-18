@@ -4,7 +4,7 @@
     {
         public GroceryProduct() : base()
         {
-            Category = "Grocery";
+            Category = SmartTrade.Models.Category.Grocery;
         }
     }
 }

@@ -128,19 +128,19 @@
     private void SportFilter()
     {
         if (isSport)
-            products = products.Where(product => product.Category == "Sport").ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Sport).ToArray();
     }
 
     private void TechFilter()
     {
         if (isTech)
-            products = products.Where(product => product.Category == "Techno").ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Techno).ToArray();
     }
 
     private void GroceryFilter()
     {
         if (isGrocery)
-            products = products.Where(product => product.Category == "Grocery").ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Grocery).ToArray();
     }
 
     private void PriceFilter()

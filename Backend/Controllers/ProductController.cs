@@ -2,6 +2,8 @@ using Backend.Domain.DesignPattern;
 using Backend.Domain.DesignPattern.FactoryMethod;
 using Backend.Interfaces;
 using Backend.Repositories;
+using Backend.Services;
+using DataTransferObject;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -12,23 +14,17 @@ namespace Backend.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ILogger<ProductController> _logger;
-        private readonly ISportProductRepository _sportProductRepository;
-        private readonly ITechnoProductRepository _technoProductRepository;
-        private readonly IGroceryProductRepository _groceryProductRepository;
-        private readonly IProductRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly ProductService _productService;
 
         public ProductController(
             ILogger<ProductController> logger,
-            ISportProductRepository sportProductRepository,
-            ITechnoProductRepository technoProductRepository,
-            IGroceryProductRepository groceryProductRepository,
-            IProductRepository<Product> productRepository
+            IProductRepository productRepository,
+            ProductService productService
         ) {
             _logger = logger;
-            _sportProductRepository = sportProductRepository;
-            _technoProductRepository = technoProductRepository;
-            _groceryProductRepository = groceryProductRepository;
             _productRepository = productRepository;
+            _productService = productService;
         }
 
         [HttpGet("/products", Name = "GetProduct")]
@@ -46,19 +42,19 @@ namespace Backend.Controllers
         [HttpGet("/products/Sport")]
         public IEnumerable<Product> GetSportProducts()
         {
-            return _sportProductRepository.GetAll();
+            return _productRepository.GetAllSportProducts();
         }
 
         [HttpGet("/products/Grocery")]
         public IEnumerable<Product> GetGroceryProducts()
         {
-            return _groceryProductRepository.GetAll();
+            return _productRepository.GetAllGroceryProducts();
         }
 
         [HttpGet("/products/Technology")]
         public IEnumerable<Product> GetTechnoProducts()
         {
-            return _technoProductRepository.GetAll();
+            return _productRepository.GetAllTechnoProducts();
         }
 
         [HttpGet("/search")]
@@ -66,6 +62,12 @@ namespace Backend.Controllers
         {
             if (string.IsNullOrEmpty(value)) return Enumerable.Empty<Product>();
             return ((ProductRepository)_productRepository).Search(value);
+        }
+
+        [HttpPost("/products")]
+        public void CreateProduct(ProductDTO product)
+        {
+            _productService.CreateProduct(product);
         }
     }
 }

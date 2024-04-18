@@ -178,17 +178,17 @@ public class AppDbContext : DbContext
             new Gallery
             {
                 Image="https://www.timeshighereducation.com/student/sites/default/files/styles/default/public/different_sports.jpg",
-                Category_name=SmartTrade.Models.Gallery.Category.Sport
+                Category=Category.Sport
             },
             new Gallery
             {
                 Image="https://hips.hearstapps.com/hmg-prod/images/online-buying-and-delivery-concept-royalty-free-image-1675370119.jpg",
-                Category_name=SmartTrade.Models.Gallery.Category.Grocery
+                Category=Category.Grocery
             },
             new Gallery
             {
                 Image="https://miro.medium.com/v2/resize:fit:720/format:webp/1*f9N5gbBNXLGqD7NgjzVg5g.jpeg",
-                Category_name=SmartTrade.Models.Gallery.Category.Techno
+                Category=Category.Techno
             }
         };
         modelBuilder.Entity<Gallery>().HasData(images);

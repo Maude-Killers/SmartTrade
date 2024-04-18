@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class sprint1 : Migration
+    public partial class sprint1refactor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,32 +35,17 @@ namespace Backend.Migrations
                 {
                     Product_code = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Price = table.Column<decimal>(type: "numeric", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
                     Features = table.Column<string>(type: "text", nullable: true),
-                    Huella = table.Column<int>(type: "integer", nullable: true),
-                    Category = table.Column<string>(type: "text", nullable: true),
+                    Huella = table.Column<int>(type: "integer", nullable: false),
+                    Category = table.Column<int>(type: "integer", nullable: false),
                     Discriminator = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Product_code);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WeatherForecasts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    TemperatureC = table.Column<int>(type: "integer", nullable: false),
-                    Summary = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WeatherForecasts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,7 +82,7 @@ namespace Backend.Migrations
                 {
                     Image = table.Column<string>(type: "text", nullable: false),
                     Product_code = table.Column<int>(type: "integer", nullable: true),
-                    Category_name = table.Column<int>(type: "integer", nullable: true)
+                    Category = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -135,7 +120,7 @@ namespace Backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Gallery",
-                columns: new[] { "Image", "Category_name", "Product_code" },
+                columns: new[] { "Image", "Category", "Product_code" },
                 values: new object[,]
                 {
                     { "https://hips.hearstapps.com/hmg-prod/images/online-buying-and-delivery-concept-royalty-free-image-1675370119.jpg", 1, null },
@@ -160,38 +145,26 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, "Sports", "descripcion1", "SportProduct", "caracteristicas1", 33, "product1", 11m },
-                    { 2, "Sports", "descripcion2", "SportProduct", "caracteristicas2", 8, "product2", 12m },
-                    { 3, "Sports", "descripcion3", "SportProduct", "caracteristicas3", 44, "product3", 13m },
-                    { 4, "Sports", "descripcion4", "SportProduct", "caracteristicas4", 10, "product4", 14m },
-                    { 5, "Sports", "descripcion5", "SportProduct", "caracteristicas5", 9, "product5", 15m },
-                    { 6, "Grocery", "descripcion6", "GroceryProduct", "caracteristicas6", 3, "product6", 16m },
-                    { 7, "Grocery", "descripcion7", "GroceryProduct", "caracteristicas7", 42, "product7", 17m },
-                    { 8, "Grocery", "descripcion8", "GroceryProduct", "caracteristicas8", 36, "product8", 18m },
-                    { 9, "Grocery", "descripcion9", "GroceryProduct", "caracteristicas9", 10, "product9", 19m },
-                    { 10, "Grocery", "descripcion10", "GroceryProduct", "caracteristicas10", -10, "product10", 20m },
-                    { 11, "Techno", "descripcion11", "TechnoProduct", "caracteristicas11", -20, "product11", 21m },
-                    { 12, "Techno", "descripcion12", "TechnoProduct", "caracteristicas12", 4, "product12", 22m },
-                    { 13, "Techno", "descripcion13", "TechnoProduct", "caracteristicas13", -13, "product13", 23m },
-                    { 14, "Techno", "descripcion14", "TechnoProduct", "caracteristicas14", 14, "product14", 24m },
-                    { 15, "Techno", "descripcion15", "TechnoProduct", "caracteristicas15", 50, "product15", 25m }
-                });
-
-            migrationBuilder.InsertData(
-                table: "WeatherForecasts",
-                columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2024, 4, 17, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(929), null, 43 },
-                    { 2, new DateTime(2024, 4, 18, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(946), null, 53 },
-                    { 3, new DateTime(2024, 4, 19, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(947), null, 19 },
-                    { 4, new DateTime(2024, 4, 20, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(947), null, 30 },
-                    { 5, new DateTime(2024, 4, 21, 11, 43, 52, 661, DateTimeKind.Utc).AddTicks(948), null, 9 }
+                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", -18, "product1", 11m },
+                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", 12, "product2", 12m },
+                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", -7, "product3", 13m },
+                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", 36, "product4", 14m },
+                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", -3, "product5", 15m },
+                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", -15, "product6", 16m },
+                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", 9, "product7", 17m },
+                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 2, "product8", 18m },
+                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 28, "product9", 19m },
+                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", -14, "product10", 20m },
+                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 45, "product11", 21m },
+                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 41, "product12", 22m },
+                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 24, "product13", 23m },
+                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", 40, "product14", 24m },
+                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", -20, "product15", 25m }
                 });
 
             migrationBuilder.InsertData(
                 table: "Gallery",
-                columns: new[] { "Image", "Category_name", "Product_code" },
+                columns: new[] { "Image", "Category", "Product_code" },
                 values: new object[,]
                 {
                     { "https://i.imgur.com/0kTxfNT.png", null, 3 },
@@ -240,6 +213,11 @@ namespace Backend.Migrations
                 columns: new[] { "List_code", "Product_code" },
                 values: new object[,]
                 {
+                    { 6, 6 },
+                    { 7, 7 },
+                    { 8, 8 },
+                    { 9, 9 },
+                    { 10, 10 },
                     { 1, 11 },
                     { 2, 12 },
                     { 3, 13 },
@@ -278,9 +256,6 @@ namespace Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "ListProducts");
-
-            migrationBuilder.DropTable(
-                name: "WeatherForecasts");
 
             migrationBuilder.DropTable(
                 name: "List");

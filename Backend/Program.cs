@@ -1,5 +1,6 @@
 using Backend.Interfaces;
 using Backend.Repositories;
+using Backend.Services;
 using Backend.Utils;
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 builder.Services.AddScoped<AuthHelpers>();
+
+builder.Services.AddScoped<ProductService>();
 
 Repositories.UseRepositories(builder);
 

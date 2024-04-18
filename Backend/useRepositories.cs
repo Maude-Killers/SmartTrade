@@ -12,13 +12,7 @@ public static class Repositories
 
         builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
-        builder.Services.AddScoped<IProductRepository<Product>, ProductRepository>();
-
-        builder.Services.AddScoped<ISportProductRepository, SportProductRepository>();
-
-        builder.Services.AddScoped<IGroceryProductRepository, GroceryProductRepository>();
-
-        builder.Services.AddScoped<ITechnoProductRepository, TechnoProductRepository>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
         builder.Services.AddScoped<IWishListRepository, WishListRepository>();
 

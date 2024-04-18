@@ -10,3 +10,9 @@ dotnet_diagnostic.CS8618.severity = silent
 
 # ASP0000: Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 dotnet_diagnostic.ASP0000.severity = silent
+
+# IDE0003: Remove qualification
+dotnet_diagnostic.IDE0003.severity = silent
+
+# CS0472: The result of the expression is always the same since a value of this type is never equal to 'null'
+dotnet_diagnostic.CS0472.severity = silent
