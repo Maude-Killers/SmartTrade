@@ -20,12 +20,6 @@ public class ProductService
     {
         return await _httpClient.GetFromJsonAsync<Product[]>($"search?value={searchValue}") ?? Array.Empty<Product>();  
     }
-  
-    public async Task<String[]> GetProductImagesAsync(int product_code) 
-    {
-        var result = await _httpClient.GetFromJsonAsync<Gallery[]>($"galleries/{product_code}") ?? Array.Empty<Gallery>();
-        return result.Select(gallery => gallery.Image).ToArray();
-    }
 
     public async Task SaveProductAsync(Product product)
     {

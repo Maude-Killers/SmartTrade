@@ -42,6 +42,7 @@
 
     private async Task HandleDelete()
     {
+        if (product_code == null) return;
         await service.DeleteProductAsync(int.Parse(product_code));
         nav.NavigateTo("/wishlist");
     }

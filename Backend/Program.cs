@@ -16,25 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 builder.Services.AddScoped<AuthHelpers>();
 
-builder.Services.AddScoped<ISalesPersonRepository, SalesPersonRepository>();
-
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
-
-builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-
-builder.Services.AddScoped<IProductRepository<Product>, ProductRepository>();
-
-builder.Services.AddScoped<ISportProductRepository, SportProductRepository>();
-
-builder.Services.AddScoped<IGroceryProductRepository, GroceryProductRepository>();
-
-builder.Services.AddScoped<ITechnoProductRepository, TechnoProductRepository>();
-
-builder.Services.AddScoped<IWishListRepository, WishListRepository>();
-
-builder.Services.AddScoped<ILaterListRepository, LaterListRepository>();
-
-builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
+Repositories.UseRepositories(builder);
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

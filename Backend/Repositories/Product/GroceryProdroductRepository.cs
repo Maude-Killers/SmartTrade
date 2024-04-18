@@ -4,54 +4,53 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class SportProductRepository : ISportProductRepository
+    public class GroceryProductRepository : IGroceryProductRepository
     {
         private readonly AppDbContext _context;
 
-        public SportProductRepository(AppDbContext context)
+        public GroceryProductRepository(AppDbContext context)
         {
-             _context = context;
-        }
-
-
-        public void Create(SportProduct product)
-        {
-            _context.SportProduct.Add(product);
-            _context.SaveChanges();
+            _context = context;
         }
 
         public void Delete(int Product_code)
         {
-            var targetProduct = _context.SportProduct
+            var targetProduct = _context.GroceryProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
             if (targetProduct == null) throw new InvalidOperationException();
 
-            _context.SportProduct.Remove(targetProduct);
+            _context.GroceryProduct.Remove(targetProduct);
             _context.SaveChanges();
         }
 
-        public SportProduct? Get(int Product_code)
+        public GroceryProduct Get(int Product_code)
         {
-            var product = _context.SportProduct.Include(p => p.Images)
+            var product = _context.GroceryProduct.Include(p => p.Images)
             .FirstOrDefault(product => product.Product_code == Product_code);
-            return product;
+            return product ?? throw new ResourceNotFound("Grocery product not found", Product_code);
         }
 
-        public IEnumerable<SportProduct> GetAll()
+        public IEnumerable<GroceryProduct> GetAll()
         {
-            var asoka = _context.SportProduct.ToList();
+            var asoka = _context.GroceryProduct.ToList();
             foreach (var image in asoka)
             {
-                _context.SportProduct.Include(p => p.Images).ToList();
+                _context.GroceryProduct.Include(p => p.Images).ToList();
             }
             return asoka;
         }
 
-        public void Set(int Product_code, SportProduct product)
+        public void Create(GroceryProduct product)
         {
-            var actualProduct = _context.SportProduct
+            _context.GroceryProduct.Add(product);
+            _context.SaveChanges();
+        }
+
+        public void Set(int Product_code, GroceryProduct product)
+        {
+            var actualProduct = _context.GroceryProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
@@ -62,6 +61,8 @@ namespace Backend.Repositories
             actualProduct.Description = product.Description;
             actualProduct.Features = product.Features;
             actualProduct.Huella = product.Huella;
+            actualProduct.Category = product.Category;
+
             _context.SaveChanges();
         }
     }

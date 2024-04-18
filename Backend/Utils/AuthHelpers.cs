@@ -36,9 +36,8 @@ namespace Backend.Utils
         public static string GetEmail(string token) {
 
             var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
-            return jsonToken?.Claims.First(claim => claim.Type == "email").Value;
-
+            var jsonToken = handler.ReadToken(token) as JwtSecurityToken ?? throw new InvalidToken("Invalid token read from JWT", token);
+            return jsonToken.Claims.First(claim => claim.Type == "email").Value;
         }
     }
 }

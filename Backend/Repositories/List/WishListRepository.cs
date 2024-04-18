@@ -16,7 +16,7 @@ namespace Backend.Repositories
         public void AddProduct(Product product, Client client)
         {
             _context.Entry(client).Reference(x => x.WishList).Load();
-            var wishList = client?.WishList;
+            var wishList = client.WishList;
             var existsProduct = _context.Products.Where(item => item.Product_code == product.Product_code).FirstOrDefault();
             if (existsProduct == null)
             {

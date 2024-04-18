@@ -4,53 +4,53 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class GroceryProductRepository : IGroceryProductRepository
+    public class TechnoProductRepository : ITechnoProductRepository
     {
         private readonly AppDbContext _context;
 
-        public GroceryProductRepository(AppDbContext context)
+        public TechnoProductRepository(AppDbContext context)
         {
-            _context = context;
+             _context = context;
         }
 
         public void Delete(int Product_code)
         {
-            var targetProduct = _context.GroceryProduct
+            var targetProduct = _context.TechnoProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
             if (targetProduct == null) throw new InvalidOperationException();
 
-            _context.GroceryProduct.Remove(targetProduct);
+            _context.TechnoProduct.Remove(targetProduct);
             _context.SaveChanges();
         }
 
-        public GroceryProduct? Get(int Product_code)
+        public TechnoProduct Get(int Product_code)
         {
-            var product = _context.GroceryProduct.Include(p => p.Images)
+            var product = _context.TechnoProduct.Include(p => p.Images)
             .FirstOrDefault(product => product.Product_code == Product_code);
-            return product;
+            return product ?? throw new ResourceNotFound("Product not found", Product_code);
         }
 
-        public IEnumerable<GroceryProduct> GetAll()
+        public IEnumerable<TechnoProduct> GetAll()
         {
-            var asoka = _context.GroceryProduct.ToList();
+            var asoka = _context.TechnoProduct.ToList();
             foreach (var image in asoka)
             {
-                _context.GroceryProduct.Include(p => p.Images).ToList();
+                _context.TechnoProduct.Include(p => p.Images).ToList();
             }
             return asoka;
         }
 
-        public void Create(GroceryProduct product)
+        public void Create(TechnoProduct product)
         {
-            _context.GroceryProduct.Add(product);
+            _context.TechnoProduct.Add(product);
             _context.SaveChanges();
         }
 
-        public void Set(int Product_code, GroceryProduct product)
+        public void Set(int Product_code, TechnoProduct product)
         {
-            var actualProduct = _context.GroceryProduct
+            var actualProduct = _context.TechnoProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 

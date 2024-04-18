@@ -30,13 +30,13 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public SalesPerson? Get(string Email)
+        public SalesPerson Get(string Email)
         {
             var salesPerson = _context.SalesPerson
                 .Where(salesPerson => salesPerson.Email == Email)
                 .FirstOrDefault();
 
-            return salesPerson;
+            return salesPerson ?? throw new ResourceNotFound("Sales person not found", Email);
         }
 
         public SalesPerson? GetByCredentials(string Email, string Password)

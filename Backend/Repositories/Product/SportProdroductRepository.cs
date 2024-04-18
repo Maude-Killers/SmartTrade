@@ -4,53 +4,54 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class TechnoProductRepository : ITechnoProductRepository
+    public class SportProductRepository : ISportProductRepository
     {
         private readonly AppDbContext _context;
 
-        public TechnoProductRepository(AppDbContext context)
+        public SportProductRepository(AppDbContext context)
         {
              _context = context;
         }
 
+
+        public void Create(SportProduct product)
+        {
+            _context.SportProduct.Add(product);
+            _context.SaveChanges();
+        }
+
         public void Delete(int Product_code)
         {
-            var targetProduct = _context.TechnoProduct
+            var targetProduct = _context.SportProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
             if (targetProduct == null) throw new InvalidOperationException();
 
-            _context.TechnoProduct.Remove(targetProduct);
+            _context.SportProduct.Remove(targetProduct);
             _context.SaveChanges();
         }
 
-        public TechnoProduct? Get(int Product_code)
+        public SportProduct Get(int Product_code)
         {
-            var product = _context.TechnoProduct.Include(p => p.Images)
+            var product = _context.SportProduct.Include(p => p.Images)
             .FirstOrDefault(product => product.Product_code == Product_code);
-            return product;
+            return product ?? throw new ResourceNotFound("Sport product not found", Product_code);
         }
 
-        public IEnumerable<TechnoProduct> GetAll()
+        public IEnumerable<SportProduct> GetAll()
         {
-            var asoka = _context.TechnoProduct.ToList();
+            var asoka = _context.SportProduct.ToList();
             foreach (var image in asoka)
             {
-                _context.TechnoProduct.Include(p => p.Images).ToList();
+                _context.SportProduct.Include(p => p.Images).ToList();
             }
             return asoka;
         }
 
-        public void Create(TechnoProduct product)
+        public void Set(int Product_code, SportProduct product)
         {
-            _context.TechnoProduct.Add(product);
-            _context.SaveChanges();
-        }
-
-        public void Set(int Product_code, TechnoProduct product)
-        {
-            var actualProduct = _context.TechnoProduct
+            var actualProduct = _context.SportProduct
                 .Where(product => product.Product_code == Product_code)
                 .FirstOrDefault();
 
@@ -61,8 +62,6 @@ namespace Backend.Repositories
             actualProduct.Description = product.Description;
             actualProduct.Features = product.Features;
             actualProduct.Huella = product.Huella;
-            actualProduct.Category = product.Category;
-
             _context.SaveChanges();
         }
     }

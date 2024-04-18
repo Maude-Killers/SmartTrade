@@ -30,13 +30,13 @@ namespace Backend.Repositories
             _context.SaveChanges();
         }
 
-        public Gallery? Get(int Product_code)
+        public Gallery Get(int Product_code)
         {
             var item = _context.Gallery
                 .Where(item => item.Product_code == Product_code)
                 .FirstOrDefault();
 
-            return item;
+            return item ?? throw new ResourceNotFound("Gallery not found", Product_code);
         }
 
         public IEnumerable<Gallery> GetAll()

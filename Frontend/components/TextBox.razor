@@ -80,8 +80,8 @@
 
 @code {
 
-    private string? emailInput { get; set; }
-    private string? passwordInput { get; set; }
+    private string emailInput { get; set; } = "";
+    private string passwordInput { get; set; } = "";
     private string? errorMessage { get; set; }
     private async void HandleSubmit()
     {

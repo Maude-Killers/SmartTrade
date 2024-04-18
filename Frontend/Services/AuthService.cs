@@ -28,9 +28,4 @@ public class AuthService
         request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
         var result = await _httpClient.SendAsync(request);
     }
-
-    public async Task DeleteForecastAsync(int id)
-    {
-        await _httpClient.DeleteAsync($"weatherforecast/{id}");
-    }
 }

@@ -37,7 +37,7 @@ namespace Backend.Repositories
                 .Where(person => person.Email == email)
                 .FirstOrDefault();
 
-            return person;
+            return person ?? throw new ResourceNotFound("Person not found", email);
         }
 
         public Person Get(string email, string password)

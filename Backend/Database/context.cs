@@ -13,7 +13,6 @@ public class AppDbContext : DbContext
         optionsBuilder.EnableDetailedErrors();
     }
 
-    public DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<TechnoProduct> TechnoProduct { get; set; }
     public DbSet<SportProduct> SportProduct { get; set; }
@@ -36,16 +35,6 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-        modelBuilder.Entity<WeatherForecast>().HasData(
-            Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Id = index,
-                Date = DateTime.UtcNow.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-            })
-            .ToArray()
-        );
         modelBuilder.Entity<ListProduct>()
             .HasKey(ce => new { ce.Product_code, ce.List_code });
 

@@ -57,7 +57,7 @@
 
 @code {
     [Parameter]
-    public string product_code { get; set; }
+    public string product_code { get; set; } = "0";
     private SmartTrade.Models.Product product = new SmartTrade.Models.Product();
 
     private string[] images = Array.Empty<string>();
