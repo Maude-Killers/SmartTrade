@@ -13,6 +13,4 @@ public class ProductDTO
     public int Huella { get; set; }
 
     public string Category { get; set; }
-
-
 }

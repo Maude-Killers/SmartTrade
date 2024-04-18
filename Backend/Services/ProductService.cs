@@ -12,7 +12,7 @@ public class ProductService
     public void CreateProduct(ProductDTO productDTO)
     {
         ProductFactory factory;
-        switch (productDTO.Category.ToString())
+        switch (productDTO.Category)
         {
             case "Grocery":
             factory = new GroceryProductFactory();

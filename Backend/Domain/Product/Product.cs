@@ -27,7 +27,6 @@ namespace SmartTrade.Models
 
         public void SetFingerPrint(int fingerPrint)
         {
-            // if (fingerPrint == null) throw new ArgumentNullException("fingerPrint");
             if (fingerPrint == 0) throw new ArgumentException("empty fingerPrint");
             if (fingerPrint > 128) throw new ArgumentException("too long fingerPrint");
             if (!ValidationHelpers.IsValidNumber(fingerPrint)) throw new ArgumentException("invalid character input", fingerPrint.ToString());

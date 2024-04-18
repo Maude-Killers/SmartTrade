@@ -8,7 +8,6 @@ namespace SmartTrade.Models
     public enum Category
     {
         Techno,
-        [Description("Grocery Items")]
         Grocery,
         Sport
     }
