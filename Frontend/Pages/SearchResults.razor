@@ -75,8 +75,8 @@
 @code {
     [Parameter]
     public string searchTerm { get; set; } = "";
-    private SmartTrade.Models.Product[] originalProducts = Array.Empty<SmartTrade.Models.Product>();
-    private SmartTrade.Models.Product[] products = Array.Empty<SmartTrade.Models.Product>();
+    private ProductDTO[] originalProducts = Array.Empty<ProductDTO>();
+    private ProductDTO[] products = Array.Empty<ProductDTO>();
     private int resultCount { get; set; } = 0;
     private decimal minPrice { get; set; } = 0;
     private decimal maxPrice { get; set; } = 0;
@@ -128,19 +128,19 @@
     private void SportFilter()
     {
         if (isSport)
-            products = products.Where(product => product.Category == SmartTrade.Models.Category.Sport).ToArray();
+            products = products.Where(product => product.Category == ProductDTO.Category).ToArray();
     }
 
     private void TechFilter()
     {
         if (isTech)
-            products = products.Where(product => product.Category == SmartTrade.Models.Category.Techno).ToArray();
+            products = products.Where(product => product.Category == ProductDTO.Category).ToArray();
     }
 
     private void GroceryFilter()
     {
         if (isGrocery)
-            products = products.Where(product => product.Category == SmartTrade.Models.Category.Grocery).ToArray();
+            products = products.Where(product => product.Category == ProductDTO.Category).ToArray();
     }
 
     private void PriceFilter()
