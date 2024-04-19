@@ -37,6 +37,7 @@ public class ProductService
         newProduct.SetDescription(productDTO.Description);
         newProduct.SetPrice(productDTO.Price);
         newProduct.SetFingerPrint(productDTO.Huella);
+        //newProduct.SetImages();
         newProduct.SetRepository(new ProductRepository(AppServices.GetDbContext()));
         newProduct.Save();
     }
