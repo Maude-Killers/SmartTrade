@@ -10,7 +10,7 @@
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 @foreach (var img in product.Images)
                 {
-                    //<ImageCarrousel ImgURL="@img.Image" />
+                    <ImageCarrousel ImgURL="@img" />
                 }
             </div>
             <!-- Slider indicators -->
@@ -55,9 +55,9 @@
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@product.Name</h5>
         <p class="font-normal text-gray-700 dark:text-gray-400">@product.Description</p>
         <div class="h-64 flex flex-row justify-end items-end"
-          @* <button @onclick="AddWishList" class="h-16 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de deseos</button>
+           <button @onclick="AddWishList" class="h-16 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de deseos</button>
            <button @onclick="AddLaterList" class="h-16 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar a la lista para más tarde</button>
-            *@
+            
        </div>
     </aside>
 </main>
@@ -74,14 +74,14 @@
         product = await service.GetProductAsync(int.Parse(product_code));
         StateHasChanged();
     }
-    /*
+    
     protected async void AddWishList()
     {
-        await ListService.PostAsJsonAsync("/wishlist", product);
+        await ListService.AddWishList(product);
     }
     private async void AddLaterList()
     {
-        await ListService.PostAsJsonAsync("/laterlist", product);
+        await ListService.AddLaterList(product);
     }
-    */
+    
 }

@@ -15,4 +15,6 @@ public class ProductDTO
     public string Category { get; set; }
 
     public ICollection<string> Images { get; set; }
+
+    
 }

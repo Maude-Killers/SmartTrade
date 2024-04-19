@@ -39,16 +39,22 @@ namespace SmartTrade.Models
             if (category.ToString().IsNullOrEmpty()) throw new ArgumentException("empty description");
             this.Category = realCategory;
         }
-        /*
+        
         public void SetImages(string images)
-        { 
+        {
+            if (!TryParseImages(images, out Gallery realImages)) throw new ArgumentException("invalid category", images);
             if (images.IsNullOrEmpty()) throw new ArgumentException("no images");
             this.Images = images;
         }
-        */
+        
         public static bool TryParseCategory(string input, out SmartTrade.Models.Category category)
         {
             return Enum.TryParse(input, true, out category);
+        }
+
+        public static bool TryParseImages(string input, out SmartTrade.Models.Gallery images)
+        {
+            return Enum.TryParse(input, true, out images);
         }
 
 

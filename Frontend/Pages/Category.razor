@@ -13,7 +13,7 @@
 @code {
     [Parameter]
     public string category_name { get; set; } = "";
-    private SmartTrade.Models.Product[] products = Array.Empty<SmartTrade.Models.Product>();
+    private ProductDTO[] products = Array.Empty<ProductDTO>();
 
     protected override async Task OnInitializedAsync()
     {
