@@ -1,16 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using DataTransferObject;
 
 namespace SmartTrade.Models
 {
-    public enum Category
-    {
-        Techno,
-        Grocery,
-        Sport
-    }
     public partial class Product
     {
         [Key]

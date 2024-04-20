@@ -10,9 +10,16 @@ public class ProductDTO
 
     public string? Features { get; set; }
 
-    public int Huella { get; set; }
+    public int FingerPrint { get; set; }
 
-    public string Category { get; set; }
+    public Category Category { get; set; }
 
-    public ICollection<string> Images { get; set; }
+    public ICollection<GalleryDTO> Images { get; set; }
+}
+
+public enum Category
+{
+    Techno,
+    Grocery,
+    Sport
 }
