@@ -1,6 +1,5 @@
 using Backend.Domain.DesignPattern;
 using Backend.Domain.DesignPattern.FactoryMethod;
-using Backend.Interfaces;
 using Backend.Repositories;
 using DataTransferObject;
 using SmartTrade.Models;
@@ -14,15 +13,15 @@ public class ProductService
         ProductFactory factory;
         switch (productDTO.Category)
         {
-            case "Grocery":
+            case Category.Grocery:
             factory = new GroceryProductFactory();
             break;
 
-            case "Techno":
+            case Category.Techno:
             factory = new TechnoProductFactory();
             break;
 
-            case "Sport":
+            case Category.Sport:
             factory = new SportProductFactory();
             break;
 
@@ -36,8 +35,8 @@ public class ProductService
         newProduct.SetCategory(productDTO.Category);
         newProduct.SetDescription(productDTO.Description);
         newProduct.SetPrice(productDTO.Price);
-        newProduct.SetFingerPrint(productDTO.Huella);
-        newProduct.SetImages();
+        newProduct.SetFingerPrint(productDTO.FingerPrint);
+        newProduct.SetImages((ICollection<Gallery>)productDTO.Images);
         newProduct.SetRepository(new ProductRepository(AppServices.GetDbContext()));
         newProduct.Save();
     }

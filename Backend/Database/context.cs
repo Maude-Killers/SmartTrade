@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
+using DataTransferObject;
 
 public class AppDbContext : DbContext
 {

@@ -1,4 +1,6 @@
-﻿namespace SmartTrade.Models
+﻿using DataTransferObject;
+
+namespace SmartTrade.Models
 {
     public partial class TechnoProduct : Product
     {

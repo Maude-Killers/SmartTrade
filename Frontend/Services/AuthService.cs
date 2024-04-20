@@ -20,7 +20,7 @@ public class AuthService
             Password = passwordInput
         };
 
-        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5173/login")
+        var request = new HttpRequestMessage(HttpMethod.Post, "login")
         { 
             Content = JsonContent.Create(loginRequest)
         };

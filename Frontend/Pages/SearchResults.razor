@@ -105,11 +105,11 @@
             maxPrice = maxPriceProduct?.Price ?? default;
             currentPrice = Convert.ToInt32((maxPrice + minPrice) / 2);
 
-            var minFingerProduct = products.MinBy(product => product.Huella);
-            minFingerPrint = minFingerProduct?.Huella ?? 0;
+            var minFingerProduct = products.MinBy(product => product.FingerPrint);
+            minFingerPrint = minFingerProduct?.FingerPrint ?? 0;
 
-            var maxFingerProduct = products.MaxBy(product => product.Huella);
-            maxFingerPrint = maxFingerProduct?.Huella ?? 0;
+            var maxFingerProduct = products.MaxBy(product => product.FingerPrint);
+            maxFingerPrint = maxFingerProduct?.FingerPrint ?? 0;
             currentFingerPrint = (maxFingerPrint + minFingerPrint) / 2;
             StateHasChanged();
         }
@@ -129,19 +129,19 @@
     {
 
         if (isSport)
-            products = products.Where(product => product.Category == ProductDTO.Category).ToArray();
+            products = products.Where(product => product.Category == DataTransferObject.Category.Sport).ToArray();
     }
 
     private void TechFilter()
     {
         if (isTech)
-            products = products.Where(product => product.Category == ProductDTO.Category).ToArray();
+            products = products.Where(product => product.Category == DataTransferObject.Category.Techno).ToArray();
     }
 
     private void GroceryFilter()
     {
         if (isGrocery)
-            products = products.Where(product => product.Category == ProductDTO.Category).ToArray();
+            products = products.Where(product => product.Category == DataTransferObject.Category.Grocery).ToArray();
     }
     
     private void PriceFilter()
@@ -151,7 +151,7 @@
 
     private void FingerPrintFilter()
     {
-        products = products.Where(product => product.Huella < currentFingerPrint).ToArray();
+        products = products.Where(product => product.FingerPrint < currentFingerPrint).ToArray();
     }
 
     private void HandleFilterBtnClick()
