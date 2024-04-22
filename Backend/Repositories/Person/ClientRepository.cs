@@ -1,4 +1,5 @@
 using Backend.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -35,6 +36,11 @@ namespace Backend.Repositories
             var client = _context.Client
                 .Where(client => client.Email == email)
                 .FirstOrDefault();
+
+            if(client == null) throw new ResourceNotFound("Client not found", email);
+
+            _context.Entry(client).Collection(x => x.WishList.listProducts).Load();
+            
             return client ?? throw new ResourceNotFound("Client email don't exists", email);
         }
 
