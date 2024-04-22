@@ -5,7 +5,7 @@ namespace Backend.Interfaces
     public interface IListRepository
     {
         List<Product> GetProducts(Client client);
-        void AddProduct(int Product_code, Client client);
-        void DeleteProduct(int Product_code, Client client);
+        void AddProduct(Product product, string Email);
+        void DeleteProduct(Product product, Client client);
     }
 }

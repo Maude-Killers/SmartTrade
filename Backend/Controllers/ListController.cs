@@ -26,17 +26,15 @@ namespace Backend.Controllers
             _productRepository = productRepository;
         }
 
-        [Authorize(Roles = "client")]
         [HttpPost("/wishlist")]
         public void AddProductWishlist(int Product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var client = _clientRepository.Get(email);
-            var exists = _productRepository.Get(Product_code);
-            if (exists == null)
+            var product = _productRepository.Get(Product_code);
+            if (product == null)
             {
-                _wishListRepository.AddProduct(Product_code, client);
+                _wishListRepository.AddProduct(product, email);
             }
         }
 
@@ -46,11 +44,10 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var client = _clientRepository.Get(email);
-            var exists = _productRepository.Get(Product_code);
-            if (exists == null)
+            var product = _productRepository.Get(Product_code);
+            if (product == null)
             {
-                _laterListRepository.AddProduct(Product_code, client);
+                _laterListRepository.AddProduct(product, email);
             }
         }
 
@@ -61,7 +58,8 @@ namespace Backend.Controllers
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
             var client = _clientRepository.Get(email);
-            _wishListRepository.DeleteProduct(Product_code, client);
+            var product = _productRepository.Get(Product_code);
+            _wishListRepository.DeleteProduct(product, client);
         }
 
         [Authorize(Roles = "client")]
@@ -71,7 +69,8 @@ namespace Backend.Controllers
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
             var client = _clientRepository.Get(email);
-            _laterListRepository.DeleteProduct(Product_code, client);
+            var product = _productRepository.Get(Product_code);
+            _laterListRepository.DeleteProduct(product, client);
         }
 
         [Authorize(Roles = "client")]
