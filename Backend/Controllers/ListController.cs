@@ -85,5 +85,12 @@ namespace Backend.Controllers
             var products = _laterListRepository.GetProducts(client);
             return products;
         }
+
+        [Authorize(Roles = "client")]
+        [HttpGet("/cart")]
+        public List<Product> GetCartProducts()
+        {
+            return null;
+        }
     }
 }
