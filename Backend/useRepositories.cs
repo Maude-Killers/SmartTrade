@@ -19,5 +19,7 @@ public static class Repositories
         builder.Services.AddScoped<ILaterListRepository, LaterListRepository>();
 
         builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
+        
+        builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
     }
 }

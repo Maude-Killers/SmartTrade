@@ -4,6 +4,7 @@ namespace SmartTrade.Models
     {
         public virtual WishList WishList { get; set; }
         public virtual LaterList LaterList { get; set; }
+        public virtual ShoppingCart ShoppingCart { get; set; }
         public Client() : base()
         { }
     }

@@ -22,11 +22,12 @@ public class AppDbContext : DbContext
 
     public DbSet<WishList> WishList { get; set; }
     public DbSet<LaterList> LaterList { get; set; }
-
+    public DbSet<ShoppingCart> ShoppingCart { get; set; }
     public DbSet<Person> Person { get; set; }
     public DbSet<Client> Client { get; set; }
     public DbSet<SalesPerson> SalesPerson { get; set; }
     public DbSet<ListProduct> ListProducts { get; set; }
+    
 
     private static readonly string[] Summaries = new[]
     {
@@ -62,6 +63,14 @@ public class AppDbContext : DbContext
             ClientEmail = clients[index - 1].Email
         }).ToArray();
         modelBuilder.Entity<LaterList>().HasData(laterLists);
+
+        var shoppingCart = Enumerable.Range(1, 5).Select(index => new ShoppingCart
+        {
+            List_code = index + 10,
+            Name = "ShoppingCart",
+            ClientEmail = clients[index - 1].Email
+        }).ToArray();
+        modelBuilder.Entity<ShoppingCart>().HasData(shoppingCart);
 
         var mondongo = Enumerable.Range(1, 5).Select(index => new SportProduct
         {
