@@ -14,13 +14,21 @@ namespace Backend.Controllers
         private readonly ILogger<ListController> _logger;
         private readonly IWishListRepository _wishListRepository;
         private readonly ILaterListRepository _laterListRepository;
+        private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IClientRepository _clientRepository;
 
-        public ListController(IWishListRepository wishListRepository, ILaterListRepository laterListRepository, IClientRepository clientRepository, ILogger<ListController> logger)
+        public ListController(
+            IWishListRepository wishListRepository,
+            ILaterListRepository laterListRepository,
+            IClientRepository clientRepository,
+            IShoppingCartRepository shoppingCartRepository,
+            ILogger<ListController> logger
+        )
         {
             _logger = logger;
             _wishListRepository = wishListRepository;
             _laterListRepository = laterListRepository;
+            _shoppingCartRepository = shoppingCartRepository;
             _clientRepository = clientRepository;
         }
 
@@ -90,7 +98,31 @@ namespace Backend.Controllers
         [HttpGet("/cart")]
         public List<Product> GetCartProducts()
         {
-            return null;
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            var products = _shoppingCartRepository.GetProducts(client);
+            return products;
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpPost("/cart")]
+        public void AddProductShoppingCart(Product product)
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            _shoppingCartRepository.AddProduct(product, client);
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpDelete("/cart/{List_code}")]
+        public void DeleteProductFromShoppingCart(Product product)
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            _shoppingCartRepository.DeleteProduct(product, client);
         }
     }
 }
