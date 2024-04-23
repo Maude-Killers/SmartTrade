@@ -16,13 +16,15 @@ namespace Backend.Controllers
         private readonly ILaterListRepository _laterListRepository;
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly IProductRepository _productRepository;
 
         public ListController(
             IWishListRepository wishListRepository,
             ILaterListRepository laterListRepository,
             IClientRepository clientRepository,
             IShoppingCartRepository shoppingCartRepository,
-            ILogger<ListController> logger
+            ILogger<ListController> logger,
+            IProductRepository productRepository
         )
         {
             _logger = logger;
@@ -30,6 +32,7 @@ namespace Backend.Controllers
             _laterListRepository = laterListRepository;
             _shoppingCartRepository = shoppingCartRepository;
             _clientRepository = clientRepository;
+            _productRepository = productRepository;
         }
 
         [Authorize(Roles = "client")]
@@ -107,21 +110,23 @@ namespace Backend.Controllers
 
         [Authorize(Roles = "client")]
         [HttpPost("/cart")]
-        public void AddProductShoppingCart(Product product)
+        public void AddProductShoppingCart(int product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
             var client = _clientRepository.Get(email);
+            Product product = _productRepository.Get(product_code);
             _shoppingCartRepository.AddProduct(product, client);
         }
 
         [Authorize(Roles = "client")]
         [HttpDelete("/cart/{List_code}")]
-        public void DeleteProductFromShoppingCart(Product product)
+        public void DeleteProductFromShoppingCart(int product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
             var client = _clientRepository.Get(email);
+            Product product = _productRepository.Get(product_code);
             _shoppingCartRepository.DeleteProduct(product, client);
         }
     }
