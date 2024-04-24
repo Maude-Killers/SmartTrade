@@ -13,21 +13,19 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public void AddProduct(Product product, string Email)
+        public void AddProduct(Product product, Client client)
         {
-            WishList wishlist= _context.WishList.FirstOrDefault(x => x.ClientEmail== Email);
-            var isInList = wishlist.listProducts.Where(x => x.Product_code== product.Product_code);
+
+            WishList wishlist = client.WishList;
+            var isInList = wishlist.listProducts.Where(x => x.Product_code == product.Product_code);
             if (isInList != null)
             {
                 throw new ResourceNotFound("product is already in WishList", product);
             }
-            
-            WishList listProducts=(WishList)_context.WishList.Where(x => x.List_code== wishlist.List_code);
-            listProducts.listProducts = product;
-            _context.WishList.Add(listProducts);
+            _context.ListProducts.Add(new ListProduct { List_code = wishlist.List_code, Product_code = product.Product_code });
             _context.SaveChanges();
         }
-        
+
         public void DeleteProduct(Product product, Client client)
         {
             var wishlist = client.WishList;

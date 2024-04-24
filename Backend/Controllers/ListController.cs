@@ -31,11 +31,8 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var product = _productRepository.Get(Product_code);
-            if (product == null)
-            {
-                _wishListRepository.AddProduct(product, email);
-            }
+            var useCase = new AddProductToList(_productRepository, _clientRepository, _wishListRepository);
+            useCase.AddProduct(email, Product_code);
         }
 
         [Authorize(Roles = "client")]
