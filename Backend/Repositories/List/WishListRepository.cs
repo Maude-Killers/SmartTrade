@@ -22,10 +22,9 @@ namespace Backend.Repositories
                 throw new ResourceNotFound("product is already in WishList", product);
             }
             
-            ListProduct listProducts=(ListProduct)_context.ListProducts.Where(x => x.List_code== wishlist.List_code);
-            listProducts.Product_code = product.Product_code;
-            listProducts.Product = product;
-            _context.ListProducts.Add(listProducts);
+            WishList listProducts=(WishList)_context.WishList.Where(x => x.List_code== wishlist.List_code);
+            listProducts.listProducts = product;
+            _context.WishList.Add(listProducts);
             _context.SaveChanges();
         }
         
