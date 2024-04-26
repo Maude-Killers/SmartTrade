@@ -10,7 +10,7 @@ public class LaterListService
         _httpClient = httpClient;
     }
 
-    public async Task AñadirLaterList(ProductDTO product)
+    public async Task AddLaterList(ProductDTO product)
     {
         await _httpClient.PostAsJsonAsync("/laterlist", product);
     }

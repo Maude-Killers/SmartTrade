@@ -56,8 +56,8 @@
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@product.Name</h5>
         <p class="font-normal text-gray-700 dark:text-gray-400">@product.Description</p>
         <div class="h-64 flex flex-row justify-end items-end"
-           <button @onclick="AñadirWishList" class="h-16 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de deseos</button>
-           <button @onclick="AñadirLaterList" class="h-16 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar a la lista para más tarde</button>
+           @* <button @onclick="Aï¿½adirWishList" class="h-16 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de deseos</button>
+           <button @onclick="Aï¿½adirLaterList" class="h-16 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar a la lista para mï¿½s tarde</button> *@
        </div>
     </aside>
 </main>
@@ -75,11 +75,11 @@
         StateHasChanged();
     }
     /*
-    protected async void AñadirWishList()
+    protected async void Aï¿½adirWishList()
     {
         await WishListService.PostAsJsonAsync("/wishlist", product);
     }
-    private async void AñadirLaterList()
+    private async void Aï¿½adirLaterList()
     {
         await LaterListService.PostAsJsonAsync("/laterlist", product);
     }
