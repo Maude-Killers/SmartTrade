@@ -22,13 +22,23 @@ namespace Backend.Repositories
             {
                 throw new ResourceNotFound("product doesn't exists", product);
             }
-            
-            _context.ListProducts.Add(new ListProduct { List_code = shoppingCart.List_code, Product_code = product.Product_code });
+
+            var productInList = _context.ListProducts.Where(item => item.Product_code == product.Product_code 
+                && item.List_code == shoppingCart.List_code).FirstOrDefault();
+            if (productInList != null) 
+            { 
+                productInList.Quantity++; 
+            }
+            else 
+            { 
+                _context.ListProducts.Add(new ListProduct { List_code = shoppingCart.List_code, Product_code = product.Product_code }); 
+            }
             _context.SaveChanges();
         }
 
         public void DeleteProduct(Product product, Client client)
         {
+            _context.Entry(client).Reference(x => x.ShoppingCart).Load();
             var shoppingCart = client.ShoppingCart;
             var productList = _context.ListProducts
                 .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == shoppingCart.List_code)
@@ -49,7 +59,15 @@ namespace Backend.Repositories
                 .Include(lp => lp.Product.Images)
                 .Where(lp => lp.List_code == client.ShoppingCart.List_code)
                 .ToList();
-            return listCodes.Select(lc => lc.Product).ToList();
+            List<Product> listProduct = new List<Product>();
+            foreach (var listCode in listCodes)
+            {
+                for(var i = 0; i < listCode.Quantity; i++)
+                {
+                    listProduct.Add(listCode.Product);
+                }
+            }
+            return listProduct;
         }
     }
 }

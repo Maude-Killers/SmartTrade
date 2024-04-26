@@ -106,7 +106,8 @@ namespace Backend.Migrations
                 columns: table => new
                 {
                     List_code = table.Column<int>(type: "integer", nullable: false),
-                    Product_code = table.Column<int>(type: "integer", nullable: false)
+                    Product_code = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -152,21 +153,21 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 28, "product1", 11m },
-                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", 18, "product2", 12m },
-                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", 34, "product3", 13m },
-                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", 33, "product4", 14m },
-                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", 33, "product5", 15m },
-                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", 54, "product6", 16m },
-                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", -2, "product7", 17m },
-                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", -6, "product8", 18m },
-                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", -6, "product9", 19m },
-                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 33, "product10", 20m },
-                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 15, "product11", 21m },
-                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 26, "product12", 22m },
-                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 21, "product13", 23m },
-                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", 32, "product14", 24m },
-                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", 10, "product15", 25m }
+                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 41, "product1", 11m },
+                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", -14, "product2", 12m },
+                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", -2, "product3", 13m },
+                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", 3, "product4", 14m },
+                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", 13, "product5", 15m },
+                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", 25, "product6", 16m },
+                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", 36, "product7", 17m },
+                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 45, "product8", 18m },
+                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 26, "product9", 19m },
+                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 12, "product10", 20m },
+                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 52, "product11", 21m },
+                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 0, "product12", 22m },
+                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", -16, "product13", 23m },
+                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", -6, "product14", 24m },
+                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", -12, "product15", 25m }
                 });
 
             migrationBuilder.InsertData(
@@ -229,19 +230,19 @@ namespace Backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "ListProducts",
-                columns: new[] { "List_code", "Product_code" },
+                columns: new[] { "List_code", "Product_code", "Quantity" },
                 values: new object[,]
                 {
-                    { 6, 6 },
-                    { 7, 7 },
-                    { 8, 8 },
-                    { 9, 9 },
-                    { 10, 10 },
-                    { 1, 11 },
-                    { 2, 12 },
-                    { 3, 13 },
-                    { 4, 14 },
-                    { 5, 15 }
+                    { 6, 6, 1 },
+                    { 7, 7, 1 },
+                    { 8, 8, 1 },
+                    { 9, 9, 1 },
+                    { 10, 10, 1 },
+                    { 1, 11, 1 },
+                    { 2, 12, 1 },
+                    { 3, 13, 1 },
+                    { 4, 14, 1 },
+                    { 5, 15, 1 }
                 });
 
             migrationBuilder.CreateIndex(

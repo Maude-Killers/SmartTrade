@@ -29,6 +29,9 @@ namespace Backend.Migrations
                     b.Property<int>("List_code")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.HasKey("Product_code", "List_code");
 
                     b.HasIndex("List_code");
@@ -39,52 +42,62 @@ namespace Backend.Migrations
                         new
                         {
                             Product_code = 11,
-                            List_code = 1
+                            List_code = 1,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 12,
-                            List_code = 2
+                            List_code = 2,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 13,
-                            List_code = 3
+                            List_code = 3,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 14,
-                            List_code = 4
+                            List_code = 4,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 15,
-                            List_code = 5
+                            List_code = 5,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 6,
-                            List_code = 6
+                            List_code = 6,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 7,
-                            List_code = 7
+                            List_code = 7,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 8,
-                            List_code = 8
+                            List_code = 8,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 9,
-                            List_code = 9
+                            List_code = 9,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 10,
-                            List_code = 10
+                            List_code = 10,
+                            Quantity = 1
                         });
                 });
 
@@ -508,7 +521,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 54,
+                            Huella = 25,
                             Name = "product6",
                             Price = 16m
                         },
@@ -518,7 +531,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = -2,
+                            Huella = 36,
                             Name = "product7",
                             Price = 17m
                         },
@@ -528,7 +541,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = -6,
+                            Huella = 45,
                             Name = "product8",
                             Price = 18m
                         },
@@ -538,7 +551,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = -6,
+                            Huella = 26,
                             Name = "product9",
                             Price = 19m
                         },
@@ -548,7 +561,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 33,
+                            Huella = 12,
                             Name = "product10",
                             Price = 20m
                         });
@@ -567,7 +580,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 28,
+                            Huella = 41,
                             Name = "product1",
                             Price = 11m
                         },
@@ -577,7 +590,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 18,
+                            Huella = -14,
                             Name = "product2",
                             Price = 12m
                         },
@@ -587,7 +600,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 34,
+                            Huella = -2,
                             Name = "product3",
                             Price = 13m
                         },
@@ -597,7 +610,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = 33,
+                            Huella = 3,
                             Name = "product4",
                             Price = 14m
                         },
@@ -607,7 +620,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 33,
+                            Huella = 13,
                             Name = "product5",
                             Price = 15m
                         });
@@ -626,7 +639,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 15,
+                            Huella = 52,
                             Name = "product11",
                             Price = 21m
                         },
@@ -636,7 +649,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = 26,
+                            Huella = 0,
                             Name = "product12",
                             Price = 22m
                         },
@@ -646,7 +659,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = 21,
+                            Huella = -16,
                             Name = "product13",
                             Price = 23m
                         },
@@ -656,7 +669,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 32,
+                            Huella = -6,
                             Name = "product14",
                             Price = 24m
                         },
@@ -666,7 +679,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 10,
+                            Huella = -12,
                             Name = "product15",
                             Price = 25m
                         });

@@ -120,7 +120,7 @@ namespace Backend.Controllers
         }
 
         [Authorize(Roles = "client")]
-        [HttpDelete("/cart/{List_code}")]
+        [HttpDelete("/cart")]
         public void DeleteProductFromShoppingCart(int product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
