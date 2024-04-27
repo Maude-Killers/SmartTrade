@@ -37,11 +37,14 @@ namespace Backend.Repositories
                 .Where(client => client.Email == email)
                 .FirstOrDefault();
 
-            if(client == null) throw new ResourceNotFound("Client not found", email);
+            if (client != null)
+            {
 
-            _context.Entry(client).Collection(x => x.WishList.listProducts).Load();
-            
-            return client ?? throw new ResourceNotFound("Client email don't exists", email);
+                _context.Entry(client.WishList).Collection(x => x.listProducts).Load();
+
+                return client ?? throw new ResourceNotFound("Client email don't exists", email);
+            }
+            throw new ResourceNotFound("Client not found", email);
         }
 
         public Client? GetByCredentials(string Email, string Password)
