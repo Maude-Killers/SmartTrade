@@ -41,11 +41,8 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var product = _productRepository.Get(Product_code);
-            if (product == null)
-            {
-                _laterListRepository.AddProduct(product, email);
-            }
+            var useCase = new AddProductToList(_productRepository, _clientRepository, _laterListRepository);
+            useCase.AddProduct(email, Product_code);
         }
 
         [Authorize(Roles = "client")]
@@ -54,9 +51,8 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var client = _clientRepository.Get(email);
-            var product = _productRepository.Get(Product_code);
-            _wishListRepository.DeleteProduct(product, client);
+            var useCase = new DeleteProductFromList(_productRepository, _clientRepository, _wishListRepository);
+            useCase.DeleteProduct(email, Product_code);
         }
 
         [Authorize(Roles = "client")]
@@ -65,9 +61,8 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var client = _clientRepository.Get(email);
-            var product = _productRepository.Get(Product_code);
-            _laterListRepository.DeleteProduct(product, client);
+            var useCase = new DeleteProductFromList(_productRepository, _clientRepository, _laterListRepository);
+            useCase.DeleteProduct(email, Product_code);
         }
 
         [Authorize(Roles = "client")]
@@ -76,8 +71,8 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var client = _clientRepository.Get(email);
-            var products = _wishListRepository.GetProducts(client);
+            var useCase = new GetProductFromList(_clientRepository, _wishListRepository);
+            var products= useCase.GetProduct(email);
             return products;
         }
 
@@ -87,8 +82,8 @@ namespace Backend.Controllers
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var client = _clientRepository.Get(email);
-            var products = _laterListRepository.GetProducts(client);
+            var useCase = new GetProductFromList(_clientRepository, _laterListRepository);
+            var products = useCase.GetProduct(email);
             return products;
         }
     }

@@ -13,15 +13,15 @@ namespace Backend.Repositories
             _context = context;
         }
 
-        public void AddProduct(Product product, string Email)
+        public void AddProduct(Product product, Client client)
         {
-            LaterList laterlist = _context.LaterList.FirstOrDefault(x => x.ClientEmail == Email);
+
+            LaterList laterlist = client.LaterList;
             var isInList = laterlist.listProducts.Where(x => x.Product_code == product.Product_code);
             if (isInList != null)
             {
                 throw new ResourceNotFound("product is already in LaterList", product);
             }
-
             _context.ListProducts.Add(new ListProduct { List_code = laterlist.List_code, Product_code = product.Product_code });
             _context.SaveChanges();
         }
@@ -43,13 +43,11 @@ namespace Backend.Repositories
         public List<Product> GetProducts(Client client)
         {
             _context.Entry(client).Reference(client => client.LaterList).Load();
-
             var listCodes = _context.ListProducts
                 .Include(lp => lp.Product)
                 .Include(lp => lp.Product.Images)
                 .Where(lp => lp.List_code == client.LaterList.List_code)
                 .ToList();
-
             return listCodes.Select(lc => lc.Product).ToList();
         }
     }
