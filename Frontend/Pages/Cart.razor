@@ -13,7 +13,7 @@
                     Product
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Qty
+                    Quantity
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Price
@@ -24,9 +24,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in products)
+            @foreach (var product in productDictionary)
             {
-                <CartTableItem product="product" quantity="1" />
+                <CartTableItem product="product.Key" quantity="product.Value" />
             }
         </tbody>
     </table>
@@ -34,6 +34,7 @@
 
 @code {
     private List<Product> products { get; set; } = new List<Product>();
+    private Dictionary<Product, int> productDictionary { get; set; } = new Dictionary<Product, int>();
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
     {
@@ -44,7 +45,21 @@
             request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
             var result = await httpClient.SendAsync(request);
             products = await result.Content.ReadFromJsonAsync<List<Product>>() ?? new List<Product>();
+
+            foreach(var product in products)
+            {
+                if (productDictionary.ContainsKey(product))
+                {
+                    productDictionary[product]++;
+                }
+                else
+                {
+                    productDictionary.Add(product, 1);
+                }
+            }
             StateHasChanged();
+
+            
         }
     }
 }

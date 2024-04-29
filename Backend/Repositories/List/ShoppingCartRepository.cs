@@ -46,7 +46,14 @@ namespace Backend.Repositories
 
             if (shoppingCart != null && productList != null)
             {
-                _context.ListProducts.Remove(productList);
+                if (productList.Quantity == 1)
+                {
+                    _context.ListProducts.Remove(productList);
+                }
+                else
+                {
+                    productList.Quantity--;
+                }
                 _context.SaveChanges();
             }
         }

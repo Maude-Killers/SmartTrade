@@ -121,7 +121,7 @@ namespace Backend.Controllers
 
         [Authorize(Roles = "client")]
         [HttpDelete("/cart/{product_code}")]
-        public void DeleteProductFromShoppingCart(int product_code)
+        public void DeleteProductFromShoppingCart(int product_code, [FromQuery] bool  all = false)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
