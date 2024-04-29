@@ -15,9 +15,8 @@ namespace Backend.Repositories
 
         public void AddProduct(Product product, Client client)
         {
-
             WishList wishlist = client.WishList;
-            var isInList = wishlist.listProducts.Where(x => x.Product_code == product.Product_code);
+            var isInList = wishlist.listProducts.Where(x => x.Product_code == product.Product_code).FirstOrDefault();
             if (isInList != null)
             {
                 throw new ResourceNotFound("product is already in WishList", product);

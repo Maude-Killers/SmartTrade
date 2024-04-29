@@ -1,6 +1,7 @@
 using DataTransferObject;
 using System.Net.Http.Json;
 using SmartTrade.Models;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 public class ListService
 {
@@ -23,17 +24,23 @@ public class ListService
 
     public async Task AddWishList(ProductDTO product)
     {
-        await _httpClient.PostAsJsonAsync("/wishlist", product);
+        var request = new HttpRequestMessage(HttpMethod.Post, $"/wishlist/{product.Product_code}");
+        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+        await _httpClient.SendAsync(request);
     }
 
     public async Task AddLaterList(ProductDTO product)
     {
-        await _httpClient.PostAsJsonAsync("/laterlist", product);
+        var request = new HttpRequestMessage(HttpMethod.Post, $"/laterlist/{product.Product_code}");
+        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+        await _httpClient.SendAsync(request);
     }
 
     public async Task DeleteWishList(int Product_code)
     {
-        await _httpClient.DeleteAsync($"/wishlist/{Product_code}");
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"/wishlist/{Product_code}");
+        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+        await _httpClient.SendAsync(request);
     }
 
     public async Task DeleteLaterList(int Product_code)

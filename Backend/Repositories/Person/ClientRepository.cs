@@ -34,22 +34,11 @@ namespace Backend.Repositories
 
         public Client Get(string email)
         {
-            /*
-            var client = _context.Client
-                .Where(client => client.Email == email)
-                .FirstOrDefault();
-            */
-            var client= _context.Client.Include(c => c.WishList)
+            var client = _context.Client.Include(c => c.WishList)
                 .ThenInclude(w => w.listProducts)
                 .FirstOrDefault(c => c.Email == email);
-
-            if (client != null)
-            {
-                //_context.Entry(client).Collection(x => x.WishList.listProducts).Load();
-
-                return client ?? throw new ResourceNotFound("Client email don't exists", email);
-            }
-            throw new ResourceNotFound("Client not found", email);
+            
+            return client ?? throw new ResourceNotFound("Client email don't exists", email);
         }
 
         public Client? GetByCredentials(string Email, string Password)
