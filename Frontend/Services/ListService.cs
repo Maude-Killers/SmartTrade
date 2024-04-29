@@ -23,7 +23,7 @@ public class ListService
 
     public async Task AddWishList(ProductDTO product)
     {
-        await _httpClient.PostAsJsonAsync<ProductDTO>("/wishlist", product);
+        await _httpClient.PostAsJsonAsync("/wishlist", product);
     }
 
     public async Task AddLaterList(ProductDTO product)
