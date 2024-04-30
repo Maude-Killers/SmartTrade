@@ -4,11 +4,11 @@ using SmartTrade.Models;
 
 namespace Backend.Repositories
 {
-    public class LaterListRepository : ILaterListRepository
+    public class GiftListRepository : IGiftListRepository
     {
         private readonly AppDbContext _context;
 
-        public LaterListRepository(AppDbContext context)
+        public GiftListRepository(AppDbContext context)
         {
             _context = context;
         }
@@ -16,24 +16,24 @@ namespace Backend.Repositories
         public void AddProduct(Product product, Client client)
         {
 
-            LaterList laterlist = client.LaterList;
-            var isInList = laterlist.listProducts.Where(x => x.Product_code == product.Product_code);
+            GiftList giftList = client.GiftList;
+            var isInList = giftList.listProducts.Where(x => x.Product_code == product.Product_code).FirstOrDefault();
             if (isInList != null)
             {
-                throw new ResourceNotFound("product is already in LaterList", product);
+                throw new ResourceNotFound("product is already in GiftList", product);
             }
-            _context.ListProducts.Add(new ListProduct { List_code = laterlist.List_code, Product_code = product.Product_code });
+            _context.ListProducts.Add(new ListProduct { List_code = giftList.List_code, Product_code = product.Product_code });
             _context.SaveChanges();
         }
 
         public void DeleteProduct(Product product, Client client)
         {
-            var laterlist = client.LaterList;
+            var giftList = client.GiftList;
             var productList = _context.ListProducts
-                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == laterlist.List_code)
+                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == giftList.List_code)
                 .FirstOrDefault();
 
-            if (laterlist != null && productList != null)
+            if (giftList != null && productList != null)
             {
                 _context.ListProducts.Remove(productList);
                 _context.SaveChanges();
@@ -42,11 +42,11 @@ namespace Backend.Repositories
 
         public List<Product> GetProducts(Client client)
         {
-            _context.Entry(client).Reference(client => client.LaterList).Load();
+            _context.Entry(client).Reference(client => client.GiftList).Load();
             var listCodes = _context.ListProducts
                 .Include(lp => lp.Product)
                 .Include(lp => lp.Product.Images)
-                .Where(lp => lp.List_code == client.LaterList.List_code)
+                .Where(lp => lp.List_code == client.GiftList.List_code)
                 .ToList();
             return listCodes.Select(lc => lc.Product).ToList();
         }

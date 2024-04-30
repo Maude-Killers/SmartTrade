@@ -17,9 +17,9 @@ public class ListService
         return await _httpClient.GetFromJsonAsync<ProductDTO>($"/wishlist") ?? new ProductDTO();
     }
 
-    public async Task<ProductDTO> GetLaterList()
+    public async Task<ProductDTO> GetGiftList()
     {
-        return await _httpClient.GetFromJsonAsync<ProductDTO>($"/laterlist") ?? new ProductDTO();
+        return await _httpClient.GetFromJsonAsync<ProductDTO>($"/giftlist") ?? new ProductDTO();
     }
 
     public async Task AddWishList(ProductDTO product)
@@ -29,9 +29,9 @@ public class ListService
         await _httpClient.SendAsync(request);
     }
 
-    public async Task AddLaterList(ProductDTO product)
+    public async Task AddGiftList(ProductDTO product)
     {
-        var request = new HttpRequestMessage(HttpMethod.Post, $"/laterlist/{product.Product_code}");
+        var request = new HttpRequestMessage(HttpMethod.Post, $"/giftlist/{product.Product_code}");
         request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
         await _httpClient.SendAsync(request);
     }
@@ -43,9 +43,11 @@ public class ListService
         await _httpClient.SendAsync(request);
     }
 
-    public async Task DeleteLaterList(int Product_code)
+    public async Task DeleteGiftList(int Product_code)
     {
-        await _httpClient.DeleteAsync($"/laterlist/{Product_code}");
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"/giftlist/{Product_code}");
+        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+        await _httpClient.SendAsync(request);
     }
 
 }

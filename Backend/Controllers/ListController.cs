@@ -13,15 +13,15 @@ namespace Backend.Controllers
     {
         private readonly ILogger<ListController> _logger;
         private readonly IWishListRepository _wishListRepository;
-        private readonly ILaterListRepository _laterListRepository;
+        private readonly IGiftListRepository _giftListRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IProductRepository _productRepository;
 
-        public ListController(IWishListRepository wishListRepository, ILaterListRepository laterListRepository, IClientRepository clientRepository, ILogger<ListController> logger, IProductRepository productRepository)
+        public ListController(IWishListRepository wishListRepository, IGiftListRepository giftListRepository, IClientRepository clientRepository, ILogger<ListController> logger, IProductRepository productRepository)
         {
             _logger = logger;
             _wishListRepository = wishListRepository;
-            _laterListRepository = laterListRepository;
+            _giftListRepository = giftListRepository;
             _clientRepository = clientRepository;
             _productRepository = productRepository;
         }
@@ -35,13 +35,12 @@ namespace Backend.Controllers
             useCase.AddProduct(email, Product_code);
         }
 
-        [Authorize(Roles = "client")]
-        [HttpPost("/laterlist/{Product_code}")]
-        public void AddProductLaterlist(int Product_code)
+        [HttpPost("/giftlist/{Product_code}")]
+        public void AddProductGiftlist(int Product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var useCase = new AddProductToList(_productRepository, _clientRepository, _laterListRepository);
+            var useCase = new AddProductToList(_productRepository, _clientRepository, _giftListRepository);
             useCase.AddProduct(email, Product_code);
         }
 
@@ -56,12 +55,12 @@ namespace Backend.Controllers
         }
 
         [Authorize(Roles = "client")]
-        [HttpDelete("/laterlist/{Product_code}")]
-        public void DeleteProductFromLaterlist(int Product_code)
+        [HttpDelete("/giftlist/{Product_code}")]
+        public void DeleteProductFromGiftlist(int Product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var useCase = new DeleteProductFromList(_productRepository, _clientRepository, _laterListRepository);
+            var useCase = new DeleteProductFromList(_productRepository, _clientRepository, _giftListRepository);
             useCase.DeleteProduct(email, Product_code);
         }
 
@@ -77,12 +76,12 @@ namespace Backend.Controllers
         }
 
         [Authorize(Roles = "client")]
-        [HttpGet("/laterlist")]
-        public List<Product> GetLaterListProducts()
+        [HttpGet("/giftlist")]
+        public List<Product> GetGiftListProducts()
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
-            var useCase = new GetProductFromList(_clientRepository, _laterListRepository);
+            var useCase = new GetProductFromList(_clientRepository, _giftListRepository);
             var products = useCase.GetProduct(email);
             return products;
         }

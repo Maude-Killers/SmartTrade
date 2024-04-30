@@ -3,14 +3,14 @@
 
 namespace SmartTrade.Models
 {
-    public partial class LaterList: List
+    public partial class GiftList: List
     {
         [ForeignKey("Client")]
         public string ClientEmail { get; set; }
         public virtual Client Client { get; set; }
-        public LaterList() : base()
+        public GiftList() : base()
         {
-            Name = "LaterList";
+            Name = "GiftList";
         }
     }
 }

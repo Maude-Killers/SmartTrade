@@ -59,9 +59,8 @@
             <button @onclick="AddWishList"
             class="h-16 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">Agregar a la lista de
             deseos</button>
-            <button @onclick="AddLaterList"
-                class="h-16 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar a la lista para m�s
-                tarde</button>
+            <button @onclick="AddGiftList"
+                class="h-16 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Agregar a la lista de regalos</button>
         </div>
     </aside>
 </main>
@@ -81,9 +80,9 @@
         await ListService.AddWishList(product);
         nav.NavigateTo("/wishlist");
     }
-    private async void AddLaterList()
+    private async void AddGiftList()
     {
-        await ListService.AddLaterList(product);
-        nav.NavigateTo("/laterlist");
+        await ListService.AddGiftList(product);
+        nav.NavigateTo("/giftlist");
     }
 }
