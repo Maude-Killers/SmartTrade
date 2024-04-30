@@ -21,10 +21,10 @@ public class AuthService
         };
 
         var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5173/login")
-        { 
+        {
             Content = JsonContent.Create(loginRequest)
         };
-        
+
         request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
         var result = await _httpClient.SendAsync(request);
     }

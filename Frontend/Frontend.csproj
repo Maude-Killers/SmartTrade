@@ -12,6 +12,7 @@
     <Compile Include="..\Backend\Domain\Models\**\*.cs">
       <Link>Models\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </Compile>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
   </ItemGroup>
 
   <ItemGroup>
