@@ -1,5 +1,7 @@
 ﻿@page "/giftlist"
 @inject HttpClient Http
+@inject ProductService service;
+@inject ListService ListService;
 @inject NavigationManager nav
 
 
@@ -10,7 +12,20 @@
 		<CabeceraList />
 		@foreach (var item in listProducts)
 		{
-			<ItemList product="@item" />
+			<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+				<td class="p-4" style="max-height: 70px;">
+					<img src="@item.Images.First().Image" class="w-12 h-12 md:w-32 md:h-32 max-w-full max-h-full" alt="Apple Watch">
+				</td>
+				<td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+					@item.Name
+				</td>
+				<td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+					@item.Price
+				</td>
+				<td class="px-6 py-4">
+					<button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" @onclick="@( () => DeleteProduct(item.Product_code) )" >Remove</button>
+				</td>
+			</tr>
 		}
 	</table>
 </div>
@@ -20,14 +35,20 @@
 
 	[Parameter]
 	public int List_Code { get; set; }
+	
 
 	protected override async void OnInitialized()
 	{
 		var request = new HttpRequestMessage(HttpMethod.Get, "giftlist");
-
 		request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
 		var result = await Http.SendAsync(request);
 		listProducts = await result.Content.ReadFromJsonAsync<List<ProductDTO>>() ?? new List<ProductDTO>();
 		StateHasChanged();
+	}
+	public async void DeleteProduct(int product_code)
+	{
+		await ListService.DeleteGiftList(product_code);
+		nav.NavigateTo("/login");
+		nav.NavigateTo("/giftlist");
 	}
 }
