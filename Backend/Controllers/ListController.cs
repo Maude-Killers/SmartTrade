@@ -26,7 +26,8 @@ namespace Backend.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpPost("/wishlist/{Product_code}")]
+		[Authorize(Roles = "client")]
+		[HttpPost("/wishlist/{Product_code}")]
         public void AddProductWishlist(int Product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
@@ -35,7 +36,8 @@ namespace Backend.Controllers
             useCase.AddProduct(email, Product_code);
         }
 
-        [HttpPost("/giftlist/{Product_code}")]
+		[Authorize(Roles = "client")]
+		[HttpPost("/giftlist/{Product_code}")]
         public void AddProductGiftlist(int Product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
