@@ -16,7 +16,7 @@
 </div>
 
 @code {
-	private List<Product> listProducts = new List<Product>();
+	private List<ProductDTO> listProducts = new List<ProductDTO>();
 
 	[Parameter]
 	public int List_Code { get; set; }
@@ -27,7 +27,7 @@
 
 		request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
 		var result = await Http.SendAsync(request);
-		listProducts = await result.Content.ReadFromJsonAsync<List<Product>>() ?? new List<Product>();
+		listProducts = await result.Content.ReadFromJsonAsync<List<ProductDTO>>() ?? new List<ProductDTO>();
 		StateHasChanged();
 	}
 }

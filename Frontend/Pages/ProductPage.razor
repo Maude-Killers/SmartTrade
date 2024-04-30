@@ -1,5 +1,6 @@
 @inject ProductService service;
 @inject ListService ListService;
+@inject NavigationManager nav;
 
 @page "/product/{product_code}"
 
@@ -78,9 +79,11 @@
     protected async void AddWishList()
     {
         await ListService.AddWishList(product);
+        nav.NavigateTo("/wishlist");
     }
     private async void AddLaterList()
     {
         await ListService.AddLaterList(product);
+        nav.NavigateTo("/laterlist");
     }
 }

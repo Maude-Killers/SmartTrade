@@ -1,7 +1,7 @@
 namespace DataTransferObject;
 public class ProductDTO
 {
-    public int? Product_code { get; set; }
+    public int Product_code { get; set; }
     public string Name { get; set; }
 
     public decimal Price { get; set; }

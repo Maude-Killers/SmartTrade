@@ -1,5 +1,6 @@
 @inject ProductService service;
 @inject ListService ListService;
+@inject NavigationManager nav;
 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 	<td class="p-4" style="max-height: 70px;">
 		<img src="@product.Images.First().Image" class="w-12 h-12 md:w-32 md:h-32 max-w-full max-h-full" alt="Apple Watch">
@@ -17,15 +18,23 @@
 
 @code {
 	[Parameter]
-	public string product_code { get; set; }
 	public ProductDTO product { get; set; } = new ProductDTO();
+
 	protected override async Task OnInitializedAsync()
 	{
-		product = await service.GetProductAsync(int.Parse(product_code));
-		StateHasChanged();
+		if (product.Product_code != null)
+		{
+			product = await service.GetProductAsync(product.Product_code);
+			StateHasChanged();
+		}
 	}
+
+
 	public async void DeleteProduct()
 	{
-		await ListService.DeleteWishList(int.Parse(product_code));
+		await ListService.DeleteWishList(product.Product_code);
+		nav.NavigateTo("/login");
+		nav.NavigateTo("/wishlist");
 	}
+	
 }
