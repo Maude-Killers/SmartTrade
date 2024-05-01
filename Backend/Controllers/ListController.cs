@@ -127,7 +127,15 @@ namespace Backend.Controllers
             var email = AuthHelpers.GetEmail(token);
             var client = _clientRepository.Get(email);
             Product product = _productRepository.Get(product_code);
-            _shoppingCartRepository.DeleteProduct(product, client);
+
+            if (all)
+            {
+                _shoppingCartRepository.DeleteItem(product, client);
+            }
+            else
+            {
+                _shoppingCartRepository.DeleteProduct(product, client);
+            }
         }
     }
 }
