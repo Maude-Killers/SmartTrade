@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class sprint1refactor : Migration
+    public partial class giftList : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -145,21 +145,21 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", -18, "product1", 11m },
-                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", 12, "product2", 12m },
-                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", -7, "product3", 13m },
-                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", 36, "product4", 14m },
-                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", -3, "product5", 15m },
-                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", -15, "product6", 16m },
-                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", 9, "product7", 17m },
-                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 2, "product8", 18m },
-                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 28, "product9", 19m },
-                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", -14, "product10", 20m },
-                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 45, "product11", 21m },
-                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 41, "product12", 22m },
-                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 24, "product13", 23m },
-                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", 40, "product14", 24m },
-                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", -20, "product15", 25m }
+                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 3, "product1", 11m },
+                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", -16, "product2", 12m },
+                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", -10, "product3", 13m },
+                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", 50, "product4", 14m },
+                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", 30, "product5", 15m },
+                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", 12, "product6", 16m },
+                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", 39, "product7", 17m },
+                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 21, "product8", 18m },
+                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 39, "product9", 19m },
+                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 21, "product10", 20m },
+                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 46, "product11", 21m },
+                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 8, "product12", 22m },
+                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 26, "product13", 23m },
+                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", -2, "product14", 24m },
+                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", -17, "product15", 25m }
                 });
 
             migrationBuilder.InsertData(
@@ -201,11 +201,11 @@ namespace Backend.Migrations
                 columns: new[] { "List_code", "ClientEmail", "Discriminator", "Name" },
                 values: new object[,]
                 {
-                    { 6, "prueba1@prueba.com", "LaterList", "LaterList" },
-                    { 7, "prueba2@prueba.com", "LaterList", "LaterList" },
-                    { 8, "prueba3@prueba.com", "LaterList", "LaterList" },
-                    { 9, "prueba4@prueba.com", "LaterList", "LaterList" },
-                    { 10, "prueba5@prueba.com", "LaterList", "LaterList" }
+                    { 6, "prueba1@prueba.com", "GiftList", "GiftList" },
+                    { 7, "prueba2@prueba.com", "GiftList", "GiftList" },
+                    { 8, "prueba3@prueba.com", "GiftList", "GiftList" },
+                    { 9, "prueba4@prueba.com", "GiftList", "GiftList" },
+                    { 10, "prueba5@prueba.com", "GiftList", "GiftList" }
                 });
 
             migrationBuilder.InsertData(

@@ -11,15 +11,15 @@ public class ProductService
         _httpClient = httpClient;
     }
 
-    public async Task<Product> GetProductAsync(int product_code)
+    public async Task<ProductDTO> GetProductAsync(int product_code)
     {
-        return await _httpClient.GetFromJsonAsync<Product>($"products/{product_code}") ?? new Product();
+        return await _httpClient.GetFromJsonAsync<ProductDTO>($"products/{product_code}") ?? new ProductDTO();
     }
 
 
-    public async Task<Product[]> SearchProduct(string searchValue)
+    public async Task<ProductDTO[]> SearchProduct(string searchValue)
     {
-        return await _httpClient.GetFromJsonAsync<Product[]>($"search?value={searchValue}") ?? Array.Empty<Product>();
+        return await _httpClient.GetFromJsonAsync<ProductDTO[]>($"search?value={searchValue}") ?? Array.Empty<ProductDTO>();
     }
 
     public async Task SaveProductAsync(ProductDTO product)

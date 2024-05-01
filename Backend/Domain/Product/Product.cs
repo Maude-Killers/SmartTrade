@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using Backend.Interfaces;
 using Backend.Repositories;
+using DataTransferObject;
 using Microsoft.IdentityModel.Tokens;
 
 namespace SmartTrade.Models
@@ -33,16 +34,15 @@ namespace SmartTrade.Models
             this.Huella = fingerPrint;
         }
 
-        public void SetCategory(string category)
+        public void SetCategory(Category category)
         {
-            if (!TryParseCategory(category, out Category realCategory)) throw new ArgumentException("invalid category", category);
             if (category.ToString().IsNullOrEmpty()) throw new ArgumentException("empty description");
-            this.Category = realCategory;
+            this.Category = category;
         }
-
-        public static bool TryParseCategory(string input, out SmartTrade.Models.Category category)
-        {
-            return Enum.TryParse(input, true, out category);
+        public void SetImages(ICollection<Gallery> images)
+        { 
+            if (images.IsNullOrEmpty()) throw new ArgumentException("no images");
+            this.Images = images;
         }
 
         public void SetPrice(decimal price)

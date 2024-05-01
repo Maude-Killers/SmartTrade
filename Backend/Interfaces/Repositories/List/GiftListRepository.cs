@@ -2,6 +2,6 @@
 
 namespace Backend.Interfaces
 {
-    public interface ILaterListRepository : IListRepository
+    public interface IGiftListRepository : IListRepository
     { }
 }

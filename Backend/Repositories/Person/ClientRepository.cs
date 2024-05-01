@@ -1,4 +1,6 @@
 using Backend.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
 namespace Backend.Repositories
@@ -32,9 +34,11 @@ namespace Backend.Repositories
 
         public Client Get(string email)
         {
-            var client = _context.Client
-                .Where(client => client.Email == email)
-                .FirstOrDefault();
+            var client = _context.Client.Include(c => c.WishList)
+                .ThenInclude(w => w.listProducts).Include(c => c.GiftList)
+		        .ThenInclude(g => g.listProducts)
+				.FirstOrDefault(c => c.Email == email);
+            
             return client ?? throw new ResourceNotFound("Client email don't exists", email);
         }
 

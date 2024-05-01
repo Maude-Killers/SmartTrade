@@ -1,11 +1,11 @@
-﻿@page "/wishlist"
+﻿@page "/giftlist"
 @inject HttpClient Http
 @inject ProductService service;
 @inject ListService ListService;
 @inject NavigationManager nav
 
 
-<PageTitle>Lista de Deseos</PageTitle>
+<PageTitle>Lista de Regalos</PageTitle>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 	<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -23,7 +23,7 @@
 					@item.Price
 				</td>
 				<td class="px-6 py-4">
-					<button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" @onclick="@( () => DeleteProduct(item.Product_code) )">Remove</button>
+					<button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" @onclick="@( () => DeleteProduct(item.Product_code) )" >Remove</button>
 				</td>
 			</tr>
 		}
@@ -35,20 +35,20 @@
 
 	[Parameter]
 	public int List_Code { get; set; }
+	
 
 	protected override async void OnInitialized()
 	{
-		var request = new HttpRequestMessage(HttpMethod.Get, "wishlist");
+		var request = new HttpRequestMessage(HttpMethod.Get, "giftlist");
 		request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
 		var result = await Http.SendAsync(request);
 		listProducts = await result.Content.ReadFromJsonAsync<List<ProductDTO>>() ?? new List<ProductDTO>();
 		StateHasChanged();
 	}
-	
 	public async void DeleteProduct(int product_code)
 	{
-		await ListService.DeleteWishList(product_code);
+		await ListService.DeleteGiftList(product_code);
 		nav.NavigateTo("/login");
-		nav.NavigateTo("/wishlist");
+		nav.NavigateTo("/giftlist");
 	}
 }

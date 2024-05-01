@@ -16,7 +16,7 @@ public static class Repositories
 
         builder.Services.AddScoped<IWishListRepository, WishListRepository>();
 
-        builder.Services.AddScoped<ILaterListRepository, LaterListRepository>();
+        builder.Services.AddScoped<IGiftListRepository, GiftListRepository>();
 
         builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
     }

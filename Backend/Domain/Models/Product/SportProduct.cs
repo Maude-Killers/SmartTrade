@@ -1,10 +1,12 @@
-﻿namespace SmartTrade.Models
+﻿using DataTransferObject;
+
+namespace SmartTrade.Models
 {
     public partial class SportProduct : Product
     {
         public SportProduct() : base()
         {
-            Category = SmartTrade.Models.Category.Sport;
+            Category = Category.Sport;
         }
     }
 }

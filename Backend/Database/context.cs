@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
+using DataTransferObject;
 
 public class AppDbContext : DbContext
 {
@@ -21,7 +22,7 @@ public class AppDbContext : DbContext
     public DbSet<List> List { get; set; }
 
     public DbSet<WishList> WishList { get; set; }
-    public DbSet<LaterList> LaterList { get; set; }
+    public DbSet<GiftList> GiftList { get; set; }
 
     public DbSet<Person> Person { get; set; }
     public DbSet<Client> Client { get; set; }
@@ -55,13 +56,13 @@ public class AppDbContext : DbContext
         }).ToArray();
         modelBuilder.Entity<WishList>().HasData(wishLists);
 
-        var laterLists = Enumerable.Range(1, 5).Select(index => new LaterList
+        var giftLists = Enumerable.Range(1, 5).Select(index => new GiftList
         {
             List_code = index + 5,
-            Name = "LaterList",
+            Name = "GiftList",
             ClientEmail = clients[index - 1].Email
         }).ToArray();
-        modelBuilder.Entity<LaterList>().HasData(laterLists);
+        modelBuilder.Entity<GiftList>().HasData(giftLists);
 
         var mondongo = Enumerable.Range(1, 5).Select(index => new SportProduct
         {
@@ -106,12 +107,12 @@ public class AppDbContext : DbContext
         });
         modelBuilder.Entity<ListProduct>().HasData(listProducts);
 
-        var laterProducts = Enumerable.Range(1, 5).Select(index => new ListProduct
+        var giftProducts = Enumerable.Range(1, 5).Select(index => new ListProduct
         {
             Product_code = index + 5,
             List_code = index + 5
         });
-        modelBuilder.Entity<ListProduct>().HasData(laterProducts);
+        modelBuilder.Entity<ListProduct>().HasData(giftProducts);
 
         Gallery[] images = {
             new Gallery {
