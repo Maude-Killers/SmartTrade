@@ -37,8 +37,8 @@ namespace Backend.Controllers
             _productRepository = productRepository;
         }
 
-		[Authorize(Roles = "client")]
-		[HttpPost("/wishlist/{Product_code}")]
+        [Authorize(Roles = "client")]
+        [HttpPost("/wishlist/{Product_code}")]
         public void AddProductWishlist(int Product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
@@ -47,8 +47,8 @@ namespace Backend.Controllers
             useCase.AddProduct(email, Product_code);
         }
 
-		[Authorize(Roles = "client")]
-		[HttpPost("/giftlist/{Product_code}")]
+        [Authorize(Roles = "client")]
+        [HttpPost("/giftlist/{Product_code}")]
         public void AddProductGiftlist(int Product_code)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
@@ -84,7 +84,7 @@ namespace Backend.Controllers
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
             var useCase = new GetProductFromList(_clientRepository, _wishListRepository);
-            var products= useCase.GetProduct(email);
+            var products = useCase.GetProduct(email);
             return products;
         }
 
@@ -112,18 +112,26 @@ namespace Backend.Controllers
 
         [Authorize(Roles = "client")]
         [HttpPost("/cart/{product_code}")]
-        public void AddProductShoppingCart(int product_code)
+        public void AddProductShoppingCart(int product_code, [FromQuery] bool fromLater = false)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
             var client = _clientRepository.Get(email);
-            Product product = _productRepository.Get(product_code);
-            _shoppingCartRepository.AddProduct(product, client);
+            if (fromLater)
+            {
+                var useCase = new MoveProduct(_productRepository, _clientRepository, _laterListRepository, _shoppingCartRepository);
+                useCase.Execute(email, product_code);
+            }
+            else
+            {
+                Product product = _productRepository.Get(product_code);
+                _shoppingCartRepository.AddProduct(product, client);
+            }
         }
 
         [Authorize(Roles = "client")]
         [HttpDelete("/cart/{product_code}")]
-        public void DeleteProductFromShoppingCart(int product_code, [FromQuery] bool  all = false)
+        public void DeleteProductFromShoppingCart(int product_code, [FromQuery] bool all = false)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
@@ -132,11 +140,11 @@ namespace Backend.Controllers
 
             if (all)
             {
-                _shoppingCartRepository.DeleteItem(product, client);
+                _shoppingCartRepository.DeleteProduct(product, client);
             }
             else
             {
-                _shoppingCartRepository.DeleteProduct(product, client);
+                _shoppingCartRepository.DeleteItem(product, client);
             }
         }
 
@@ -153,13 +161,21 @@ namespace Backend.Controllers
 
         [Authorize(Roles = "client")]
         [HttpPost("/laterlist/{product_code}")]
-        public void AddProductLaterList(int product_code)
+        public void AddProductLaterList(int product_code, [FromQuery] bool fromCart = false)
         {
             var token = HttpContext.Request.Cookies["JWTToken"];
             var email = AuthHelpers.GetEmail(token);
             var client = _clientRepository.Get(email);
-            Product product = _productRepository.Get(product_code);
-            _laterListRepository.AddProduct(product, client);
+            if (fromCart)
+            {
+                var useCase = new MoveProduct(_productRepository, _clientRepository, _shoppingCartRepository, _laterListRepository);
+                useCase.Execute(email, product_code);
+            }
+            else
+            {
+                Product product = _productRepository.Get(product_code);
+                _laterListRepository.AddProduct(product, client);
+            }
         }
 
         [Authorize(Roles = "client")]

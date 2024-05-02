@@ -16,10 +16,10 @@ public class LaterListRepository : ILaterListRepository
     public void AddProduct(Product product, Client client)
     {
         LaterList laterList = client.LaterList;
-        var isInList = laterList.listProducts.Where(x => x.Product_code == product.Product_code && x.List_code == laterList.List_code).FirstOrDefault();
+        var isInList = laterList.listProducts.Where(x => x.Product_code == product.Product_code).FirstOrDefault();
         if (isInList != null)
         {
-            throw new ResourceNotFound("product is already in GiftList", product);
+            throw new ResourceNotFound("product is already in Laterlist", product);
         }
         _context.ListProducts.Add(new ListProduct { List_code = laterList.List_code, Product_code = product.Product_code });
         _context.SaveChanges();

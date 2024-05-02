@@ -36,7 +36,7 @@ public class ShoppingCartRepository : IShoppingCartRepository
         _context.SaveChanges();
     }
 
-    public void DeleteItem(Product product, Client client)
+    public void DeleteProduct(Product product, Client client)
     {
         var shoppingCart = client.ShoppingCart;
         var productList = shoppingCart.listProducts
@@ -49,7 +49,7 @@ public class ShoppingCartRepository : IShoppingCartRepository
         _context.SaveChanges();
     }
 
-    public void DeleteProduct(Product product, Client client)
+    public void DeleteItem(Product product, Client client)
     {
         _context.Entry(client).Reference(x => x.ShoppingCart).Load();
         var shoppingCart = client.ShoppingCart;
