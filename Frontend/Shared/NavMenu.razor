@@ -30,7 +30,6 @@
                     </div>
 
                 </span>
-                <NavBarItem Name="Iniciar sesión" URI="login" />
             </ul>
         </div>
         @if (!string.IsNullOrEmpty(user.Value.Name) && user.Value.IsValid)
@@ -62,7 +61,7 @@
         else
         {
             <span class="md:order-4">
-                <NavBarItem Name="Login" URI="login" />
+                <NavBarItem Name="Iniciar sesión" URI="login" />
             </span>
         }
     </div>
