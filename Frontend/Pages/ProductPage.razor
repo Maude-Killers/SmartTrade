@@ -69,6 +69,7 @@
     [Parameter]
     public string product_code { get; set; }
     public ProductDTO product = new ProductDTO();
+    
     protected override async Task OnInitializedAsync()
     {
         product = await service.GetProductAsync(int.Parse(product_code));

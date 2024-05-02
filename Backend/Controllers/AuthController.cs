@@ -33,7 +33,7 @@ namespace Backend.Controllers
 
             var cookieOptions = new CookieOptions
             {
-                HttpOnly = true,
+                HttpOnly = false,
                 Expires = DateTime.Now.AddDays(1),
             };
 
