@@ -15,6 +15,7 @@ namespace Backend.Controllers
         private readonly IWishListRepository _wishListRepository;
         private readonly IGiftListRepository _giftListRepository;
         private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly ILaterListRepository _laterListRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IProductRepository _productRepository;
 
@@ -23,6 +24,7 @@ namespace Backend.Controllers
             IGiftListRepository giftListRepository,
             IClientRepository clientRepository,
             IShoppingCartRepository shoppingCartRepository,
+            ILaterListRepository laterListRepository,
             ILogger<ListController> logger,
             IProductRepository productRepository)
         {
@@ -30,6 +32,7 @@ namespace Backend.Controllers
             _wishListRepository = wishListRepository;
             _giftListRepository = giftListRepository;
             _shoppingCartRepository = shoppingCartRepository;
+            _laterListRepository = laterListRepository;
             _clientRepository = clientRepository;
             _productRepository = productRepository;
         }
@@ -135,6 +138,39 @@ namespace Backend.Controllers
             {
                 _shoppingCartRepository.DeleteProduct(product, client);
             }
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpGet("/laterlist")]
+        public List<Product> GetLaterListProducts()
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            var products = _laterListRepository.GetProducts(client);
+            return products;
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpPost("/laterlist/{product_code}")]
+        public void AddProductLaterList(int product_code)
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            Product product = _productRepository.Get(product_code);
+            _laterListRepository.AddProduct(product, client);
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpDelete("/laterlist/{product_code}")]
+        public void DeleteProductFromLaterList(int product_code)
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            Product product = _productRepository.Get(product_code);
+            _laterListRepository.DeleteProduct(product, client);
         }
     }
 }

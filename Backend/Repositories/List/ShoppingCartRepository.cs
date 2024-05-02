@@ -2,94 +2,90 @@
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
-namespace Backend.Repositories
+namespace Backend.Repositories;
+
+public class ShoppingCartRepository : IShoppingCartRepository
 {
-    public class ShoppingCartRepository : IShoppingCartRepository
+    private readonly AppDbContext _context;
+
+    public ShoppingCartRepository(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public ShoppingCartRepository(AppDbContext context)
+    public void AddProduct(Product product, Client client)
+    {
+        _context.Entry(client).Reference(x => x.ShoppingCart).Load();
+        var shoppingCart = client.ShoppingCart;
+        var existsProduct = _context.Products.Where(item => item.Product_code == product.Product_code).FirstOrDefault();
+        if (existsProduct == null)
         {
-            _context = context;
+            throw new ResourceNotFound("product doesn't exists", product);
         }
 
-        public void AddProduct(Product product, Client client)
+        var productInList = _context.ListProducts.Where(item => item.Product_code == product.Product_code
+            && item.List_code == shoppingCart.List_code).FirstOrDefault();
+        if (productInList != null)
         {
-            _context.Entry(client).Reference(x => x.ShoppingCart).Load();
-            var shoppingCart = client.ShoppingCart;
-            var existsProduct = _context.Products.Where(item => item.Product_code == product.Product_code).FirstOrDefault();
-            if (existsProduct == null)
+            productInList.Quantity++;
+        }
+        else
+        {
+            _context.ListProducts.Add(new ListProduct { List_code = shoppingCart.List_code, Product_code = product.Product_code });
+        }
+        _context.SaveChanges();
+    }
+
+    public void DeleteItem(Product product, Client client)
+    {
+        var shoppingCart = client.ShoppingCart;
+        var productList = shoppingCart.listProducts
+            .Where(listProduct => listProduct.Product_code == product.Product_code)
+            .FirstOrDefault();
+
+        if (shoppingCart == null || productList == null) throw new ResourceNotFound("list or productList not found", product);
+
+        _context.ListProducts.Remove(productList);
+        _context.SaveChanges();
+    }
+
+    public void DeleteProduct(Product product, Client client)
+    {
+        _context.Entry(client).Reference(x => x.ShoppingCart).Load();
+        var shoppingCart = client.ShoppingCart;
+        var productList = _context.ListProducts
+            .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == shoppingCart.List_code)
+            .FirstOrDefault();
+
+        if (shoppingCart == null || productList == null) throw new ResourceNotFound("list or productList not found", product);
+
+        if (productList.Quantity == 1)
+        {
+            _context.ListProducts.Remove(productList);
+        }
+        else
+        {
+            productList.Quantity--;
+        }
+        _context.SaveChanges();
+    }
+
+    public List<Product> GetProducts(Client client)
+    {
+        _context.Entry(client).Reference(client => client.ShoppingCart).Load();
+        var listCodes = _context.ListProducts
+            .Include(lp => lp.Product)
+            .Include(lp => lp.Product.Images)
+            .Where(lp => lp.List_code == client.ShoppingCart.List_code)
+            .ToList();
+        List<Product> listProduct = new List<Product>();
+        foreach (var listCode in listCodes)
+        {
+            for (var i = 0; i < listCode.Quantity; i++)
             {
-                throw new ResourceNotFound("product doesn't exists", product);
-            }
-
-            var productInList = _context.ListProducts.Where(item => item.Product_code == product.Product_code 
-                && item.List_code == shoppingCart.List_code).FirstOrDefault();
-            if (productInList != null) 
-            { 
-                productInList.Quantity++; 
-            }
-            else 
-            { 
-                _context.ListProducts.Add(new ListProduct { List_code = shoppingCart.List_code, Product_code = product.Product_code }); 
-            }
-            _context.SaveChanges();
-        }
-
-        public void DeleteItem(Product product, Client client)
-        {
-            _context.Entry(client).Reference(x => x.ShoppingCart).Load();
-            var shoppingCart = client.ShoppingCart;
-            var productList = _context.ListProducts
-                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == shoppingCart.List_code)
-                .FirstOrDefault();
-
-            if (shoppingCart != null && productList != null)
-            {
-                _context.ListProducts.Remove(productList);
-                _context.SaveChanges();
+                listProduct.Add(listCode.Product);
             }
         }
-
-        public void DeleteProduct(Product product, Client client)
-        {
-            _context.Entry(client).Reference(x => x.ShoppingCart).Load();
-            var shoppingCart = client.ShoppingCart;
-            var productList = _context.ListProducts
-                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == shoppingCart.List_code)
-                .FirstOrDefault();
-
-            if (shoppingCart != null && productList != null)
-            {
-                if (productList.Quantity == 1)
-                {
-                    _context.ListProducts.Remove(productList);
-                }
-                else
-                {
-                    productList.Quantity--;
-                }
-                _context.SaveChanges();
-            }
-        }
-
-        public List<Product> GetProducts(Client client)
-        {
-            _context.Entry(client).Reference(client => client.ShoppingCart).Load();
-            var listCodes = _context.ListProducts
-                .Include(lp => lp.Product)
-                .Include(lp => lp.Product.Images)
-                .Where(lp => lp.List_code == client.ShoppingCart.List_code)
-                .ToList();
-            List<Product> listProduct = new List<Product>();
-            foreach (var listCode in listCodes)
-            {
-                for(var i = 0; i < listCode.Quantity; i++)
-                {
-                    listProduct.Add(listCode.Product);
-                }
-            }
-            return listProduct;
-        }
+        return listProduct;
     }
 }
