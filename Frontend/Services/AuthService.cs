@@ -1,5 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
+using Fluxor;
+using Frontend.Store;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.JSInterop;
 using SmartTrade.Models;
@@ -8,11 +10,13 @@ public class AuthService
 {
     private readonly HttpClient _httpClient;
     private readonly IJSRuntime _jsRuntime;
+    private readonly IDispatcher _dispatcher;
 
-    public AuthService(HttpClient httpClient, IJSRuntime jsRuntime)
+    public AuthService(HttpClient httpClient, IJSRuntime jsRuntime, IDispatcher dispatcher)
     {
         _httpClient = httpClient;
         _jsRuntime = jsRuntime;
+        _dispatcher = dispatcher;
     }
 
     public async Task Login(string emailInput, string passwordInput)
@@ -24,13 +28,14 @@ public class AuthService
             Password = passwordInput
         };
 
-        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5173/login")
+        var request = new HttpRequestMessage(HttpMethod.Post, "/login")
         {
             Content = JsonContent.Create(loginRequest)
         };
 
         request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-        var result = await _httpClient.SendAsync(request);
+        await _httpClient.SendAsync(request);
+        UpdateUserState();
     }
 
     private async Task<string> GetJWTTokenCookieAsync()
@@ -62,16 +67,17 @@ public class AuthService
         return (true, userId);
     }
 
-    public async Task<(bool, string?)> GetCurrentUser()
+    public async void UpdateUserState()
     {
-        var jwtToken = await GetJWTTokenCookieAsync();
-        if (jwtToken == null)
+        var token = await GetJWTTokenCookieAsync();
+        var (isValid, name) = ValidateAndDecode(token);
+        if (isValid && !string.IsNullOrEmpty(name))
         {
-            return (false, null);
+            _dispatcher.Dispatch(new SetUserAction(isValid, name));
         }
-
-        var (isValid, username) = ValidateAndDecode(jwtToken);
-
-        return (isValid, username);
+        else
+        {
+            _dispatcher.Dispatch(new SetUserAction());
+        }
     }
 }
