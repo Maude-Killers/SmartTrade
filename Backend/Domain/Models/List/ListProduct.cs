@@ -10,6 +10,6 @@ public class ListProduct
     [ForeignKey("Product")]
     public int Product_code { get; set; }
     public Product Product { get; set; }
-
+    public int Quantity { get; set; } = 1;
     public ListProduct() {}
 }

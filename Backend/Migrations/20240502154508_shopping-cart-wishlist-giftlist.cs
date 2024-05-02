@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class giftList : Migration
+    public partial class shoppingcartwishlistgiftlist : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,6 +57,7 @@ namespace Backend.Migrations
                     Name = table.Column<string>(type: "text", nullable: true),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
                     ClientEmail = table.Column<string>(type: "text", nullable: true),
+                    ShoppingCart_ClientEmail = table.Column<string>(type: "text", nullable: true),
                     WishList_ClientEmail = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -65,6 +66,12 @@ namespace Backend.Migrations
                     table.ForeignKey(
                         name: "FK_List_Person_ClientEmail",
                         column: x => x.ClientEmail,
+                        principalTable: "Person",
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_List_Person_ShoppingCart_ClientEmail",
+                        column: x => x.ShoppingCart_ClientEmail,
                         principalTable: "Person",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
@@ -99,7 +106,8 @@ namespace Backend.Migrations
                 columns: table => new
                 {
                     List_code = table.Column<int>(type: "integer", nullable: false),
-                    Product_code = table.Column<int>(type: "integer", nullable: false)
+                    Product_code = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,20 +153,20 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 3, "product1", 11m },
-                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", -16, "product2", 12m },
-                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", -10, "product3", 13m },
-                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", 50, "product4", 14m },
-                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", 30, "product5", 15m },
-                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", 12, "product6", 16m },
-                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", 39, "product7", 17m },
-                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 21, "product8", 18m },
-                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 39, "product9", 19m },
-                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 21, "product10", 20m },
-                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 46, "product11", 21m },
-                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 8, "product12", 22m },
-                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 26, "product13", 23m },
-                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", -2, "product14", 24m },
+                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 7, "product1", 11m },
+                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", -2, "product2", 12m },
+                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", 23, "product3", 13m },
+                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", -10, "product4", 14m },
+                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", 38, "product5", 15m },
+                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", 14, "product6", 16m },
+                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", -16, "product7", 17m },
+                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 47, "product8", 18m },
+                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 18, "product9", 19m },
+                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 28, "product10", 20m },
+                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 47, "product11", 21m },
+                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", -9, "product12", 22m },
+                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 8, "product13", 23m },
+                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", 16, "product14", 24m },
                     { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", -17, "product15", 25m }
                 });
 
@@ -209,20 +217,32 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ListProducts",
-                columns: new[] { "List_code", "Product_code" },
+                table: "List",
+                columns: new[] { "List_code", "ShoppingCart_ClientEmail", "Discriminator", "Name" },
                 values: new object[,]
                 {
-                    { 6, 6 },
-                    { 7, 7 },
-                    { 8, 8 },
-                    { 9, 9 },
-                    { 10, 10 },
-                    { 1, 11 },
-                    { 2, 12 },
-                    { 3, 13 },
-                    { 4, 14 },
-                    { 5, 15 }
+                    { 11, "prueba1@prueba.com", "ShoppingCart", "ShoppingCart" },
+                    { 12, "prueba2@prueba.com", "ShoppingCart", "ShoppingCart" },
+                    { 13, "prueba3@prueba.com", "ShoppingCart", "ShoppingCart" },
+                    { 14, "prueba4@prueba.com", "ShoppingCart", "ShoppingCart" },
+                    { 15, "prueba5@prueba.com", "ShoppingCart", "ShoppingCart" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ListProducts",
+                columns: new[] { "List_code", "Product_code", "Quantity" },
+                values: new object[,]
+                {
+                    { 6, 6, 1 },
+                    { 7, 7, 1 },
+                    { 8, 8, 1 },
+                    { 9, 9, 1 },
+                    { 10, 10, 1 },
+                    { 1, 11, 1 },
+                    { 2, 12, 1 },
+                    { 3, 13, 1 },
+                    { 4, 14, 1 },
+                    { 5, 15, 1 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -234,6 +254,12 @@ namespace Backend.Migrations
                 name: "IX_List_ClientEmail",
                 table: "List",
                 column: "ClientEmail",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_List_ShoppingCart_ClientEmail",
+                table: "List",
+                column: "ShoppingCart_ClientEmail",
                 unique: true);
 
             migrationBuilder.CreateIndex(

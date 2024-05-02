@@ -1,0 +1,65 @@
+@inject IJSRuntime Js
+@inject HttpClient httpClient
+@page "/cart"
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-16 py-3">
+                    <span class="sr-only">Image</span>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Product
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Quantity
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Price
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in productDictionary)
+            {
+                <CartTableItem product="product.Key" quantity="product.Value" />
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private List<Product> products { get; set; } = new List<Product>();
+    private Dictionary<Product, int> productDictionary { get; set; } = new Dictionary<Product, int>();
+
+    protected override async Task OnAfterRenderAsync(bool isFirstRender)
+    {
+        if (isFirstRender)
+        {
+            await Js.InvokeVoidAsync("window.initializeFlowbite");            
+            var request = new HttpRequestMessage(HttpMethod.Get, "/cart");
+            request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+            var result = await httpClient.SendAsync(request);
+            products = await result.Content.ReadFromJsonAsync<List<Product>>() ?? new List<Product>();
+
+            foreach(var product in products)
+            {
+                if (productDictionary.ContainsKey(product))
+                {
+                    productDictionary[product]++;
+                }
+                else
+                {
+                    productDictionary.Add(product, 1);
+                }
+            }
+            StateHasChanged();
+
+            
+        }
+    }
+}

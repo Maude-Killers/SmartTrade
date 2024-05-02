@@ -34,7 +34,7 @@
         </div>
         @if (!string.IsNullOrEmpty(user.Value.Name) && user.Value.IsValid)
         {
-            <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
+            <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="click"
                 class="relative md:order-4 w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                 <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -54,6 +54,10 @@
                         <NavLink href="/laterlist"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lista m�s
                             tarde</NavLink>
+                    </li>
+                    <li>
+                        <NavLink href="/cart"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Carrito de compra</NavLink>
                     </li>
                 </ul>
             </div>

@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240430141532_giftList")]
-    partial class giftList
+    [Migration("20240502154508_shopping-cart-wishlist-giftlist")]
+    partial class shoppingcartwishlistgiftlist
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace Backend.Migrations
                     b.Property<int>("List_code")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.HasKey("Product_code", "List_code");
 
                     b.HasIndex("List_code");
@@ -42,52 +45,62 @@ namespace Backend.Migrations
                         new
                         {
                             Product_code = 11,
-                            List_code = 1
+                            List_code = 1,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 12,
-                            List_code = 2
+                            List_code = 2,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 13,
-                            List_code = 3
+                            List_code = 3,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 14,
-                            List_code = 4
+                            List_code = 4,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 15,
-                            List_code = 5
+                            List_code = 5,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 6,
-                            List_code = 6
+                            List_code = 6,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 7,
-                            List_code = 7
+                            List_code = 7,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 8,
-                            List_code = 8
+                            List_code = 8,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 9,
-                            List_code = 9
+                            List_code = 9,
+                            Quantity = 1
                         },
                         new
                         {
                             Product_code = 10,
-                            List_code = 10
+                            List_code = 10,
+                            Quantity = 1
                         });
                 });
 
@@ -340,6 +353,58 @@ namespace Backend.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartTrade.Models.ShoppingCart", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.List");
+
+                    b.Property<string>("ClientEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasIndex("ClientEmail")
+                        .IsUnique();
+
+                    b.ToTable("List", t =>
+                        {
+                            t.Property("ClientEmail")
+                                .HasColumnName("ShoppingCart_ClientEmail");
+                        });
+
+                    b.HasDiscriminator().HasValue("ShoppingCart");
+
+                    b.HasData(
+                        new
+                        {
+                            List_code = 11,
+                            Name = "ShoppingCart",
+                            ClientEmail = "prueba1@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 12,
+                            Name = "ShoppingCart",
+                            ClientEmail = "prueba2@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 13,
+                            Name = "ShoppingCart",
+                            ClientEmail = "prueba3@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 14,
+                            Name = "ShoppingCart",
+                            ClientEmail = "prueba4@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 15,
+                            Name = "ShoppingCart",
+                            ClientEmail = "prueba5@prueba.com"
+                        });
+                });
+
             modelBuilder.Entity("SmartTrade.Models.WishList", b =>
                 {
                     b.HasBaseType("SmartTrade.Models.List");
@@ -459,7 +524,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 12,
+                            Huella = 14,
                             Name = "product6",
                             Price = 16m
                         },
@@ -469,7 +534,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = 39,
+                            Huella = -16,
                             Name = "product7",
                             Price = 17m
                         },
@@ -479,7 +544,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 21,
+                            Huella = 47,
                             Name = "product8",
                             Price = 18m
                         },
@@ -489,7 +554,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 39,
+                            Huella = 18,
                             Name = "product9",
                             Price = 19m
                         },
@@ -499,7 +564,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 21,
+                            Huella = 28,
                             Name = "product10",
                             Price = 20m
                         });
@@ -518,7 +583,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 3,
+                            Huella = 7,
                             Name = "product1",
                             Price = 11m
                         },
@@ -528,7 +593,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = -16,
+                            Huella = -2,
                             Name = "product2",
                             Price = 12m
                         },
@@ -538,7 +603,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = -10,
+                            Huella = 23,
                             Name = "product3",
                             Price = 13m
                         },
@@ -548,7 +613,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = 50,
+                            Huella = -10,
                             Name = "product4",
                             Price = 14m
                         },
@@ -558,7 +623,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 30,
+                            Huella = 38,
                             Name = "product5",
                             Price = 15m
                         });
@@ -577,7 +642,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 46,
+                            Huella = 47,
                             Name = "product11",
                             Price = 21m
                         },
@@ -587,7 +652,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = 8,
+                            Huella = -9,
                             Name = "product12",
                             Price = 22m
                         },
@@ -597,7 +662,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = 26,
+                            Huella = 8,
                             Name = "product13",
                             Price = 23m
                         },
@@ -607,7 +672,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = -2,
+                            Huella = 16,
                             Name = "product14",
                             Price = 24m
                         },
@@ -662,6 +727,17 @@ namespace Backend.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("SmartTrade.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("SmartTrade.Models.Client", "Client")
+                        .WithOne("ShoppingCart")
+                        .HasForeignKey("SmartTrade.Models.ShoppingCart", "ClientEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("SmartTrade.Models.WishList", b =>
                 {
                     b.HasOne("SmartTrade.Models.Client", "Client")
@@ -688,6 +764,9 @@ namespace Backend.Migrations
             modelBuilder.Entity("SmartTrade.Models.Client", b =>
                 {
                     b.Navigation("GiftList")
+                        .IsRequired();
+
+                    b.Navigation("ShoppingCart")
                         .IsRequired();
 
                     b.Navigation("WishList")

@@ -30,5 +30,14 @@ namespace SmartTrade.Models
         {
             ListProducts = new List<ListProduct>();
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Product product && this.Product_code == product.Product_code;
+        }
+        public override int GetHashCode()
+        {
+            return Product_code.GetHashCode();
+        }
     }
 }

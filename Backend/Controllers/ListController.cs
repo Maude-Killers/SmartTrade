@@ -14,14 +14,22 @@ namespace Backend.Controllers
         private readonly ILogger<ListController> _logger;
         private readonly IWishListRepository _wishListRepository;
         private readonly IGiftListRepository _giftListRepository;
+        private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IProductRepository _productRepository;
 
-        public ListController(IWishListRepository wishListRepository, IGiftListRepository giftListRepository, IClientRepository clientRepository, ILogger<ListController> logger, IProductRepository productRepository)
+        public ListController(
+            IWishListRepository wishListRepository,
+            IGiftListRepository giftListRepository,
+            IClientRepository clientRepository,
+            IShoppingCartRepository shoppingCartRepository,
+            ILogger<ListController> logger,
+            IProductRepository productRepository)
         {
             _logger = logger;
             _wishListRepository = wishListRepository;
             _giftListRepository = giftListRepository;
+            _shoppingCartRepository = shoppingCartRepository;
             _clientRepository = clientRepository;
             _productRepository = productRepository;
         }
@@ -86,6 +94,47 @@ namespace Backend.Controllers
             var useCase = new GetProductFromList(_clientRepository, _giftListRepository);
             var products = useCase.GetProduct(email);
             return products;
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpGet("/cart")]
+        public List<Product> GetCartProducts()
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            var products = _shoppingCartRepository.GetProducts(client);
+            return products;
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpPost("/cart/{product_code}")]
+        public void AddProductShoppingCart(int product_code)
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            Product product = _productRepository.Get(product_code);
+            _shoppingCartRepository.AddProduct(product, client);
+        }
+
+        [Authorize(Roles = "client")]
+        [HttpDelete("/cart/{product_code}")]
+        public void DeleteProductFromShoppingCart(int product_code, [FromQuery] bool  all = false)
+        {
+            var token = HttpContext.Request.Cookies["JWTToken"];
+            var email = AuthHelpers.GetEmail(token);
+            var client = _clientRepository.Get(email);
+            Product product = _productRepository.Get(product_code);
+
+            if (all)
+            {
+                _shoppingCartRepository.DeleteItem(product, client);
+            }
+            else
+            {
+                _shoppingCartRepository.DeleteProduct(product, client);
+            }
         }
     }
 }
