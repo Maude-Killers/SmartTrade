@@ -47,7 +47,7 @@
 	
 	public async void DeleteProduct(int product_code)
 	{
-		await ListService.DeleteWishList(product_code);
+		await ListService.DeleteProductFromWishList(product_code);
 		nav.NavigateTo("/login");
 		nav.NavigateTo("/wishlist");
 	}

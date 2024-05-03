@@ -47,7 +47,7 @@
 	}
 	public async void DeleteProduct(int product_code)
 	{
-		await ListService.DeleteGiftList(product_code);
+		await ListService.DeleteProductFromGiftList(product_code);
 		nav.NavigateTo("/login");
 		nav.NavigateTo("/giftlist");
 	}

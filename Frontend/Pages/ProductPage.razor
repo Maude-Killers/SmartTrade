@@ -78,12 +78,12 @@
 
     protected async void AddWishList()
     {
-        await ListService.AddWishList(product);
+        await ListService.AddProductToWishList(product);
         nav.NavigateTo("/wishlist");
     }
     private async void AddGiftList()
     {
-        await ListService.AddGiftList(product);
+        await ListService.AddProductToGiftList(product);
         nav.NavigateTo("/giftlist");
     }
 }

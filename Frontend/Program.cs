@@ -19,6 +19,5 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<ListService>();
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<CartService>();
 
 await builder.Build().RunAsync();
