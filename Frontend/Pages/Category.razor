@@ -1,0 +1,22 @@
+﻿@inject CategoryService service;
+@page "/category/{category_name}"
+
+<main class="flex flex-col justify-center">
+    <article class="max-h-lg grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-items-center">
+        @foreach (var product in products)
+        {
+            <ProductCard product="@product"/>
+        }
+    </article>
+</main>
+
+@code {
+    [Parameter]
+    public string category_name { get; set; } = "";
+    private ProductDTO[] products = Array.Empty<ProductDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await service.GetAllProductsByCategoriesAsync(category_name);
+    }
+}

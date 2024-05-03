@@ -1,0 +1,22 @@
+@inject NavigationManager nav
+
+<a class="cursor-pointer" @onclick="handleClick">
+    <li 
+        class="flex items-center py-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <span class="mx-3">@Name</span>
+    </li>
+</a>
+
+
+@code {
+    [Parameter]
+    public string URI { get; set; } = "";
+    [Parameter]
+    public string Name { get; set; } = "";
+
+    private void handleClick()
+    {
+        nav.NavigateTo("/login");
+        nav.NavigateTo(URI);
+    }
+}
