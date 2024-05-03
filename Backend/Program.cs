@@ -10,12 +10,12 @@ DotEnv.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?? builder.Configuration.GetConnectionString("PostgresDbContext");
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_STRING_CONNECTION") ?? builder.Configuration.GetConnectionString("PostgresDbContext");
+var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? builder.Configuration.GetSection("JwtConfig");
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
-builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
-builder.Services.AddScoped<AuthHelpers>();
+builder.Services.AddScoped<AuthHelpers>(jwtSecret);
 
 builder.Services.AddScoped<ProductService>();
 
