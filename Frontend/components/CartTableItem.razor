@@ -1,5 +1,5 @@
-@inject CartService service
 @inject NavigationManager NavigationManager
+@inject ListService listService
 
 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     <td class="p-4">
@@ -39,6 +39,10 @@
         @product.Price€
     </td>
     <td class="px-6 py-4">
+        <button @onclick="MoveToLater"
+            type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Mover para más tarde</button>
+    </td>
+    <td class="px-6 py-4">
         <button @onclick="Remove"
             type="button" class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</button>
     </td>
@@ -52,24 +56,37 @@
     [Parameter]
     public int quantity { get; set; } = 1;
 
-    private async void DecreaseQuantity()
+    //[Parameter]
+    //public EventCallback OnQuantityChanged{ get; set; }
+
+    private async Task DecreaseQuantity()
     {
         if(quantity > 1)
         {
             quantity--;
-            await service.DeleteItem(product.Product_code);
+            await listService.DeleteItemFromCart(product.Product_code);
+            //await OnQuantityChanged.InvokeAsync();
         }
     }
 
     private async void IncreaseQuantity()
     {
         quantity++;
-        await service.AddItem(product.Product_code);
+        await listService.AddProductToCart(product.Product_code);
+        //await OnQuantityChanged.InvokeAsync();
+    }
+
+    private async void MoveToLater()
+    {
+        await listService.MoveProductFromCartToLater(product.Product_code);
+        NavigationManager.NavigateTo("/login");
+        NavigationManager.NavigateTo("/cart");
     }
 
     private async void Remove()
     {
-        await service.DeleteProduct(product.Product_code);
-        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+        await listService.DeleteProductFromCart(product.Product_code);
+        NavigationManager.NavigateTo("/login");
+        NavigationManager.NavigateTo("/cart");
     }
 }

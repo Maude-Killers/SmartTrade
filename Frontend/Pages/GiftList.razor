@@ -39,15 +39,12 @@
 
 	protected override async void OnInitialized()
 	{
-		var request = new HttpRequestMessage(HttpMethod.Get, "giftlist");
-		request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-		var result = await Http.SendAsync(request);
-		listProducts = await result.Content.ReadFromJsonAsync<List<ProductDTO>>() ?? new List<ProductDTO>();
+		listProducts = await ListService.GetGiftListProducts() ?? new List<ProductDTO>();
 		StateHasChanged();
 	}
 	public async void DeleteProduct(int product_code)
 	{
-		await ListService.DeleteGiftList(product_code);
+		await ListService.DeleteProductFromGiftList(product_code);
 		nav.NavigateTo("/login");
 		nav.NavigateTo("/giftlist");
 	}

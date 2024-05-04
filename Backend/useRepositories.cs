@@ -1,6 +1,5 @@
 using Backend.Interfaces;
 using Backend.Repositories;
-using SmartTrade.Models;
 
 public static class Repositories
 {
@@ -21,5 +20,7 @@ public static class Repositories
         builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
         
         builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+
+        builder.Services.AddScoped<ILaterListRepository, LaterListRepository>();
     }
 }

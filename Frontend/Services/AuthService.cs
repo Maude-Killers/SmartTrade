@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
 using Fluxor;
 using Frontend.Store;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.JSInterop;
 using SmartTrade.Models;
 
@@ -21,20 +20,13 @@ public class AuthService
 
     public async Task Login(string emailInput, string passwordInput)
     {
-        // Send login request to the backend
         var loginRequest = new Person
         {
             Email = emailInput,
             Password = passwordInput
         };
 
-        var request = new HttpRequestMessage(HttpMethod.Post, "login")
-        { 
-            Content = JsonContent.Create(loginRequest)
-        };
-
-        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-        await _httpClient.SendAsync(request);
+        await _httpClient.PostAsJsonAsync("/login", loginRequest);
         UpdateUserState();
     }
 

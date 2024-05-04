@@ -1,5 +1,4 @@
 using System.Net.Http.Json;
-using SmartTrade.Models;
 using DataTransferObject;
 
 public class CategoryService
@@ -14,5 +13,6 @@ public class CategoryService
     public async Task<ProductDTO[]> GetAllProductsByCategoriesAsync(string category)
     {
         return await _httpClient.GetFromJsonAsync<ProductDTO[]>($"products/{category}") ?? Array.Empty<ProductDTO>();
+        
     }
 }

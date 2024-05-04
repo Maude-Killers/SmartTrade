@@ -20,7 +20,7 @@ public class AppDbContext : DbContext
     public DbSet<GroceryProduct> GroceryProduct { get; set; }
     public DbSet<Gallery> Gallery { get; set; }
     public DbSet<List> List { get; set; }
-
+    public DbSet<LaterList> LaterLists { get; set; }
     public DbSet<WishList> WishList { get; set; }
     public DbSet<GiftList> GiftList { get; set; }
     public DbSet<ShoppingCart> ShoppingCart { get; set; }
@@ -73,6 +73,14 @@ public class AppDbContext : DbContext
         }).ToArray();
         modelBuilder.Entity<ShoppingCart>().HasData(shoppingCart);
 
+        var laterList = Enumerable.Range(1,5).Select(index => new LaterList
+        {
+            List_code = index + 15,
+            Name = "LaterList",
+            ClientEmail = clients[index - 1].Email
+        }).ToArray();
+        modelBuilder.Entity<LaterList>().HasData(laterList);
+
         var mondongo = Enumerable.Range(1, 5).Select(index => new SportProduct
         {
             Product_code = index,
@@ -121,6 +129,8 @@ public class AppDbContext : DbContext
             Product_code = index + 5,
             List_code = index + 5
         });
+
+        
         modelBuilder.Entity<ListProduct>().HasData(giftProducts);
 
         Gallery[] images = {

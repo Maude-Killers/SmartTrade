@@ -1,6 +1,5 @@
 using System.Net.Http.Json;
 using DataTransferObject;
-using SmartTrade.Models;
 
 public class ProductService
 {
@@ -15,7 +14,6 @@ public class ProductService
     {
         return await _httpClient.GetFromJsonAsync<ProductDTO>($"products/{product_code}") ?? new ProductDTO();
     }
-
 
     public async Task<ProductDTO[]> SearchProduct(string searchValue)
     {

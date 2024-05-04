@@ -1,7 +1,5 @@
 using DataTransferObject;
 using System.Net.Http.Json;
-using SmartTrade.Models;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 public class ListService
 {
@@ -12,43 +10,63 @@ public class ListService
         _httpClient = httpClient;
     }
 
-    public async Task<ProductDTO> GetWishList()
+    public async Task<List<ProductDTO>> GetWishListProducts()
     {
-        return await _httpClient.GetFromJsonAsync<ProductDTO>($"/wishlist") ?? new ProductDTO();
+        return await _httpClient.GetFromJsonAsync<List<ProductDTO>>($"/wishlist") ?? new List<ProductDTO>();
     }
 
-    public async Task<ProductDTO> GetGiftList()
+    public async Task<List<ProductDTO>> GetGiftListProducts()
     {
-        return await _httpClient.GetFromJsonAsync<ProductDTO>($"/giftlist") ?? new ProductDTO();
+        return await _httpClient.GetFromJsonAsync<List<ProductDTO>>($"/giftlist") ?? new List<ProductDTO>();
     }
 
-    public async Task AddWishList(ProductDTO product)
+    public async Task<List<ProductDTO>> GetLaterListProducts()
     {
-        var request = new HttpRequestMessage(HttpMethod.Post, $"/wishlist/{product.Product_code}");
-        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-        await _httpClient.SendAsync(request);
+        return await _httpClient.GetFromJsonAsync<List<ProductDTO>>($"/laterlist") ?? new List<ProductDTO>();
     }
 
-    public async Task AddGiftList(ProductDTO product)
+    public async Task AddProductToWishList(ProductDTO product)
     {
-        var request = new HttpRequestMessage(HttpMethod.Post, $"/giftlist/{product.Product_code}");
-        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-        await _httpClient.SendAsync(request);
+        await _httpClient.PostAsync($"/wishlist/{product.Product_code}", null);
     }
 
-    public async Task DeleteWishList(int Product_code)
+    public async Task AddProductToGiftList(ProductDTO product)
     {
-        var request = new HttpRequestMessage(HttpMethod.Delete, $"/wishlist/{Product_code}");
-        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-        await _httpClient.SendAsync(request);
+        await _httpClient.PostAsync($"/giftlist/{product.Product_code}", null);
     }
 
-    public async Task DeleteGiftList(int Product_code)
+    public async Task AddProductToCart(int product)
     {
-        var request = new HttpRequestMessage(HttpMethod.Delete, $"/giftlist/{Product_code}");
-        request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-        await _httpClient.SendAsync(request);
+        await _httpClient.PostAsync($"/cart/{product}", null);
     }
 
+    public async Task DeleteProductFromWishList(int Product_code)
+    {
+        await _httpClient.DeleteAsync($"/wishlist/{Product_code}");
+    }
+
+    public async Task DeleteProductFromGiftList(int Product_code)
+    {
+        await _httpClient.DeleteAsync($"/giftlist/{Product_code}");
+    }
+    
+    public async Task DeleteItemFromCart(int product)
+    {
+        await _httpClient.DeleteAsync($"/cart/{product}");
+    }
+    public async Task DeleteProductFromCart(int product)
+    {
+        await _httpClient.DeleteAsync($"/cart/{product}/?all=true");
+    }
+
+    public async Task MoveProductFromLaterToCart(int product)
+    {
+        await _httpClient.PostAsync($"/cart/{product}/?fromLater=true", null);
+    }
+
+    public async Task MoveProductFromCartToLater(int product)
+    {
+        await _httpClient.PostAsync($"/laterlist/{product}/?fromCart=true", null);
+    }
 }
 

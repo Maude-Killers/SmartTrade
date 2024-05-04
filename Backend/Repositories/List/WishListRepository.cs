@@ -28,25 +28,24 @@ namespace Backend.Repositories
         public void DeleteProduct(Product product, Client client)
         {
             var wishlist = client.WishList;
-            var productList = _context.ListProducts
-                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == wishlist.List_code)
+            var productList = wishlist.listProducts
+                .Where(listProduct => listProduct.Product_code == product.Product_code)
                 .FirstOrDefault();
 
-            if (wishlist != null && productList != null)
-            {
-                _context.ListProducts.Remove(productList);
-                _context.SaveChanges();
-            }
+            if (wishlist == null || productList == null) throw new ResourceNotFound("list or productList not found", product);
+
+            _context.ListProducts.Remove(productList);
+            _context.SaveChanges();
         }
 
         public List<Product> GetProducts(Client client)
         {
             _context.Entry(client).Reference(client => client.WishList).Load();
             var listCodes = _context.ListProducts
-                .Include(lp => lp.Product)
-                .Include(lp => lp.Product.Images)
+                .Include(lp => lp.Product).ThenInclude(p => p.Images)
                 .Where(lp => lp.List_code == client.WishList.List_code)
                 .ToList();
+                
             return listCodes.Select(lc => lc.Product).ToList();
         }
     }

@@ -2,53 +2,50 @@
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 
-namespace Backend.Repositories
+namespace Backend.Repositories;
+public class GiftListRepository : IGiftListRepository
 {
-    public class GiftListRepository : IGiftListRepository
+    private readonly AppDbContext _context;
+
+    public GiftListRepository(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public GiftListRepository(AppDbContext context)
+    public void AddProduct(Product product, Client client)
+    {
+
+        GiftList giftList = client.GiftList;
+        var isInList = giftList.listProducts.Where(x => x.Product_code == product.Product_code).FirstOrDefault();
+        if (isInList != null)
         {
-            _context = context;
+            throw new ResourceNotFound("product is already in GiftList", product);
         }
+        _context.ListProducts.Add(new ListProduct { List_code = giftList.List_code, Product_code = product.Product_code });
+        _context.SaveChanges();
+    }
 
-        public void AddProduct(Product product, Client client)
-        {
+    public void DeleteProduct(Product product, Client client)
+    {
+        var giftList = client.GiftList;
+        var productList = giftList.listProducts
+            .Where(listProduct => listProduct.Product_code == product.Product_code)
+            .FirstOrDefault();
 
-            GiftList giftList = client.GiftList;
-            var isInList = giftList.listProducts.Where(x => x.Product_code == product.Product_code).FirstOrDefault();
-            if (isInList != null)
-            {
-                throw new ResourceNotFound("product is already in GiftList", product);
-            }
-            _context.ListProducts.Add(new ListProduct { List_code = giftList.List_code, Product_code = product.Product_code });
-            _context.SaveChanges();
-        }
+        if (giftList == null || productList == null) throw new ResourceNotFound("list or productList not found", product);
 
-        public void DeleteProduct(Product product, Client client)
-        {
-            var giftList = client.GiftList;
-            var productList = _context.ListProducts
-                .Where(listProduct => listProduct.Product_code == product.Product_code && listProduct.List_code == giftList.List_code)
-                .FirstOrDefault();
+        _context.ListProducts.Remove(productList);
+        _context.SaveChanges();
+    }
 
-            if (giftList != null && productList != null)
-            {
-                _context.ListProducts.Remove(productList);
-                _context.SaveChanges();
-            }
-        }
+    public List<Product> GetProducts(Client client)
+    {
+        _context.Entry(client).Reference(client => client.GiftList).Load();
+        var listCodes = _context.ListProducts
+            .Include(lp => lp.Product).ThenInclude(p => p.Images)
+            .Where(lp => lp.List_code == client.GiftList.List_code)
+            .ToList();
 
-        public List<Product> GetProducts(Client client)
-        {
-            _context.Entry(client).Reference(client => client.GiftList).Load();
-            var listCodes = _context.ListProducts
-                .Include(lp => lp.Product)
-                .Include(lp => lp.Product.Images)
-                .Where(lp => lp.List_code == client.GiftList.List_code)
-                .ToList();
-            return listCodes.Select(lc => lc.Product).ToList();
-        }
+        return listCodes.Select(lc => lc.Product).ToList();
     }
 }

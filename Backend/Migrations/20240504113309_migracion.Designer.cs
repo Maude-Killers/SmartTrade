@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240502154508_shopping-cart-wishlist-giftlist")]
-    partial class shoppingcartwishlistgiftlist
+    [Migration("20240504113309_migracion")]
+    partial class migracion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -318,6 +318,12 @@ namespace Backend.Migrations
                     b.HasIndex("ClientEmail")
                         .IsUnique();
 
+                    b.ToTable("List", t =>
+                        {
+                            t.Property("ClientEmail")
+                                .HasColumnName("GiftList_ClientEmail");
+                        });
+
                     b.HasDiscriminator().HasValue("GiftList");
 
                     b.HasData(
@@ -349,6 +355,52 @@ namespace Backend.Migrations
                         {
                             List_code = 10,
                             Name = "GiftList",
+                            ClientEmail = "prueba5@prueba.com"
+                        });
+                });
+
+            modelBuilder.Entity("SmartTrade.Models.LaterList", b =>
+                {
+                    b.HasBaseType("SmartTrade.Models.List");
+
+                    b.Property<string>("ClientEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasIndex("ClientEmail")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("LaterList");
+
+                    b.HasData(
+                        new
+                        {
+                            List_code = 16,
+                            Name = "LaterList",
+                            ClientEmail = "prueba1@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 17,
+                            Name = "LaterList",
+                            ClientEmail = "prueba2@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 18,
+                            Name = "LaterList",
+                            ClientEmail = "prueba3@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 19,
+                            Name = "LaterList",
+                            ClientEmail = "prueba4@prueba.com"
+                        },
+                        new
+                        {
+                            List_code = 20,
+                            Name = "LaterList",
                             ClientEmail = "prueba5@prueba.com"
                         });
                 });
@@ -524,7 +576,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = 14,
+                            Huella = -3,
                             Name = "product6",
                             Price = 16m
                         },
@@ -534,7 +586,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = -16,
+                            Huella = -6,
                             Name = "product7",
                             Price = 17m
                         },
@@ -544,7 +596,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 47,
+                            Huella = 37,
                             Name = "product8",
                             Price = 18m
                         },
@@ -554,7 +606,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 18,
+                            Huella = 15,
                             Name = "product9",
                             Price = 19m
                         },
@@ -564,7 +616,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 28,
+                            Huella = 53,
                             Name = "product10",
                             Price = 20m
                         });
@@ -583,7 +635,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 7,
+                            Huella = 4,
                             Name = "product1",
                             Price = 11m
                         },
@@ -593,7 +645,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = -2,
+                            Huella = 35,
                             Name = "product2",
                             Price = 12m
                         },
@@ -603,7 +655,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 23,
+                            Huella = 42,
                             Name = "product3",
                             Price = 13m
                         },
@@ -613,7 +665,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = -10,
+                            Huella = -13,
                             Name = "product4",
                             Price = 14m
                         },
@@ -623,7 +675,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = 38,
+                            Huella = -14,
                             Name = "product5",
                             Price = 15m
                         });
@@ -642,7 +694,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 47,
+                            Huella = 42,
                             Name = "product11",
                             Price = 21m
                         },
@@ -652,7 +704,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = -9,
+                            Huella = 20,
                             Name = "product12",
                             Price = 22m
                         },
@@ -662,7 +714,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = 8,
+                            Huella = 11,
                             Name = "product13",
                             Price = 23m
                         },
@@ -672,7 +724,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 16,
+                            Huella = 24,
                             Name = "product14",
                             Price = 24m
                         },
@@ -682,7 +734,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = -17,
+                            Huella = 5,
                             Name = "product15",
                             Price = 25m
                         });
@@ -727,6 +779,17 @@ namespace Backend.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("SmartTrade.Models.LaterList", b =>
+                {
+                    b.HasOne("SmartTrade.Models.Client", "Client")
+                        .WithOne("LaterList")
+                        .HasForeignKey("SmartTrade.Models.LaterList", "ClientEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("SmartTrade.Models.ShoppingCart", b =>
                 {
                     b.HasOne("SmartTrade.Models.Client", "Client")
@@ -764,6 +827,9 @@ namespace Backend.Migrations
             modelBuilder.Entity("SmartTrade.Models.Client", b =>
                 {
                     b.Navigation("GiftList")
+                        .IsRequired();
+
+                    b.Navigation("LaterList")
                         .IsRequired();
 
                     b.Navigation("ShoppingCart")
