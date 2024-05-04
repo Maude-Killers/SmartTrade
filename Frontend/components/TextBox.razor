@@ -60,27 +60,7 @@
     </div>
 </section>
 
-<script>
-    const HandleSubmit = (e) => {
-        e.preventDefault()
-        const response = fetch('http://localhost:5173/login', {
-            method: 'POST',
-            headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: "prueba1@prueba.com",
-                password: "cliente1"
-            })
-        }).then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-    }
-</script>
-
 @code {
-
     private string emailInput { get; set; } = "";
     private string passwordInput { get; set; } = "";
     private string? errorMessage { get; set; }
@@ -89,5 +69,4 @@
         await service.Login(emailInput, passwordInput);
         nav.NavigateTo("/wishlist");
     }
-
 }
