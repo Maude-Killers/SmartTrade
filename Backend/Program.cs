@@ -7,12 +7,12 @@ DotEnv.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = Environment.GetEnvironmentVariable("PostgresDbContext") ?? builder.Configuration.GetConnectionString("PostgresDbContext");
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_STRING_CONNECTION") ?? builder.Configuration.GetConnectionString("PostgresDbContext");
+var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? builder.Configuration.GetSection("JwtConfig:key").Value ?? throw new Exception("Fail to get jwt config key");
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
-builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
-builder.Services.AddScoped<AuthHelpers>();
+builder.Services.AddScoped<AuthHelpers>(ah => new AuthHelpers(jwtSecret));
 
 builder.Services.AddScoped<ProductService>();
 
@@ -59,7 +59,7 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Docker")
 
 // app.UseMiddleware<ErrorHandlingMiddleware>();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
