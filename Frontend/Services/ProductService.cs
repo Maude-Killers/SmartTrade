@@ -1,6 +1,5 @@
 using System.Net.Http.Json;
 using DataTransferObject;
-using SmartTrade.Models;
 
 public class ProductService
 {

@@ -1,6 +1,5 @@
 using Backend.Interfaces;
 using Backend.Repositories;
-using SmartTrade.Models;
 
 public static class Repositories
 {

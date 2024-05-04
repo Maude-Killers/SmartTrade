@@ -1,6 +1,5 @@
 using DataTransferObject;
 using System.Net.Http.Json;
-using SmartTrade.Models;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 public class ListService

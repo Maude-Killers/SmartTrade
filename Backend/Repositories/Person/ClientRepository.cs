@@ -1,5 +1,4 @@
 using Backend.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
 

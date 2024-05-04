@@ -1,10 +1,7 @@
-using Backend.Interfaces;
-using Backend.Repositories;
 using Backend.Services;
 using Backend.Utils;
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
-using SmartTrade.Models;
 
 DotEnv.Load();
 

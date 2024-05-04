@@ -1,6 +1,4 @@
 using Backend.Interfaces;
-using Backend.Repositories;
-using SmartTrade.Models;
 
 public class MoveProduct
 {
