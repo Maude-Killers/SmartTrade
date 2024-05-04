@@ -3,6 +3,9 @@
 @page "/cart"
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+        Total Price: @TotalPrice€
+    </div>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -28,7 +31,7 @@
         <tbody>
             @foreach (var product in productDictionary)
             {
-                <CartTableItem product="product.Key" quantity="product.Value" />
+                <CartTableItem product="product.Key" quantity="product.Value"/>
             }
         </tbody>
     </table>
@@ -49,6 +52,7 @@
 @code {
     private List<Product> products { get; set; } = new List<Product>();
     private Dictionary<Product, int> productDictionary { get; set; } = new Dictionary<Product, int>();
+    private decimal TotalPrice { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
     {
@@ -71,7 +75,26 @@
                     productDictionary.Add(product, 1);
                 }
             }
+            TotalPrice = CalculateTotalPrice();
             StateHasChanged();
         }
     }
+
+    private decimal CalculateTotalPrice()
+    {
+        decimal totalPrice = 0;
+        foreach (var entry in productDictionary)
+        {
+            var product = entry.Key;
+            var quantity = entry.Value;
+            totalPrice += product.Price * quantity;
+        }
+
+        return totalPrice;
+    }
+    //private async Task HandleQuantityChanged()
+    //{
+    //    TotalPrice = CalculateTotalPrice();
+    //    StateHasChanged();
+    //}
 }

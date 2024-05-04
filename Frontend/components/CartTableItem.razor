@@ -56,12 +56,16 @@
     [Parameter]
     public int quantity { get; set; } = 1;
 
-    private async void DecreaseQuantity()
+    //[Parameter]
+    //public EventCallback OnQuantityChanged{ get; set; }
+
+    private async Task DecreaseQuantity()
     {
         if(quantity > 1)
         {
             quantity--;
             await listService.DeleteItemFromCart(product.Product_code);
+            //await OnQuantityChanged.InvokeAsync();
         }
     }
 
@@ -69,6 +73,7 @@
     {
         quantity++;
         await listService.AddProductToCart(product.Product_code);
+        //await OnQuantityChanged.InvokeAsync();
     }
 
     private async void MoveToLater()
