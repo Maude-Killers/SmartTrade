@@ -8,9 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
-    public partial class alllists : Migration
-#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
+    public partial class migracion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -162,21 +160,21 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 1, "product1", 11m },
-                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", 42, "product2", 12m },
-                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", 54, "product3", 13m },
-                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", 39, "product4", 14m },
-                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", 5, "product5", 15m },
+                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 4, "product1", 11m },
+                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", 35, "product2", 12m },
+                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", 42, "product3", 13m },
+                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", -13, "product4", 14m },
+                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", -14, "product5", 15m },
                     { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", -3, "product6", 16m },
-                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", 33, "product7", 17m },
-                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 11, "product8", 18m },
-                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 37, "product9", 19m },
-                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 35, "product10", 20m },
-                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 5, "product11", 21m },
-                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 53, "product12", 22m },
-                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 51, "product13", 23m },
-                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", 52, "product14", 24m },
-                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", -3, "product15", 25m }
+                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", -6, "product7", 17m },
+                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 37, "product8", 18m },
+                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 15, "product9", 19m },
+                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 53, "product10", 20m },
+                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 42, "product11", 21m },
+                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 20, "product12", 22m },
+                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 11, "product13", 23m },
+                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", 24, "product14", 24m },
+                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", 5, "product15", 25m }
                 });
 
             migrationBuilder.InsertData(
