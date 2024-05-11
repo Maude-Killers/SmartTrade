@@ -1,3 +1,4 @@
+using Backend.Database;
 using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using SmartTrade.Models;
@@ -7,15 +8,27 @@ namespace Backend.Repositories
     public class ClientRepository : IClientRepository
     {
         private readonly AppDbContext _context;
+        private readonly IProductRepository _productRepository;
 
-        public ClientRepository(AppDbContext context)
+        public ClientRepository(AppDbContext context, IProductRepository productRepository)
         {
             _context = context;
+            _productRepository = productRepository;
         }
 
         public void Create(Client client)
         {
-            _context.Client.Add(client);
+            if (_context.Client.Any(x => x.Email == client.Email)) throw new ResourceNotFound("Client already exists", client);
+
+            ClientEntity clientEntity = new ClientEntity
+            {
+                Email = client.Email,
+                FullName = client.FullName,
+                Password = client.Password,
+                PhoneNumber = client.PhoneNumber,
+            };
+
+            _context.Client.Add(clientEntity);
             _context.SaveChanges();
         }
 
@@ -33,28 +46,60 @@ namespace Backend.Repositories
 
         public Client Get(string email)
         {
-            var client = _context.Client
+            ClientEntity clientEntity = _context.Client
                 .Include(c => c.WishList).ThenInclude(w => w.listProducts)
                 .Include(c => c.GiftList).ThenInclude(g => g.listProducts)
                 .Include(c => c.LaterList).ThenInclude(n => n.listProducts)
                 .Include(c => c.ShoppingCart).ThenInclude(p => p.listProducts)
-				.FirstOrDefault(c => c.Email == email);
-            
+                .First(c => c.Email == email);
+
+            Client client = new Client
+            {
+                Email = clientEntity.Email,
+                Password = clientEntity.Password,
+                FullName = clientEntity.FullName,
+                PhoneNumber = clientEntity.PhoneNumber,
+                GiftList = clientEntity.GiftList.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+                LaterList = clientEntity.LaterList.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+                ShoppingCart = clientEntity.ShoppingCart.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+                WishList = clientEntity.ShoppingCart.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+            };
+
             return client ?? throw new ResourceNotFound("Client email don't exists", email);
         }
 
         public Client? GetByCredentials(string Email, string Password)
         {
-            var client = _context.Client
+            ClientEntity clientEntity = _context.Client
                 .Where(client => client.Email == Email && client.Password == Password)
-                .FirstOrDefault();
+                .First() ?? throw new ResourceNotFound("Client not found", (Email, Password));
+
+            Client client = new Client
+            {
+                Email = clientEntity.Email,
+                Password = clientEntity.Password,
+                FullName = clientEntity.FullName,
+                PhoneNumber = clientEntity.PhoneNumber,
+                GiftList = clientEntity.GiftList.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+                LaterList = clientEntity.LaterList.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+                ShoppingCart = clientEntity.ShoppingCart.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+                WishList = clientEntity.ShoppingCart.listProducts
+                    .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+            };
 
             return client;
         }
 
         public IEnumerable<Client> GetAll()
         {
-            return _context.Client.ToList();
+            throw new NotImplementedException();
         }
 
         public void Set(string Email, Client client)
