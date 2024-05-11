@@ -9,10 +9,10 @@ public class GiftListRepository : IGiftListRepository
     private readonly AppDbContext _context;
     private readonly IGalleryRepository _galleryRepository;
 
-    public GiftListRepository(AppDbContext context, IGalleryRepository galleryRepository)
+    public GiftListRepository(AppDbContext context)
     {
         _context = context;
-        _galleryRepository = galleryRepository;
+        _galleryRepository = new GalleryRepository(context);
     }
 
     public void AddProduct(Product product, Client client)

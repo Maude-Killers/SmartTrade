@@ -10,10 +10,10 @@ public class ProductRepository : IProductRepository
     private readonly AppDbContext _context;
     private readonly IGalleryRepository _galleryRepository;
 
-    public ProductRepository(AppDbContext context, IGalleryRepository galleryRepository)
+    public ProductRepository(AppDbContext context)
     {
         _context = context;
-        _galleryRepository = galleryRepository;
+        _galleryRepository = new GalleryRepository(context);
     }
 
     public void Create(Product item)

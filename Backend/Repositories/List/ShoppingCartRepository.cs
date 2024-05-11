@@ -10,10 +10,10 @@ public class ShoppingCartRepository : IShoppingCartRepository
     private readonly AppDbContext _context;
     private readonly IGalleryRepository _galleryRepository;
 
-    public ShoppingCartRepository(AppDbContext context, IGalleryRepository galleryRepository)
+    public ShoppingCartRepository(AppDbContext context)
     {
         _context = context;
-        _galleryRepository = galleryRepository;
+        _galleryRepository = new GalleryRepository(context);
     }
 
     public void AddProduct(Product product, Client client)

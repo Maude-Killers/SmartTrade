@@ -124,26 +124,26 @@
     {
         currentFingerPrint = Convert.ToInt32(e.Value);
     }
-    
+
     private void SportFilter()
     {
 
         if (isSport)
-            products = products.Where(product => product.Category == DataTransferObject.Category.Sport).ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Sport).ToArray();
     }
 
     private void TechFilter()
     {
         if (isTech)
-            products = products.Where(product => product.Category == DataTransferObject.Category.Techno).ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Techno).ToArray();
     }
 
     private void GroceryFilter()
     {
         if (isGrocery)
-            products = products.Where(product => product.Category == DataTransferObject.Category.Grocery).ToArray();
+            products = products.Where(product => product.Category == SmartTrade.Models.Category.Grocery).ToArray();
     }
-    
+
     private void PriceFilter()
     {
         products = products.Where(product => product.Price < currentPrice).ToArray();

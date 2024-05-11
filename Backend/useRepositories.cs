@@ -5,8 +5,6 @@ public static class Repositories
 {
     public static void UseRepositories(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<ISalesPersonRepository, SalesPersonRepository>();
-
         builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
         builder.Services.AddScoped<IPersonRepository, PersonRepository>();
