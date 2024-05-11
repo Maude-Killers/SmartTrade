@@ -72,7 +72,7 @@
             </button>
         </div>
         <div class="h-16 flex justify-end items-end mt-4">
-            <button @onclick="AddToCart"
+            <button @onclick="AdCart"
                 class="h-16 w-full md:w-2/3 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600">
                 Agregar al carrito
             </button>
@@ -84,7 +84,7 @@
 @code {
     [Parameter]
     public string product_code { get; set; } = "";
-    public ProductDTO product = new ProductDTO();
+    public Product product = new Product();
 
     protected override async Task OnInitializedAsync()
     {
@@ -102,7 +102,7 @@
         await ListService.AddProductToGiftList(product);
         nav.NavigateTo("/giftlist");
     }
-    private async void AddToCart()
+    private async void AdCart()
     {
         await ListService.AddProductToCart(product.Product_code);
         nav.NavigateTo("/cart");

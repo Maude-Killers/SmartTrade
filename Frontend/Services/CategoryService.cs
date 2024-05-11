@@ -1,5 +1,4 @@
 using System.Net.Http.Json;
-using DataTransferObject;
 
 public class CategoryService
 {

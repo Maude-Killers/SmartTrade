@@ -14,11 +14,11 @@
 
 
 @code {
-	private List<ProductDTO> listProducts = new List<ProductDTO>();
+	private List<Product> listProducts = new List<Product>();
 
 	protected override async void OnInitialized()
 	{
-		listProducts = await ListService.GetLaterListProducts() ?? new List<ProductDTO>();
+		listProducts = await ListService.GetLaterListProducts() ?? new List<Product>();
 		StateHasChanged();
 	}
 }

@@ -31,14 +31,14 @@
 </div>
 
 @code {
-	private List<ProductDTO> listProducts = new List<ProductDTO>();
+	private List<Product> listProducts = new List<Product>();
 
 	[Parameter]
 	public int List_Code { get; set; }
 
 	protected override async void OnInitialized()
 	{
-		listProducts = await ListService.GetWishListProducts() ?? new List<ProductDTO>();
+		listProducts = await ListService.GetWishListProducts() ?? new List<Product>();
 		StateHasChanged();
 	}
 	

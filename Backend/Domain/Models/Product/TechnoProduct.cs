@@ -1,10 +1,8 @@
-﻿namespace SmartTrade.Models
+﻿namespace SmartTrade.Models;
+public partial class TechnoProduct : Product
 {
-    public partial class TechnoProduct : Product
+    public TechnoProduct() : base()
     {
-        public TechnoProduct() : base()
-        {
-            Category = Category.Techno;
-        }
+        Category = Category.Techno;
     }
 }

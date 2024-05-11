@@ -75,8 +75,8 @@
 @code {
     [Parameter]
     public string searchTerm { get; set; } = "";
-    private ProductDTO[] originalProducts = Array.Empty<ProductDTO>();
-    private ProductDTO[] products = Array.Empty<ProductDTO>();
+    private Product[] originalProducts = Array.Empty<Product>();
+    private Product[] products = Array.Empty<Product>();
     private int resultCount { get; set; } = 0;
     private decimal minPrice { get; set; } = 0;
     private decimal maxPrice { get; set; } = 0;

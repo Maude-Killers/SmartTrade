@@ -18,7 +18,7 @@ public class ProductEntity
 
     public string? Features { get; set; }
 
-    public int Huella { get; set; }
+    public int FingerPrint { get; set; }
 
     public Category Category { get; set; }
     public List<ListProduct> ListProducts { get; set; }

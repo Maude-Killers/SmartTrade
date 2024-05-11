@@ -31,7 +31,7 @@
 </div>
 
 @code {
-	private List<ProductDTO> listProducts = new List<ProductDTO>();
+	private List<Product> listProducts = new List<Product>();
 
 	[Parameter]
 	public int List_Code { get; set; }
@@ -39,7 +39,7 @@
 
 	protected override async void OnInitialized()
 	{
-		listProducts = await ListService.GetGiftListProducts() ?? new List<ProductDTO>();
+		listProducts = await ListService.GetGiftListProducts() ?? new List<Product>();
 		StateHasChanged();
 	}
 	public async void DeleteProduct(int product_code)

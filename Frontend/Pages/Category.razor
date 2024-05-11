@@ -13,7 +13,7 @@
 @code {
     [Parameter]
     public string category_name { get; set; } = "";
-    private ProductDTO[] products = Array.Empty<ProductDTO>();
+    private Product[] products = Array.Empty<Product>();
 
     protected override async Task OnInitializedAsync()
     {
