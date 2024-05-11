@@ -1,6 +1,4 @@
-﻿using DataTransferObject;
-
-namespace SmartTrade.Models
+﻿namespace SmartTrade.Models
 {
     public partial class GroceryProduct : Product
     {

@@ -1,5 +1,4 @@
 ﻿using Backend.Interfaces;
-using DataTransferObject;
 using Microsoft.IdentityModel.Tokens;
 
 namespace SmartTrade.Models
@@ -38,7 +37,7 @@ namespace SmartTrade.Models
             this.Category = category;
         }
         public void SetImages(ICollection<Gallery> images)
-        { 
+        {
             if (images.IsNullOrEmpty()) throw new ArgumentException("no images");
             this.Images = images;
         }
@@ -73,5 +72,12 @@ namespace SmartTrade.Models
             if (this.Product_code == 0) _repository.Create(this);
             else _repository.Set(this.Product_code, this);
         }
+    }
+
+    public enum Category
+    {
+        Techno,
+        Grocery,
+        Sport
     }
 }

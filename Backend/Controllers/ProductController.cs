@@ -1,7 +1,6 @@
 using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
-using DataTransferObject;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrade.Models;
 
@@ -63,7 +62,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost("/products")]
-        public void CreateProduct(ProductDTO product)
+        public void CreateProduct(Product product)
         {
             _productService.CreateProduct(product);
         }

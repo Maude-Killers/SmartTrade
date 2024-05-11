@@ -1,17 +1,16 @@
 using Backend.Domain.DesignPattern;
 using Backend.Domain.DesignPattern.FactoryMethod;
 using Backend.Repositories;
-using DataTransferObject;
 using SmartTrade.Models;
 
 namespace Backend.Services;
 
 public class ProductService
 {
-    public void CreateProduct(ProductDTO productDTO)
+    public void CreateProduct(Product product)
     {
         ProductFactory factory;
-        switch (productDTO.Category)
+        switch (product.Category)
         {
             case Category.Grocery:
             factory = new GroceryProductFactory();
@@ -30,13 +29,13 @@ public class ProductService
         }
 
         var newProduct = factory.CreateProduct();
-        newProduct.SetName(productDTO.Name);
-        newProduct.SetFeatures(productDTO.Features);
-        newProduct.SetCategory(productDTO.Category);
-        newProduct.SetDescription(productDTO.Description);
-        newProduct.SetPrice(productDTO.Price);
-        newProduct.SetFingerPrint(productDTO.FingerPrint);
-        newProduct.SetImages((ICollection<Gallery>)productDTO.Images);
+        newProduct.SetName(product.Name);
+        newProduct.SetFeatures(product.Features);
+        newProduct.SetCategory(product.Category);
+        newProduct.SetDescription(product.Description);
+        newProduct.SetPrice(product.Price);
+        newProduct.SetFingerPrint(product.Huella);
+        newProduct.SetImages((ICollection<Gallery>)product.Images);
         newProduct.SetRepository(new ProductRepository(AppServices.GetDbContext()));
         newProduct.Save();
     }
