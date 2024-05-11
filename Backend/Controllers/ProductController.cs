@@ -10,61 +10,56 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
+        private readonly SmartTrade.Models.SmartTrade _smartTrade;
         private readonly ILogger<ProductController> _logger;
-        private readonly IProductRepository _productRepository;
-        private readonly ProductService _productService;
 
-        public ProductController(
-            ILogger<ProductController> logger,
-            IProductRepository productRepository,
-            ProductService productService
-        ) {
+        public ProductController(SmartTrade.Models.SmartTrade smartTrade, ILogger<ProductController> logger)
+        {
             _logger = logger;
-            _productRepository = productRepository;
-            _productService = productService;
+            _smartTrade = smartTrade;
         }
 
         [HttpGet("/products", Name = "GetProduct")]
         public IEnumerable<Product> Get()
         {
-            return _productRepository.GetAll();
+            return _smartTrade.GetAllProducts();
         }
 
         [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
         public Product Get(int Product_code)
         {
-            return _productRepository.Get(Product_code);
+            return _smartTrade.GetProduct(Product_code);
         }
 
         [HttpGet("/products/Sport")]
         public IEnumerable<Product> GetSportProducts()
         {
-            return _productRepository.GetAllSportProducts();
+            return _smartTrade.GetAllSportProducts();
         }
 
         [HttpGet("/products/Grocery")]
         public IEnumerable<Product> GetGroceryProducts()
         {
-            return _productRepository.GetAllGroceryProducts();
+            return _smartTrade.GetAllGroceryProducts();
         }
 
         [HttpGet("/products/Technology")]
         public IEnumerable<Product> GetTechnoProducts()
         {
-            return _productRepository.GetAllTechnoProducts();
+            return _smartTrade.GetAllTechnoProducts();
         }
 
         [HttpGet("/search")]
-        public IEnumerable<Product> SearchProducts([FromQuery] string? value)
+        public List<Product> SearchProducts([FromQuery] string? value)
         {
-            if (string.IsNullOrEmpty(value)) return Enumerable.Empty<Product>();
-            return ((ProductRepository)_productRepository).Search(value);
+            if (string.IsNullOrEmpty(value)) return new List<Product>();
+            return _smartTrade.SearchProduct(value);
         }
 
         [HttpPost("/products")]
         public void CreateProduct(Product product)
         {
-            _productService.CreateProduct(product);
+            _smartTrade.CreateProduct(product);
         }
     }
 }

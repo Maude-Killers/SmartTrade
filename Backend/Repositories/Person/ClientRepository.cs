@@ -96,7 +96,7 @@ public class ClientRepository : IClientRepository
         return client;
     }
 
-    public IEnumerable<Client> GetAll()
+    public List<Client> GetAll()
     {
         throw new NotImplementedException();
     }

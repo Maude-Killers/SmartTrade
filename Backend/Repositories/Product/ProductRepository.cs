@@ -63,7 +63,7 @@ public class ProductRepository : IProductRepository
         return product;
     }
 
-    public IEnumerable<Product> GetAll()
+    public List<Product> GetAll()
     {
         var asoka = _context.Products.Include(p => p.Gallery).ToList();
         
@@ -77,7 +77,7 @@ public class ProductRepository : IProductRepository
             Name = product.Name,
             Price = product.Price,
             Product_code = product.Product_code,
-        });
+        }).ToList();
 
         return products;
     }

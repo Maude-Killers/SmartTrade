@@ -38,7 +38,7 @@ public class GalleryRepository : IGalleryRepository
         return item ?? throw new ResourceNotFound("Gallery not found", Product_code);
     }
 
-    public IEnumerable<GalleryEntity> GetAll()
+    public List<GalleryEntity> GetAll()
     {
         return _context.Gallery.ToList();
     }

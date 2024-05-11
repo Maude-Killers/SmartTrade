@@ -6,10 +6,12 @@ namespace Backend.Repositories;
 public class PersonRepository : IPersonRepository
 {
     private readonly AppDbContext _context;
+    private readonly ClientRepository _clientRepository;
 
     public PersonRepository(AppDbContext context)
     {
         _context = context;
+        _clientRepository = new ClientRepository(context);
     }
 
     public void Create(Person person)
@@ -50,6 +52,8 @@ public class PersonRepository : IPersonRepository
             .Where(person => person.Email == email && person.Password == password)
             .First() ?? throw new ResourceNotFound("Person not found", (email, password));
 
+        if (personEntity is ClientEntity) return _clientRepository.GetByCredentials(email, password);
+
         Person person = new Person
         {
             Email = personEntity.Email,
@@ -61,9 +65,17 @@ public class PersonRepository : IPersonRepository
         return person ?? throw new ResourceNotFound("Doesn't exists a person with this credentials", new { email, password });
     }
 
-    public IEnumerable<Person> GetAll()
+    public List<Person> GetAll()
     {
-        throw new NotImplementedException();
+        List<PersonEntity> peopleEntity = _context.Person.ToList();
+        List<Person> people = new List<Person>();
+
+        peopleEntity.ForEach(pe =>
+       {
+            people.Add(Get(pe.Email, pe.Password));
+       });
+
+       return people;
     }
 
     public void Update(string email, Person person)
