@@ -1,5 +1,5 @@
 ﻿using Backend.Database;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Interfaces;
 public interface IShoppingCartRepository : IListRepository

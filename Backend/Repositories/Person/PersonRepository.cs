@@ -1,6 +1,6 @@
 using Backend.Database;
 using Backend.Interfaces;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Repositories;
 public class PersonRepository : IPersonRepository
@@ -52,7 +52,7 @@ public class PersonRepository : IPersonRepository
             .Where(person => person.Email == email && person.Password == password)
             .First() ?? throw new ResourceNotFound("Person not found", (email, password));
 
-        if (personEntity is ClientEntity) return _clientRepository.GetByCredentials(email, password);
+        if (personEntity is ClientEntity) return _clientRepository.GetByCredentials(personEntity.Email, personEntity.Password);
 
         Person person = new Person
         {

@@ -2,6 +2,7 @@ using Backend.Services;
 using Backend.Utils;
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
+using Backend.Models;
 
 DotEnv.Load();
 
@@ -17,6 +18,8 @@ builder.Services.AddScoped<AuthHelpers>(ah => new AuthHelpers(jwtSecret));
 builder.Services.AddScoped<ProductService>();
 
 Repositories.UseRepositories(builder);
+
+builder.Services.AddSingleton<SmartTrade>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

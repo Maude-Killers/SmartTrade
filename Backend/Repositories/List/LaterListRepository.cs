@@ -1,7 +1,7 @@
 using Backend.Database;
 using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Repositories;
 

@@ -1,7 +1,7 @@
 using Backend.Database;
 using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Repositories;
 public class ClientRepository : IClientRepository
@@ -71,13 +71,13 @@ public class ClientRepository : IClientRepository
         return client ?? throw new ResourceNotFound("Client email don't exists", email);
     }
 
-    public Client? GetByCredentials(string Email, string Password)
+    public Client GetByCredentials(string Email, string Password)
     {
         ClientEntity clientEntity = _context.Client
             .Where(client => client.Email == Email && client.Password == Password)
             .First() ?? throw new ResourceNotFound("Client not found", (Email, Password));
 
-        Client client = new Client
+        Client client = new Client()
         {
             Email = clientEntity.Email,
             Password = clientEntity.Password,
@@ -85,11 +85,14 @@ public class ClientRepository : IClientRepository
             PhoneNumber = clientEntity.PhoneNumber,
             GiftList = clientEntity.GiftList.listProducts
                 .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+
             LaterList = clientEntity.LaterList.listProducts
                 .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+
             ShoppingCart = clientEntity.ShoppingCart.listProducts
                 .Select(x => _productRepository.Get(x.Product_code)).ToList(),
-            WishList = clientEntity.ShoppingCart.listProducts
+
+            WishList = clientEntity.WishList.listProducts
                 .Select(x => _productRepository.Get(x.Product_code)).ToList(),
         };
 

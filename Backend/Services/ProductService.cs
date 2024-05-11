@@ -1,7 +1,7 @@
 using Backend.Domain.DesignPattern;
 using Backend.Domain.DesignPattern.FactoryMethod;
 using Backend.Repositories;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Services;
 

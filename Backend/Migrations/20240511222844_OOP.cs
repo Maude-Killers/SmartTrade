@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class migracion : Migration
+    public partial class OOP : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,7 +39,7 @@ namespace Backend.Migrations
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Features = table.Column<string>(type: "text", nullable: true),
-                    Huella = table.Column<int>(type: "integer", nullable: false),
+                    FingerPrint = table.Column<int>(type: "integer", nullable: false),
                     Category = table.Column<int>(type: "integer", nullable: false),
                     Discriminator = table.Column<string>(type: "text", nullable: false)
                 },
@@ -56,10 +56,10 @@ namespace Backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
-                    GiftList_ClientEmail = table.Column<string>(type: "text", nullable: true),
+                    GiftListEntity_ClientEmail = table.Column<string>(type: "text", nullable: true),
                     ClientEmail = table.Column<string>(type: "text", nullable: true),
-                    ShoppingCart_ClientEmail = table.Column<string>(type: "text", nullable: true),
-                    WishList_ClientEmail = table.Column<string>(type: "text", nullable: true)
+                    ShoppingCartEntity_ClientEmail = table.Column<string>(type: "text", nullable: true),
+                    WishListEntity_ClientEmail = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,20 +71,20 @@ namespace Backend.Migrations
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_List_Person_GiftList_ClientEmail",
-                        column: x => x.GiftList_ClientEmail,
+                        name: "FK_List_Person_GiftListEntity_ClientEmail",
+                        column: x => x.GiftListEntity_ClientEmail,
                         principalTable: "Person",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_List_Person_ShoppingCart_ClientEmail",
-                        column: x => x.ShoppingCart_ClientEmail,
+                        name: "FK_List_Person_ShoppingCartEntity_ClientEmail",
+                        column: x => x.ShoppingCartEntity_ClientEmail,
                         principalTable: "Person",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_List_Person_WishList_ClientEmail",
-                        column: x => x.WishList_ClientEmail,
+                        name: "FK_List_Person_WishListEntity_ClientEmail",
+                        column: x => x.WishListEntity_ClientEmail,
                         principalTable: "Person",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
@@ -148,33 +148,33 @@ namespace Backend.Migrations
                 columns: new[] { "Email", "Discriminator", "FullName", "Password", "PhoneNumber" },
                 values: new object[,]
                 {
-                    { "prueba1@prueba.com", "Client", "Cliente 1", "cliente1", 654654655 },
-                    { "prueba2@prueba.com", "Client", "Cliente 2", "cliente2", 654654656 },
-                    { "prueba3@prueba.com", "Client", "Cliente 3", "cliente3", 654654657 },
-                    { "prueba4@prueba.com", "Client", "Cliente 4", "cliente4", 654654658 },
-                    { "prueba5@prueba.com", "Client", "Cliente 5", "cliente5", 654654659 }
+                    { "prueba1@prueba.com", "ClientEntity", "Cliente 1", "cliente1", 654654655 },
+                    { "prueba2@prueba.com", "ClientEntity", "Cliente 2", "cliente2", 654654656 },
+                    { "prueba3@prueba.com", "ClientEntity", "Cliente 3", "cliente3", 654654657 },
+                    { "prueba4@prueba.com", "ClientEntity", "Cliente 4", "cliente4", 654654658 },
+                    { "prueba5@prueba.com", "ClientEntity", "Cliente 5", "cliente5", 654654659 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "Huella", "Name", "Price" },
+                columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "FingerPrint", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 2, "descripcion1", "SportProduct", "caracteristicas1", 4, "product1", 11m },
-                    { 2, 2, "descripcion2", "SportProduct", "caracteristicas2", 35, "product2", 12m },
-                    { 3, 2, "descripcion3", "SportProduct", "caracteristicas3", 42, "product3", 13m },
-                    { 4, 2, "descripcion4", "SportProduct", "caracteristicas4", -13, "product4", 14m },
-                    { 5, 2, "descripcion5", "SportProduct", "caracteristicas5", -14, "product5", 15m },
-                    { 6, 1, "descripcion6", "GroceryProduct", "caracteristicas6", -3, "product6", 16m },
-                    { 7, 1, "descripcion7", "GroceryProduct", "caracteristicas7", -6, "product7", 17m },
-                    { 8, 1, "descripcion8", "GroceryProduct", "caracteristicas8", 37, "product8", 18m },
-                    { 9, 1, "descripcion9", "GroceryProduct", "caracteristicas9", 15, "product9", 19m },
-                    { 10, 1, "descripcion10", "GroceryProduct", "caracteristicas10", 53, "product10", 20m },
-                    { 11, 0, "descripcion11", "TechnoProduct", "caracteristicas11", 42, "product11", 21m },
-                    { 12, 0, "descripcion12", "TechnoProduct", "caracteristicas12", 20, "product12", 22m },
-                    { 13, 0, "descripcion13", "TechnoProduct", "caracteristicas13", 11, "product13", 23m },
-                    { 14, 0, "descripcion14", "TechnoProduct", "caracteristicas14", 24, "product14", 24m },
-                    { 15, 0, "descripcion15", "TechnoProduct", "caracteristicas15", 5, "product15", 25m }
+                    { 1, 2, "descripcion1", "SportProductEntity", "caracteristicas1", 21, "product1", 11m },
+                    { 2, 2, "descripcion2", "SportProductEntity", "caracteristicas2", 0, "product2", 12m },
+                    { 3, 2, "descripcion3", "SportProductEntity", "caracteristicas3", 13, "product3", 13m },
+                    { 4, 2, "descripcion4", "SportProductEntity", "caracteristicas4", 49, "product4", 14m },
+                    { 5, 2, "descripcion5", "SportProductEntity", "caracteristicas5", 24, "product5", 15m },
+                    { 6, 1, "descripcion6", "GroceryProductEntity", "caracteristicas6", 28, "product6", 16m },
+                    { 7, 1, "descripcion7", "GroceryProductEntity", "caracteristicas7", 36, "product7", 17m },
+                    { 8, 1, "descripcion8", "GroceryProductEntity", "caracteristicas8", -6, "product8", 18m },
+                    { 9, 1, "descripcion9", "GroceryProductEntity", "caracteristicas9", 16, "product9", 19m },
+                    { 10, 1, "descripcion10", "GroceryProductEntity", "caracteristicas10", -4, "product10", 20m },
+                    { 11, 0, "descripcion11", "TechnoProductEntity", "caracteristicas11", 38, "product11", 21m },
+                    { 12, 0, "descripcion12", "TechnoProductEntity", "caracteristicas12", 10, "product12", 22m },
+                    { 13, 0, "descripcion13", "TechnoProductEntity", "caracteristicas13", 27, "product13", 23m },
+                    { 14, 0, "descripcion14", "TechnoProductEntity", "caracteristicas14", 23, "product14", 24m },
+                    { 15, 0, "descripcion15", "TechnoProductEntity", "caracteristicas15", -14, "product15", 25m }
                 });
 
             migrationBuilder.InsertData(
@@ -201,38 +201,38 @@ namespace Backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "List",
-                columns: new[] { "List_code", "WishList_ClientEmail", "Discriminator", "Name" },
+                columns: new[] { "List_code", "WishListEntity_ClientEmail", "Discriminator", "Name" },
                 values: new object[,]
                 {
-                    { 1, "prueba1@prueba.com", "WishList", "WishList" },
-                    { 2, "prueba2@prueba.com", "WishList", "WishList" },
-                    { 3, "prueba3@prueba.com", "WishList", "WishList" },
-                    { 4, "prueba4@prueba.com", "WishList", "WishList" },
-                    { 5, "prueba5@prueba.com", "WishList", "WishList" }
+                    { 1, "prueba1@prueba.com", "WishListEntity", "WishList" },
+                    { 2, "prueba2@prueba.com", "WishListEntity", "WishList" },
+                    { 3, "prueba3@prueba.com", "WishListEntity", "WishList" },
+                    { 4, "prueba4@prueba.com", "WishListEntity", "WishList" },
+                    { 5, "prueba5@prueba.com", "WishListEntity", "WishList" }
                 });
 
             migrationBuilder.InsertData(
                 table: "List",
-                columns: new[] { "List_code", "GiftList_ClientEmail", "Discriminator", "Name" },
+                columns: new[] { "List_code", "GiftListEntity_ClientEmail", "Discriminator", "Name" },
                 values: new object[,]
                 {
-                    { 6, "prueba1@prueba.com", "GiftList", "GiftList" },
-                    { 7, "prueba2@prueba.com", "GiftList", "GiftList" },
-                    { 8, "prueba3@prueba.com", "GiftList", "GiftList" },
-                    { 9, "prueba4@prueba.com", "GiftList", "GiftList" },
-                    { 10, "prueba5@prueba.com", "GiftList", "GiftList" }
+                    { 6, "prueba1@prueba.com", "GiftListEntity", "GiftList" },
+                    { 7, "prueba2@prueba.com", "GiftListEntity", "GiftList" },
+                    { 8, "prueba3@prueba.com", "GiftListEntity", "GiftList" },
+                    { 9, "prueba4@prueba.com", "GiftListEntity", "GiftList" },
+                    { 10, "prueba5@prueba.com", "GiftListEntity", "GiftList" }
                 });
 
             migrationBuilder.InsertData(
                 table: "List",
-                columns: new[] { "List_code", "ShoppingCart_ClientEmail", "Discriminator", "Name" },
+                columns: new[] { "List_code", "ShoppingCartEntity_ClientEmail", "Discriminator", "Name" },
                 values: new object[,]
                 {
-                    { 11, "prueba1@prueba.com", "ShoppingCart", "ShoppingCart" },
-                    { 12, "prueba2@prueba.com", "ShoppingCart", "ShoppingCart" },
-                    { 13, "prueba3@prueba.com", "ShoppingCart", "ShoppingCart" },
-                    { 14, "prueba4@prueba.com", "ShoppingCart", "ShoppingCart" },
-                    { 15, "prueba5@prueba.com", "ShoppingCart", "ShoppingCart" }
+                    { 11, "prueba1@prueba.com", "ShoppingCartEntity", "ShoppingCart" },
+                    { 12, "prueba2@prueba.com", "ShoppingCartEntity", "ShoppingCart" },
+                    { 13, "prueba3@prueba.com", "ShoppingCartEntity", "ShoppingCart" },
+                    { 14, "prueba4@prueba.com", "ShoppingCartEntity", "ShoppingCart" },
+                    { 15, "prueba5@prueba.com", "ShoppingCartEntity", "ShoppingCart" }
                 });
 
             migrationBuilder.InsertData(
@@ -240,11 +240,11 @@ namespace Backend.Migrations
                 columns: new[] { "List_code", "ClientEmail", "Discriminator", "Name" },
                 values: new object[,]
                 {
-                    { 16, "prueba1@prueba.com", "LaterList", "LaterList" },
-                    { 17, "prueba2@prueba.com", "LaterList", "LaterList" },
-                    { 18, "prueba3@prueba.com", "LaterList", "LaterList" },
-                    { 19, "prueba4@prueba.com", "LaterList", "LaterList" },
-                    { 20, "prueba5@prueba.com", "LaterList", "LaterList" }
+                    { 16, "prueba1@prueba.com", "LaterListEntity", "LaterList" },
+                    { 17, "prueba2@prueba.com", "LaterListEntity", "LaterList" },
+                    { 18, "prueba3@prueba.com", "LaterListEntity", "LaterList" },
+                    { 19, "prueba4@prueba.com", "LaterListEntity", "LaterList" },
+                    { 20, "prueba5@prueba.com", "LaterListEntity", "LaterList" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,21 +276,21 @@ namespace Backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_List_GiftList_ClientEmail",
+                name: "IX_List_GiftListEntity_ClientEmail",
                 table: "List",
-                column: "GiftList_ClientEmail",
+                column: "GiftListEntity_ClientEmail",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_List_ShoppingCart_ClientEmail",
+                name: "IX_List_ShoppingCartEntity_ClientEmail",
                 table: "List",
-                column: "ShoppingCart_ClientEmail",
+                column: "ShoppingCartEntity_ClientEmail",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_List_WishList_ClientEmail",
+                name: "IX_List_WishListEntity_ClientEmail",
                 table: "List",
-                column: "WishList_ClientEmail",
+                column: "WishListEntity_ClientEmail",
                 unique: true);
 
             migrationBuilder.CreateIndex(

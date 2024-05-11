@@ -1,6 +1,6 @@
 using Backend.Database;
 using Microsoft.EntityFrameworkCore;
-using SmartTrade.Models;
+using Backend.Models;
 
 public class AppDbContext : DbContext
 {
@@ -28,7 +28,6 @@ public class AppDbContext : DbContext
     public DbSet<ClientEntity> Client { get; set; }
     public DbSet<SalesPersonEntity> SalesPerson { get; set; }
     public DbSet<ListProduct> ListProducts { get; set; }
-
 
     private static readonly string[] Summaries = new[]
     {

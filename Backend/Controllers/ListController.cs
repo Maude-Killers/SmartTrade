@@ -2,7 +2,7 @@
 using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Controllers
 {

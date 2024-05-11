@@ -1,7 +1,7 @@
 ﻿using Backend.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
-namespace SmartTrade.Models;
+namespace Backend.Models;
 public partial class Product
 {
     private IProductRepository _repository;

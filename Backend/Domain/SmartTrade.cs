@@ -2,17 +2,17 @@ using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
 
-namespace SmartTrade.Models;
+namespace Backend.Models;
 
 public partial class SmartTrade
 {
     private readonly IPersonRepository _personRepository;
     private readonly IProductRepository _productRepository;
 
-    public SmartTrade(AppDbContext context)
+    public SmartTrade()
     {
-        _personRepository = new PersonRepository(context);
-        _productRepository = new ProductRepository(context);
+        _personRepository = new PersonRepository(AppServices.GetDbContext());
+        _productRepository = new ProductRepository(AppServices.GetDbContext());
         Products = _productRepository.GetAll();
         Persons = _personRepository.GetAll();
     }

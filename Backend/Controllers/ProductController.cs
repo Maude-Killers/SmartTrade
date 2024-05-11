@@ -2,7 +2,7 @@ using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Controllers
 {
@@ -10,10 +10,10 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly SmartTrade.Models.SmartTrade _smartTrade;
+        private readonly Backend.Models.SmartTrade _smartTrade;
         private readonly ILogger<ProductController> _logger;
 
-        public ProductController(SmartTrade.Models.SmartTrade smartTrade, ILogger<ProductController> logger)
+        public ProductController(Backend.Models.SmartTrade smartTrade, ILogger<ProductController> logger)
         {
             _logger = logger;
             _smartTrade = smartTrade;

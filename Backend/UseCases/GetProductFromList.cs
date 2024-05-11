@@ -1,5 +1,5 @@
 using Backend.Interfaces;
-using SmartTrade.Models;
+using Backend.Models;
 
 public class GetProductFromList
 {

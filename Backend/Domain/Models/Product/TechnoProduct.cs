@@ -1,4 +1,5 @@
-﻿namespace SmartTrade.Models;
+﻿namespace Backend.Models;
+
 public partial class TechnoProduct : Product
 {
     public TechnoProduct() : base()

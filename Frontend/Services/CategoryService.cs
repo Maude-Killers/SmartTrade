@@ -1,5 +1,5 @@
 using System.Net.Http.Json;
-using SmartTrade.Models;
+using Backend.Models;
 
 public class CategoryService
 {

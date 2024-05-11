@@ -1,4 +1,4 @@
-namespace SmartTrade.Models;
+namespace Backend.Models;
 public partial class Client : Person
 {
     public virtual List<Product> WishList { get; set; }
