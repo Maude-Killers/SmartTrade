@@ -14,12 +14,14 @@ public partial class SmartTrade
         _personRepository = new PersonRepository(AppServices.GetDbContext());
         _productRepository = new ProductRepository(AppServices.GetDbContext());
         Products = _productRepository.GetAll();
-        Persons = _personRepository.GetAll();
+        People = _personRepository.GetAll();
     }
 
     public Person LoginPerson(string email, string pass)
     {
-        return _personRepository.Get(email, pass);
+        var result = this.People
+            .Find(x => x.Email == email && x.Password == pass) ?? throw new ResourceNotFound("Person not found", (email, pass));
+        return result;
     }
 
     public List<Product> GetAllProducts()

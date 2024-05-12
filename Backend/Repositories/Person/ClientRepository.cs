@@ -74,6 +74,10 @@ public class ClientRepository : IClientRepository
     public Client GetByCredentials(string Email, string Password)
     {
         ClientEntity clientEntity = _context.Client
+            .Include(c => c.GiftList).ThenInclude(g => g.listProducts)
+            .Include(c => c.LaterList).ThenInclude(g => g.listProducts)
+            .Include(c => c.WishList).ThenInclude(g => g.listProducts)
+            .Include(c => c.ShoppingCart).ThenInclude(g => g.listProducts)
             .Where(client => client.Email == Email && client.Password == Password)
             .First() ?? throw new ResourceNotFound("Client not found", (Email, Password));
 

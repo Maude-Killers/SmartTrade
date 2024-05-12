@@ -1,12 +1,5 @@
 ﻿namespace Backend.Models;
 
-public enum Category
-{
-    Techno,
-    Grocery,
-    Sport
-}
-
 public partial class Product
 {
     public int Product_code { get; set; }
@@ -36,4 +29,11 @@ public partial class Product
     {
         return Product_code.GetHashCode();
     }
+}
+
+public enum Category
+{
+    Techno,
+    Grocery,
+    Sport
 }
