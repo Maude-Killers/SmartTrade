@@ -10,56 +10,54 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly Backend.Models.SmartTrade _smartTrade;
         private readonly ILogger<ProductController> _logger;
 
-        public ProductController(Backend.Models.SmartTrade smartTrade, ILogger<ProductController> logger)
+        public ProductController(ILogger<ProductController> logger)
         {
             _logger = logger;
-            _smartTrade = smartTrade;
         }
 
         [HttpGet("/products", Name = "GetProduct")]
         public IEnumerable<Product> Get()
         {
-            return _smartTrade.GetAllProducts();
+            return SmartTrade.Singleton.GetAllProducts();
         }
 
         [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
         public Product Get(int Product_code)
         {
-            return _smartTrade.GetProduct(Product_code);
+            return SmartTrade.Singleton.GetProduct(Product_code);
         }
 
         [HttpGet("/products/Sport")]
         public IEnumerable<Product> GetSportProducts()
         {
-            return _smartTrade.GetAllSportProducts();
+            return SmartTrade.Singleton.GetAllSportProducts();
         }
 
         [HttpGet("/products/Grocery")]
         public IEnumerable<Product> GetGroceryProducts()
         {
-            return _smartTrade.GetAllGroceryProducts();
+            return SmartTrade.Singleton.GetAllGroceryProducts();
         }
 
         [HttpGet("/products/Technology")]
         public IEnumerable<Product> GetTechnoProducts()
         {
-            return _smartTrade.GetAllTechnoProducts();
+            return SmartTrade.Singleton.GetAllTechnoProducts();
         }
 
         [HttpGet("/search")]
         public List<Product> SearchProducts([FromQuery] string? value)
         {
             if (string.IsNullOrEmpty(value)) return new List<Product>();
-            return _smartTrade.SearchProduct(value);
+            return SmartTrade.Singleton.SearchProduct(value);
         }
 
         [HttpPost("/products")]
         public void CreateProduct(Product product)
         {
-            _smartTrade.CreateProduct(product);
+            SmartTrade.Singleton.CreateProduct(product);
         }
     }
 }

@@ -4,10 +4,12 @@ using Backend.Services;
 
 namespace Backend.Models;
 
-public partial class SmartTrade
+public sealed partial class SmartTrade
 {
     private readonly IPersonRepository _personRepository;
     private readonly IProductRepository _productRepository;
+
+    public static SmartTrade Singleton { get; } = new SmartTrade();
 
     public SmartTrade()
     {

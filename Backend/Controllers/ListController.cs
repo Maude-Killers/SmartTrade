@@ -10,12 +10,10 @@ namespace Backend.Controllers;
 [Route("[controller]")]
 public class ListController : ControllerBase
 {
-    private readonly SmartTrade _smartTrade;
     private readonly ILogger<ListController> _logger;
 
-    public ListController(SmartTrade smartTrade, ILogger<ListController> logger)
+    public ListController(ILogger<ListController> logger)
     {
-        _smartTrade = smartTrade;
         _logger = logger;
     }
 
@@ -25,7 +23,7 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
@@ -39,7 +37,7 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
@@ -53,7 +51,7 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
@@ -67,7 +65,7 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
@@ -81,12 +79,12 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
 
-        client.WishList.Add(_smartTrade.GetProduct(product_code));
+        client.WishList.Add(SmartTrade.Singleton.GetProduct(product_code));
     }
 
     [Authorize(Roles = "client")]
@@ -95,12 +93,12 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
 
-        client.GiftList.Add(_smartTrade.GetProduct(product_code));
+        client.GiftList.Add(SmartTrade.Singleton.GetProduct(product_code));
     }
 
     [Authorize(Roles = "client")]
@@ -109,16 +107,16 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
 
         if (fromCart)
         {
-            client.ShoppingCart.Remove(_smartTrade.GetProduct(product_code));
+            client.ShoppingCart.Remove(SmartTrade.Singleton.GetProduct(product_code));
         }
-        client.LaterList.Add(_smartTrade.GetProduct(product_code));
+        client.LaterList.Add(SmartTrade.Singleton.GetProduct(product_code));
     }
 
     [Authorize(Roles = "client")]
@@ -127,16 +125,16 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
 
         if (fromLater)
         {
-            client.LaterList.Remove(_smartTrade.GetProduct(product_code));
+            client.LaterList.Remove(SmartTrade.Singleton.GetProduct(product_code));
         }
-        client.ShoppingCart.Add(_smartTrade.GetProduct(product_code));
+        client.ShoppingCart.Add(SmartTrade.Singleton.GetProduct(product_code));
     }
 
     [Authorize(Roles = "client")]
@@ -145,12 +143,12 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
 
-        client.WishList.Remove(_smartTrade.GetProduct(product_code));
+        client.WishList.Remove(SmartTrade.Singleton.GetProduct(product_code));
     }
 
     [Authorize(Roles = "client")]
@@ -159,12 +157,12 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
 
-        client.GiftList.Remove(_smartTrade.GetProduct(product_code));
+        client.GiftList.Remove(SmartTrade.Singleton.GetProduct(product_code));
     }
 
     [Authorize(Roles = "client")]
@@ -173,12 +171,12 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
 
-        client.LaterList.Remove(_smartTrade.GetProduct(product_code));
+        client.LaterList.Remove(SmartTrade.Singleton.GetProduct(product_code));
     }
 
     [Authorize(Roles = "client")]
@@ -187,7 +185,7 @@ public class ListController : ControllerBase
     {
         var token = HttpContext.Request.Cookies["JWTToken"];
         var email = AuthHelpers.GetEmail(token);
-        var client = _smartTrade.People
+        var client = SmartTrade.Singleton.People
             .OfType<Client>()
             .FirstOrDefault(x => x.Email == email)
             ?? throw new ResourceNotFound("Client not found", email);
@@ -198,7 +196,7 @@ public class ListController : ControllerBase
         }
         else
         {
-            client.ShoppingCart.Remove(_smartTrade.GetProduct(product_code));
+            client.ShoppingCart.Remove(SmartTrade.Singleton.GetProduct(product_code));
         }
     }
 }

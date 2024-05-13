@@ -5,29 +5,25 @@ public partial class Client
 {
     public void AddProductToWishList(int productCode)
     {
-        var productRepository = new ProductRepository(AppServices.GetDbContext());
-        var product = productRepository.Get(productCode);
+        var product = SmartTrade.Singleton.GetProduct(productCode);
         this.WishList.Add(product);
     }
 
     public void AddProductToLaterList(int productCode)
     {
-        var productRepository = new ProductRepository(AppServices.GetDbContext());
-        var product = productRepository.Get(productCode);
+        var product = SmartTrade.Singleton.GetProduct(productCode);
         this.LaterList.Add(product);
     }
 
     public void AddProductToGiftList(int productCode)
     {
-        var productRepository = new ProductRepository(AppServices.GetDbContext());
-        var product = productRepository.Get(productCode);
+        var product = SmartTrade.Singleton.GetProduct(productCode);
         this.GiftList.Add(product);
     }
 
     public void AddProductToShoppingCart(int productCode)
     {
-        var productRepository = new ProductRepository(AppServices.GetDbContext());
-        var product = productRepository.Get(productCode);
+        var product = SmartTrade.Singleton.GetProduct(productCode);
         this.ShoppingCart.Add(product);
     }
 

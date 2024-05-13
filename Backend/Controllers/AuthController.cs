@@ -9,18 +9,16 @@ namespace Backend.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly AuthHelpers _authService;
-    private readonly SmartTrade _smartTrade;
 
-    public AuthController(AuthHelpers authService, SmartTrade smartTrade)
+    public AuthController(AuthHelpers authService)
     {
         _authService = authService;
-        _smartTrade = smartTrade;
     }
 
     [HttpPost("/login")]
     public void Login([FromBody] Person loginRequest)
     {
-        Person result = _smartTrade.LoginPerson(loginRequest.Email, loginRequest.Password);
+        Person result = SmartTrade.Singleton.LoginPerson(loginRequest.Email, loginRequest.Password);
         string token;
         if (result is Client)
         {
