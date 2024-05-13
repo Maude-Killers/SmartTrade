@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using Fluxor;
 using Frontend.Store;
 using Microsoft.JSInterop;
-using SmartTrade.Models;
+using Backend.Models;
 
 public class AuthService
 {

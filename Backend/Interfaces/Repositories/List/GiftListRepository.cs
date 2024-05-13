@@ -1,5 +1,4 @@
-﻿namespace Backend.Interfaces
-{
-    public interface IGiftListRepository : IListRepository
-    { }
-}
+﻿namespace Backend.Interfaces;
+
+public interface IGiftListRepository : IListRepository
+{ }

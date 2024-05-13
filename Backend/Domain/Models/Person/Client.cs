@@ -1,12 +1,10 @@
-namespace SmartTrade.Models
+namespace Backend.Models;
+public partial class Client : Person
 {
-    public partial class Client : Person
-    {
-        public virtual WishList WishList { get; set; }
-        public virtual GiftList GiftList { get; set; }
-        public virtual ShoppingCart ShoppingCart { get; set; }
-        public virtual LaterList LaterList { get; set; }
-        public Client() : base()
-        { }
-    }
+    public virtual List<Product> WishList { get; set; }
+    public virtual List<Product> GiftList { get; set; }
+    public virtual List<Product> ShoppingCart { get; set; }
+    public virtual List<Product> LaterList { get; set; }
+    public Client() : base()
+    { }
 }

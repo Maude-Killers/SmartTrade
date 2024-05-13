@@ -1,9 +1,8 @@
 using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
-using DataTransferObject;
 using Microsoft.AspNetCore.Mvc;
-using SmartTrade.Models;
+using Backend.Models;
 
 namespace Backend.Controllers
 {
@@ -12,60 +11,53 @@ namespace Backend.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ILogger<ProductController> _logger;
-        private readonly IProductRepository _productRepository;
-        private readonly ProductService _productService;
 
-        public ProductController(
-            ILogger<ProductController> logger,
-            IProductRepository productRepository,
-            ProductService productService
-        ) {
+        public ProductController(ILogger<ProductController> logger)
+        {
             _logger = logger;
-            _productRepository = productRepository;
-            _productService = productService;
         }
 
         [HttpGet("/products", Name = "GetProduct")]
         public IEnumerable<Product> Get()
         {
-            return _productRepository.GetAll();
+            return SmartTrade.Singleton.GetAllProducts();
         }
 
         [HttpGet("/products/{Product_code}", Name = "GetProductByProduct_code")]
         public Product Get(int Product_code)
         {
-            return _productRepository.Get(Product_code);
+            return SmartTrade.Singleton.GetProduct(Product_code);
         }
 
         [HttpGet("/products/Sport")]
         public IEnumerable<Product> GetSportProducts()
         {
-            return _productRepository.GetAllSportProducts();
+            return SmartTrade.Singleton.GetAllSportProducts();
         }
 
         [HttpGet("/products/Grocery")]
         public IEnumerable<Product> GetGroceryProducts()
         {
-            return _productRepository.GetAllGroceryProducts();
+            return SmartTrade.Singleton.GetAllGroceryProducts();
         }
 
         [HttpGet("/products/Technology")]
         public IEnumerable<Product> GetTechnoProducts()
         {
-            return _productRepository.GetAllTechnoProducts();
+            return SmartTrade.Singleton.GetAllTechnoProducts();
         }
 
         [HttpGet("/search")]
-        public IEnumerable<Product> SearchProducts([FromQuery] string? value)
+        public List<Product> SearchProducts([FromQuery] string? value)
         {
-            if (string.IsNullOrEmpty(value)) return Enumerable.Empty<Product>();
-            return ((ProductRepository)_productRepository).Search(value);
+            if (string.IsNullOrEmpty(value)) return new List<Product>();
+            return SmartTrade.Singleton.SearchProduct(value);
         }
 
         [HttpPost("/products")]
-        public void CreateProduct(ProductDTO product)
+        public void CreateProduct(Product product)
         {
-            _productService.CreateProduct(product);
+            SmartTrade.Singleton.CreateProduct(product);
         }
     }
 }

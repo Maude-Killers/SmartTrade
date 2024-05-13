@@ -1,5 +1,5 @@
-using DataTransferObject;
 using System.Net.Http.Json;
+using Backend.Models;
 
 public class ListService
 {
@@ -10,27 +10,27 @@ public class ListService
         _httpClient = httpClient;
     }
 
-    public async Task<List<ProductDTO>> GetWishListProducts()
+    public async Task<List<Product>> GetWishListProducts()
     {
-        return await _httpClient.GetFromJsonAsync<List<ProductDTO>>($"/wishlist") ?? new List<ProductDTO>();
+        return await _httpClient.GetFromJsonAsync<List<Product>>($"/wishlist") ?? new List<Product>();
     }
 
-    public async Task<List<ProductDTO>> GetGiftListProducts()
+    public async Task<List<Product>> GetGiftListProducts()
     {
-        return await _httpClient.GetFromJsonAsync<List<ProductDTO>>($"/giftlist") ?? new List<ProductDTO>();
+        return await _httpClient.GetFromJsonAsync<List<Product>>($"/giftlist") ?? new List<Product>();
     }
 
-    public async Task<List<ProductDTO>> GetLaterListProducts()
+    public async Task<List<Product>> GetLaterListProducts()
     {
-        return await _httpClient.GetFromJsonAsync<List<ProductDTO>>($"/laterlist") ?? new List<ProductDTO>();
+        return await _httpClient.GetFromJsonAsync<List<Product>>($"/laterlist") ?? new List<Product>();
     }
 
-    public async Task AddProductToWishList(ProductDTO product)
+    public async Task AddProductToWishList(Product product)
     {
         await _httpClient.PostAsync($"/wishlist/{product.Product_code}", null);
     }
 
-    public async Task AddProductToGiftList(ProductDTO product)
+    public async Task AddProductToGiftList(Product product)
     {
         await _httpClient.PostAsync($"/giftlist/{product.Product_code}", null);
     }

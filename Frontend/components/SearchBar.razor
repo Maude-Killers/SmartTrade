@@ -38,7 +38,7 @@
 @code {
     private string searchValue = "";
     private Timer? debounceTimer;
-    private ProductDTO[] results = Array.Empty<ProductDTO>();
+    private Product[] results = Array.Empty<Product>();
 
     private void OnTextHasChanged()
     {
@@ -48,20 +48,20 @@
 
     private void HandleOnSubmit()
     {
-        results = Array.Empty<ProductDTO>();
+        results = Array.Empty<Product>();
         nav.NavigateTo($"/results/{searchValue}");
         searchValue = "";
     }
 
     private async void HandleOnKeyUp(Object? state)
     {
-        results = await service.SearchProduct(searchValue) ?? Array.Empty<ProductDTO>();
+        results = await service.SearchProduct(searchValue) ?? Array.Empty<Product>();
         StateHasChanged();
     }
 
     private void HandleProductClick()
     {
-        results = Array.Empty<ProductDTO>();
+        results = Array.Empty<Product>();
         StateHasChanged();
     }
 }

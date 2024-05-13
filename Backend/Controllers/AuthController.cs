@@ -1,45 +1,42 @@
 using Backend.Interfaces;
 using Backend.Utils;
 using Microsoft.AspNetCore.Mvc;
-using SmartTrade.Models;
+using Backend.Models;
 
-namespace Backend.Controllers
+namespace Backend.Controllers;
+[ApiController]
+[Route("[controller]")]
+public class AuthController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class AuthController : ControllerBase
+    private readonly AuthHelpers _authService;
+
+    public AuthController(AuthHelpers authService)
     {
-        private readonly AuthHelpers _authService;
-        private readonly IPersonRepository _personRepository;
+        _authService = authService;
+    }
 
-        public AuthController(AuthHelpers authService, IPersonRepository personRepository)
+    [HttpPost("/login")]
+    public void Login([FromBody] Person loginRequest)
+    {
+        Person result = SmartTrade.Singleton.LoginPerson(loginRequest.Email, loginRequest.Password);
+        string token;
+        if (result is Client)
         {
-            _authService = authService;
-            _personRepository = personRepository;
+            token = _authService.GenerateJWTToken(result, "client");
+        }
+        else
+        {
+            token = _authService.GenerateJWTToken(result, "salesPerson");
         }
 
-        [HttpPost("/login")]
-        public void Login([FromBody] Person loginRequest)
+        var cookieOptions = new CookieOptions
         {
-            var result = _personRepository.Get(loginRequest.Email, loginRequest.Password);
-            string token;
-            if (result is Client) 
-            { 
-                token = _authService.GenerateJWTToken(result, "client"); 
-                
-            }
+            Secure = true,
+            HttpOnly = false,
+            SameSite = SameSiteMode.None,
+            Expires = DateTime.Now.AddDays(1),
+        };
 
-            else { token = _authService.GenerateJWTToken(result, "salesPerson"); }
-
-            var cookieOptions = new CookieOptions
-            {
-                Secure = true,
-                HttpOnly = false,
-                SameSite = SameSiteMode.None,
-                Expires = DateTime.Now.AddDays(1),
-            };
-
-            Response.Cookies.Append("JWTToken", token, cookieOptions);
-        }
+        Response.Cookies.Append("JWTToken", token, cookieOptions);
     }
 }

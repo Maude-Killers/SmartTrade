@@ -1,12 +1,9 @@
-﻿using DataTransferObject;
+﻿namespace Backend.Models;
 
-namespace SmartTrade.Models
+public partial class SportProduct : Product
 {
-    public partial class SportProduct : Product
+    public SportProduct() : base()
     {
-        public SportProduct() : base()
-        {
-            Category = Category.Sport;
-        }
+        Category = Category.Sport;
     }
 }

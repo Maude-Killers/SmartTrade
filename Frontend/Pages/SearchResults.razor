@@ -1,7 +1,6 @@
 @inject ProductService service
 @page "/results/{searchTerm}"
 
-
 <span class="text-2xl text-left rtl:text-right text-gray-500 dark:text-gray-400">Mostrando @resultCount resultados para
     "@searchTerm":</span>
 <main class="grid grid-cols-5">
@@ -58,7 +57,7 @@
     <div class="col-span-4 relative overflow-x-auto shadow-md sm:rounded-lg">
         <main class="flex flex-col justify-center">
             <article class="max-h-lg grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-items-center">
-                @foreach (var product in products)
+                @foreach (Backend.Models.Product product in products)
                 {
                     <ProductCard product="@product" showPrice="true" />
                 }
@@ -75,8 +74,8 @@
 @code {
     [Parameter]
     public string searchTerm { get; set; } = "";
-    private ProductDTO[] originalProducts = Array.Empty<ProductDTO>();
-    private ProductDTO[] products = Array.Empty<ProductDTO>();
+    private Product[] originalProducts = Array.Empty<Product>();
+    private Product[] products = Array.Empty<Product>();
     private int resultCount { get; set; } = 0;
     private decimal minPrice { get; set; } = 0;
     private decimal maxPrice { get; set; } = 0;
@@ -124,26 +123,25 @@
     {
         currentFingerPrint = Convert.ToInt32(e.Value);
     }
-    
+
     private void SportFilter()
     {
-
         if (isSport)
-            products = products.Where(product => product.Category == DataTransferObject.Category.Sport).ToArray();
+            products = products.Where(product => product.Category == Backend.Models.Category.Sport).ToArray();
     }
 
     private void TechFilter()
     {
         if (isTech)
-            products = products.Where(product => product.Category == DataTransferObject.Category.Techno).ToArray();
+            products = products.Where(product => product.Category == Backend.Models.Category.Techno).ToArray();
     }
 
     private void GroceryFilter()
     {
         if (isGrocery)
-            products = products.Where(product => product.Category == DataTransferObject.Category.Grocery).ToArray();
+            products = products.Where(product => product.Category == Backend.Models.Category.Grocery).ToArray();
     }
-    
+
     private void PriceFilter()
     {
         products = products.Where(product => product.Price < currentPrice).ToArray();

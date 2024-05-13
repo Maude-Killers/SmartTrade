@@ -1,9 +1,8 @@
-﻿using SmartTrade.Models;
+﻿using Backend.Database;
+using Backend.Models;
 
-namespace Backend.Interfaces
+namespace Backend.Interfaces;
+public interface IShoppingCartRepository : IListRepository
 {
-    public interface IShoppingCartRepository : IListRepository
-    {
-        void DeleteItem(Product product, Client client);
-    }
+    void DeleteItem(Product product, Client client);
 }

@@ -21,87 +21,7 @@ namespace Backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ListProduct", b =>
-                {
-                    b.Property<int>("Product_code")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("List_code")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Product_code", "List_code");
-
-                    b.HasIndex("List_code");
-
-                    b.ToTable("ListProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            Product_code = 11,
-                            List_code = 1,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 12,
-                            List_code = 2,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 13,
-                            List_code = 3,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 14,
-                            List_code = 4,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 15,
-                            List_code = 5,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 6,
-                            List_code = 6,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 7,
-                            List_code = 7,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 8,
-                            List_code = 8,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 9,
-                            List_code = 9,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Product_code = 10,
-                            List_code = 10,
-                            Quantity = 1
-                        });
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
+            modelBuilder.Entity("Backend.Database.GalleryEntity", b =>
                 {
                     b.Property<string>("Image")
                         .HasColumnType("text");
@@ -211,7 +131,7 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.List", b =>
+            modelBuilder.Entity("Backend.Database.ListEntity", b =>
                 {
                     b.Property<int>("List_code")
                         .ValueGeneratedOnAdd()
@@ -230,12 +150,92 @@ namespace Backend.Migrations
 
                     b.ToTable("List");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("List");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ListEntity");
 
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.Person", b =>
+            modelBuilder.Entity("Backend.Database.ListProduct", b =>
+                {
+                    b.Property<int>("Product_code")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("List_code")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Product_code", "List_code");
+
+                    b.HasIndex("List_code");
+
+                    b.ToTable("ListProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            Product_code = 11,
+                            List_code = 1,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 12,
+                            List_code = 2,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 13,
+                            List_code = 3,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 14,
+                            List_code = 4,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 15,
+                            List_code = 5,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 6,
+                            List_code = 6,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 7,
+                            List_code = 7,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 8,
+                            List_code = 8,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 9,
+                            List_code = 9,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Product_code = 10,
+                            List_code = 10,
+                            Quantity = 1
+                        });
+                });
+
+            modelBuilder.Entity("Backend.Database.PersonEntity", b =>
                 {
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -258,12 +258,12 @@ namespace Backend.Migrations
 
                     b.ToTable("Person");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("PersonEntity");
 
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.Product", b =>
+            modelBuilder.Entity("Backend.Database.ProductEntity", b =>
                 {
                     b.Property<int>("Product_code")
                         .ValueGeneratedOnAdd()
@@ -285,7 +285,7 @@ namespace Backend.Migrations
                     b.Property<string>("Features")
                         .HasColumnType("text");
 
-                    b.Property<int>("Huella")
+                    b.Property<int>("FingerPrint")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -299,14 +299,14 @@ namespace Backend.Migrations
 
                     b.ToTable("Products");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ProductEntity");
 
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.GiftList", b =>
+            modelBuilder.Entity("Backend.Database.GiftListEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.List");
+                    b.HasBaseType("Backend.Database.ListEntity");
 
                     b.Property<string>("ClientEmail")
                         .IsRequired()
@@ -318,10 +318,10 @@ namespace Backend.Migrations
                     b.ToTable("List", t =>
                         {
                             t.Property("ClientEmail")
-                                .HasColumnName("GiftList_ClientEmail");
+                                .HasColumnName("GiftListEntity_ClientEmail");
                         });
 
-                    b.HasDiscriminator().HasValue("GiftList");
+                    b.HasDiscriminator().HasValue("GiftListEntity");
 
                     b.HasData(
                         new
@@ -356,9 +356,9 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.LaterList", b =>
+            modelBuilder.Entity("Backend.Database.LaterListEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.List");
+                    b.HasBaseType("Backend.Database.ListEntity");
 
                     b.Property<string>("ClientEmail")
                         .IsRequired()
@@ -367,7 +367,7 @@ namespace Backend.Migrations
                     b.HasIndex("ClientEmail")
                         .IsUnique();
 
-                    b.HasDiscriminator().HasValue("LaterList");
+                    b.HasDiscriminator().HasValue("LaterListEntity");
 
                     b.HasData(
                         new
@@ -402,9 +402,9 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.ShoppingCart", b =>
+            modelBuilder.Entity("Backend.Database.ShoppingCartEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.List");
+                    b.HasBaseType("Backend.Database.ListEntity");
 
                     b.Property<string>("ClientEmail")
                         .IsRequired()
@@ -416,10 +416,10 @@ namespace Backend.Migrations
                     b.ToTable("List", t =>
                         {
                             t.Property("ClientEmail")
-                                .HasColumnName("ShoppingCart_ClientEmail");
+                                .HasColumnName("ShoppingCartEntity_ClientEmail");
                         });
 
-                    b.HasDiscriminator().HasValue("ShoppingCart");
+                    b.HasDiscriminator().HasValue("ShoppingCartEntity");
 
                     b.HasData(
                         new
@@ -454,9 +454,9 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.WishList", b =>
+            modelBuilder.Entity("Backend.Database.WishListEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.List");
+                    b.HasBaseType("Backend.Database.ListEntity");
 
                     b.Property<string>("ClientEmail")
                         .IsRequired()
@@ -468,10 +468,10 @@ namespace Backend.Migrations
                     b.ToTable("List", t =>
                         {
                             t.Property("ClientEmail")
-                                .HasColumnName("WishList_ClientEmail");
+                                .HasColumnName("WishListEntity_ClientEmail");
                         });
 
-                    b.HasDiscriminator().HasValue("WishList");
+                    b.HasDiscriminator().HasValue("WishListEntity");
 
                     b.HasData(
                         new
@@ -506,11 +506,11 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.Client", b =>
+            modelBuilder.Entity("Backend.Database.ClientEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.Person");
+                    b.HasBaseType("Backend.Database.PersonEntity");
 
-                    b.HasDiscriminator().HasValue("Client");
+                    b.HasDiscriminator().HasValue("ClientEntity");
 
                     b.HasData(
                         new
@@ -550,21 +550,21 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.SalesPerson", b =>
+            modelBuilder.Entity("Backend.Database.SalesPersonEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.Person");
+                    b.HasBaseType("Backend.Database.PersonEntity");
 
                     b.Property<string>("Company")
                         .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("SalesPerson");
+                    b.HasDiscriminator().HasValue("SalesPersonEntity");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.GroceryProduct", b =>
+            modelBuilder.Entity("Backend.Database.GroceryProductEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.Product");
+                    b.HasBaseType("Backend.Database.ProductEntity");
 
-                    b.HasDiscriminator().HasValue("GroceryProduct");
+                    b.HasDiscriminator().HasValue("GroceryProductEntity");
 
                     b.HasData(
                         new
@@ -573,7 +573,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion6",
                             Features = "caracteristicas6",
-                            Huella = -3,
+                            FingerPrint = 28,
                             Name = "product6",
                             Price = 16m
                         },
@@ -583,7 +583,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion7",
                             Features = "caracteristicas7",
-                            Huella = -6,
+                            FingerPrint = 36,
                             Name = "product7",
                             Price = 17m
                         },
@@ -593,7 +593,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion8",
                             Features = "caracteristicas8",
-                            Huella = 37,
+                            FingerPrint = -6,
                             Name = "product8",
                             Price = 18m
                         },
@@ -603,7 +603,7 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion9",
                             Features = "caracteristicas9",
-                            Huella = 15,
+                            FingerPrint = 16,
                             Name = "product9",
                             Price = 19m
                         },
@@ -613,17 +613,17 @@ namespace Backend.Migrations
                             Category = 1,
                             Description = "descripcion10",
                             Features = "caracteristicas10",
-                            Huella = 53,
+                            FingerPrint = -4,
                             Name = "product10",
                             Price = 20m
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.SportProduct", b =>
+            modelBuilder.Entity("Backend.Database.SportProductEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.Product");
+                    b.HasBaseType("Backend.Database.ProductEntity");
 
-                    b.HasDiscriminator().HasValue("SportProduct");
+                    b.HasDiscriminator().HasValue("SportProductEntity");
 
                     b.HasData(
                         new
@@ -632,7 +632,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion1",
                             Features = "caracteristicas1",
-                            Huella = 4,
+                            FingerPrint = 21,
                             Name = "product1",
                             Price = 11m
                         },
@@ -642,7 +642,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion2",
                             Features = "caracteristicas2",
-                            Huella = 35,
+                            FingerPrint = 0,
                             Name = "product2",
                             Price = 12m
                         },
@@ -652,7 +652,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion3",
                             Features = "caracteristicas3",
-                            Huella = 42,
+                            FingerPrint = 13,
                             Name = "product3",
                             Price = 13m
                         },
@@ -662,7 +662,7 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion4",
                             Features = "caracteristicas4",
-                            Huella = -13,
+                            FingerPrint = 49,
                             Name = "product4",
                             Price = 14m
                         },
@@ -672,17 +672,17 @@ namespace Backend.Migrations
                             Category = 2,
                             Description = "descripcion5",
                             Features = "caracteristicas5",
-                            Huella = -14,
+                            FingerPrint = 24,
                             Name = "product5",
                             Price = 15m
                         });
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.TechnoProduct", b =>
+            modelBuilder.Entity("Backend.Database.TechnoProductEntity", b =>
                 {
-                    b.HasBaseType("SmartTrade.Models.Product");
+                    b.HasBaseType("Backend.Database.ProductEntity");
 
-                    b.HasDiscriminator().HasValue("TechnoProduct");
+                    b.HasDiscriminator().HasValue("TechnoProductEntity");
 
                     b.HasData(
                         new
@@ -691,7 +691,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion11",
                             Features = "caracteristicas11",
-                            Huella = 42,
+                            FingerPrint = 38,
                             Name = "product11",
                             Price = 21m
                         },
@@ -701,7 +701,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion12",
                             Features = "caracteristicas12",
-                            Huella = 20,
+                            FingerPrint = 10,
                             Name = "product12",
                             Price = 22m
                         },
@@ -711,7 +711,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion13",
                             Features = "caracteristicas13",
-                            Huella = 11,
+                            FingerPrint = 27,
                             Name = "product13",
                             Price = 23m
                         },
@@ -721,7 +721,7 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion14",
                             Features = "caracteristicas14",
-                            Huella = 24,
+                            FingerPrint = 23,
                             Name = "product14",
                             Price = 24m
                         },
@@ -731,21 +731,30 @@ namespace Backend.Migrations
                             Category = 0,
                             Description = "descripcion15",
                             Features = "caracteristicas15",
-                            Huella = 5,
+                            FingerPrint = -14,
                             Name = "product15",
                             Price = 25m
                         });
                 });
 
-            modelBuilder.Entity("ListProduct", b =>
+            modelBuilder.Entity("Backend.Database.GalleryEntity", b =>
                 {
-                    b.HasOne("SmartTrade.Models.List", "List")
+                    b.HasOne("Backend.Database.ProductEntity", "Product")
+                        .WithMany("Gallery")
+                        .HasForeignKey("Product_code");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Backend.Database.ListProduct", b =>
+                {
+                    b.HasOne("Backend.Database.ListEntity", "List")
                         .WithMany("listProducts")
                         .HasForeignKey("List_code")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartTrade.Models.Product", "Product")
+                    b.HasOne("Backend.Database.ProductEntity", "Product")
                         .WithMany("ListProducts")
                         .HasForeignKey("Product_code")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -756,72 +765,63 @@ namespace Backend.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.Gallery", b =>
+            modelBuilder.Entity("Backend.Database.GiftListEntity", b =>
                 {
-                    b.HasOne("SmartTrade.Models.Product", "Product")
-                        .WithMany("Images")
-                        .HasForeignKey("Product_code");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SmartTrade.Models.GiftList", b =>
-                {
-                    b.HasOne("SmartTrade.Models.Client", "Client")
+                    b.HasOne("Backend.Database.ClientEntity", "Client")
                         .WithOne("GiftList")
-                        .HasForeignKey("SmartTrade.Models.GiftList", "ClientEmail")
+                        .HasForeignKey("Backend.Database.GiftListEntity", "ClientEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.LaterList", b =>
+            modelBuilder.Entity("Backend.Database.LaterListEntity", b =>
                 {
-                    b.HasOne("SmartTrade.Models.Client", "Client")
+                    b.HasOne("Backend.Database.ClientEntity", "Client")
                         .WithOne("LaterList")
-                        .HasForeignKey("SmartTrade.Models.LaterList", "ClientEmail")
+                        .HasForeignKey("Backend.Database.LaterListEntity", "ClientEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.ShoppingCart", b =>
+            modelBuilder.Entity("Backend.Database.ShoppingCartEntity", b =>
                 {
-                    b.HasOne("SmartTrade.Models.Client", "Client")
+                    b.HasOne("Backend.Database.ClientEntity", "Client")
                         .WithOne("ShoppingCart")
-                        .HasForeignKey("SmartTrade.Models.ShoppingCart", "ClientEmail")
+                        .HasForeignKey("Backend.Database.ShoppingCartEntity", "ClientEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.WishList", b =>
+            modelBuilder.Entity("Backend.Database.WishListEntity", b =>
                 {
-                    b.HasOne("SmartTrade.Models.Client", "Client")
+                    b.HasOne("Backend.Database.ClientEntity", "Client")
                         .WithOne("WishList")
-                        .HasForeignKey("SmartTrade.Models.WishList", "ClientEmail")
+                        .HasForeignKey("Backend.Database.WishListEntity", "ClientEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.List", b =>
+            modelBuilder.Entity("Backend.Database.ListEntity", b =>
                 {
                     b.Navigation("listProducts");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.Product", b =>
+            modelBuilder.Entity("Backend.Database.ProductEntity", b =>
                 {
-                    b.Navigation("Images");
+                    b.Navigation("Gallery");
 
                     b.Navigation("ListProducts");
                 });
 
-            modelBuilder.Entity("SmartTrade.Models.Client", b =>
+            modelBuilder.Entity("Backend.Database.ClientEntity", b =>
                 {
                     b.Navigation("GiftList")
                         .IsRequired();

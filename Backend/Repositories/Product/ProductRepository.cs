@@ -1,93 +1,161 @@
+using System.Linq;
+using Backend.Database;
 using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SmartTrade.Models;
+using Backend.Models;
 
-namespace Backend.Repositories
+namespace Backend.Repositories;
+public class ProductRepository : IProductRepository
 {
-    public class ProductRepository : IProductRepository
+    private readonly AppDbContext _context;
+    private readonly IGalleryRepository _galleryRepository;
+
+    public ProductRepository(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+        _galleryRepository = new GalleryRepository(context);
+    }
 
-        public ProductRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+    public void Create(Product item)
+    {
+        if (_context.Products.Any(p => p.Product_code == item.Product_code)) throw new ResourceNotFound("Already exists this product");
 
-        public void Create(Product item)
+        var entity = new ProductEntity
         {
-            _context.Products.Add(item);
-            _context.SaveChanges();
-        }
+            Category = item.Category,
+            Description = item.Description,
+            Features = item.Features,
+            FingerPrint = item.FingerPrint,
+            Name = item.Name,
+            Price = item.Price,
+            Product_code = item.Product_code,
+        };
+        _context.Products.Add(entity);
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
+        var gallery = _galleryRepository.CreateGallery(item.Images);
+        gallery.ForEach(img => img.Product_code = item.Product_code);
+        _context.SaveChanges();
+    }
 
-        public Product Get(int id)
-        {
-            var yoda = _context.Products.Include(p => p.Images).FirstOrDefault(product => product.Product_code == id);
-            return yoda ?? throw new ResourceNotFound("product not fount", id);
-        }
+    public void Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
 
-        public IEnumerable<Product> GetAll()
-        {
-            var asoka = _context.Products.ToList();
-            foreach (var image in asoka)
-            {
-                _context.Products.Include(p => p.Images).ToList();
-            }
-            return asoka;
-        }
+    public Product Get(int id)
+    {
+        var yoda = _context.Products
+            .Include(p => p.Gallery)
+            .FirstOrDefault(product => product.Product_code == id) ?? throw new ResourceNotFound("product not fount", id);
 
-        public void Set(int id, Product item)
+        var product = new Product
         {
-            var oldProduct = _context.Products.Where(product => product.Product_code == id).FirstOrDefault();
-            if (oldProduct == null) throw new ResourceNotFound("product not found", id);
-            oldProduct.Name = item.Name;
-            oldProduct.Price = item.Price;
-            oldProduct.Description = item.Description;
-            oldProduct.Features = item.Features;
-            oldProduct.Huella = item.Huella;
-            oldProduct.Category = item.Category;
-            _context.SaveChanges();
-        }
+            Category = yoda.Category,
+            Description = yoda.Description,
+            Features = yoda.Features,
+            FingerPrint = yoda.FingerPrint,
+            Images = yoda.Gallery.Select(img => img.Image ?? "").ToList(),
+            Name = yoda.Name,
+            Price = yoda.Price,
+            Product_code = yoda.Product_code,
+        };
 
-        public IEnumerable<Product> Search(string searchTerm)
-        {
-            return _context.Products
-                .Where(product => product.Name.Contains(searchTerm) || product.Description.Contains(searchTerm))
-                .Include(p => p.Images).ToList();
-        }
+        return product;
+    }
 
-        public IEnumerable<SportProduct> GetAllSportProducts()
+    public List<Product> GetAll()
+    {
+        var asoka = _context.Products.Include(p => p.Gallery).ToList();
+        
+        var products = asoka.Select(product => new Product
         {
-            var asoka = _context.SportProduct.ToList();
-            foreach (var image in asoka)
-            {
-                _context.Products.Include(p => p.Images).ToList();
-            }
-            return asoka;
-        }
+            Category = product.Category,
+            Description = product.Description,
+            Features = product.Features,
+            FingerPrint = product.FingerPrint,
+            Images = product.Gallery.Select(img => img.Image ?? "").ToList(),
+            Name = product.Name,
+            Price = product.Price,
+            Product_code = product.Product_code,
+        }).ToList();
 
-        public IEnumerable<TechnoProduct> GetAllTechnoProducts()
-        {
-            var asoka = _context.TechnoProduct.ToList();
-            foreach (var image in asoka)
-            {
-                _context.Products.Include(p => p.Images).ToList();
-            }
-            return asoka;
-        }
+        return products;
+    }
 
-        public IEnumerable<GroceryProduct> GetAllGroceryProducts()
+    public void Set(int id, Product item)
+    {
+        var oldProduct = _context.Products.Where(product => product.Product_code == id).FirstOrDefault();
+        if (oldProduct == null) throw new ResourceNotFound("product not found", id);
+        oldProduct.Name = item.Name;
+        oldProduct.Price = item.Price;
+        oldProduct.Description = item.Description;
+        oldProduct.Features = item.Features;
+        oldProduct.FingerPrint = item.FingerPrint;
+        oldProduct.Category = item.Category;
+        _context.SaveChanges();
+    }
+
+    public IEnumerable<ProductEntity> Search(string searchTerm)
+    {
+        return _context.Products
+            .Where(product => product.Name.Contains(searchTerm) || product.Description.Contains(searchTerm))
+            .Include(p => p.Gallery).ToList();
+    }
+
+    public IEnumerable<SportProduct> GetAllSportProducts()
+    {
+       var asoka = _context.SportProduct.Include(p => p.Gallery).ToList();
+
+       var products = asoka.Select(product => new SportProduct
         {
-            var asoka = _context.GroceryProduct.ToList();
-            foreach (var image in asoka)
-            {
-                _context.Products.Include(p => p.Images).ToList();
-            }
-            return asoka;
-        }
+            Category = product.Category,
+            Description = product.Description,
+            Features = product.Features,
+            FingerPrint = product.FingerPrint,
+            Images = product.Gallery.Select(img => img.Image ?? "").ToList(),
+            Name = product.Name,
+            Price = product.Price,
+            Product_code = product.Product_code,
+        });
+
+        return products;
+    }
+
+    public IEnumerable<TechnoProduct> GetAllTechnoProducts()
+    {
+        var asoka = _context.TechnoProduct.Include(p => p.Gallery).ToList();
+       
+       var products = asoka.Select(product => new TechnoProduct
+        {
+            Category = product.Category,
+            Description = product.Description,
+            Features = product.Features,
+            FingerPrint = product.FingerPrint,
+            Images = product.Gallery.Select(img => img.Image ?? "").ToList(),
+            Name = product.Name,
+            Price = product.Price,
+            Product_code = product.Product_code,
+        });
+
+        return products;
+    }
+
+    public IEnumerable<GroceryProduct> GetAllGroceryProducts()
+    {
+        var asoka = _context.GroceryProduct.Include(p => p.Gallery).ToList();
+
+       var products = asoka.Select(product => new GroceryProduct
+        {
+            Category = product.Category,
+            Description = product.Description,
+            Features = product.Features,
+            FingerPrint = product.FingerPrint,
+            Images = product.Gallery.Select(img => img.Image ?? "").ToList(),
+            Name = product.Name,
+            Price = product.Price,
+            Product_code = product.Product_code,
+        });
+
+        return products;
     }
 }

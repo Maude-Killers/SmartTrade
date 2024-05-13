@@ -1,5 +1,5 @@
 using System.Net.Http.Json;
-using DataTransferObject;
+using Backend.Models;
 
 public class CategoryService
 {
@@ -10,9 +10,8 @@ public class CategoryService
         _httpClient = httpClient;
     }
 
-    public async Task<ProductDTO[]> GetAllProductsByCategoriesAsync(string category)
+    public async Task<Product[]> GetAllProductsByCategoriesAsync(string category)
     {
-        return await _httpClient.GetFromJsonAsync<ProductDTO[]>($"products/{category}") ?? Array.Empty<ProductDTO>();
-        
+        return await _httpClient.GetFromJsonAsync<Product[]>($"products/{category}") ?? Array.Empty<Product>();
     }
 }

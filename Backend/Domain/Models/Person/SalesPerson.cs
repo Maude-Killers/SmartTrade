@@ -1,10 +1,8 @@
-namespace SmartTrade.Models
+namespace Backend.Models;
+public partial class SalesPerson : Person
 {
-    public partial class SalesPerson : Person
-    {
-        public string? Company { get; set; }
+    public string? Company { get; set; }
 
-        public SalesPerson() : base() { }
+    public SalesPerson() : base() { }
 
-    }
 }

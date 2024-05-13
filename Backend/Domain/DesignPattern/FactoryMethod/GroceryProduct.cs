@@ -1,4 +1,4 @@
-﻿using SmartTrade.Models;
+﻿using Backend.Models;
 
 namespace Backend.Domain.DesignPattern.FactoryMethod
 {

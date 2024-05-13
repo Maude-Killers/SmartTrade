@@ -1,12 +1,8 @@
-﻿using DataTransferObject;
-
-namespace SmartTrade.Models
+﻿namespace Backend.Models;
+public partial class GroceryProduct : Product
 {
-    public partial class GroceryProduct : Product
+    public GroceryProduct() : base()
     {
-        public GroceryProduct() : base()
-        {
-            Category = Category.Grocery;
-        }
+        Category = Category.Grocery;
     }
 }

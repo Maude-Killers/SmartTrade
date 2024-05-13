@@ -1,72 +1,122 @@
+using Backend.Database;
 using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SmartTrade.Models;
+using Backend.Models;
 
-namespace Backend.Repositories
+namespace Backend.Repositories;
+public class ClientRepository : IClientRepository
 {
-    public class ClientRepository : IClientRepository
+    private readonly AppDbContext _context;
+    private readonly IProductRepository _productRepository;
+
+    public ClientRepository(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+        _productRepository = new ProductRepository(context);
+    }
 
-        public ClientRepository(AppDbContext context)
+    public void Create(Client client)
+    {
+        if (_context.Client.Any(x => x.Email == client.Email)) throw new ResourceNotFound("Client already exists", client);
+
+        ClientEntity clientEntity = new ClientEntity
         {
-            _context = context;
-        }
+            Email = client.Email,
+            FullName = client.FullName,
+            Password = client.Password,
+            PhoneNumber = client.PhoneNumber,
+        };
 
-        public void Create(Client client)
+        _context.Client.Add(clientEntity);
+        _context.SaveChanges();
+    }
+
+    public void Delete(string Email)
+    {
+        var targetClient = _context.Client
+            .Where(client => client.Email == Email)
+            .FirstOrDefault();
+
+        if (targetClient == null) throw new InvalidOperationException();
+
+        _context.Client.Remove(targetClient);
+        _context.SaveChanges();
+    }
+
+    public Client Get(string email)
+    {
+        ClientEntity clientEntity = _context.Client
+            .Include(c => c.WishList).ThenInclude(w => w.listProducts)
+            .Include(c => c.GiftList).ThenInclude(g => g.listProducts)
+            .Include(c => c.LaterList).ThenInclude(n => n.listProducts)
+            .Include(c => c.ShoppingCart).ThenInclude(p => p.listProducts)
+            .First(c => c.Email == email);
+
+        Client client = new Client
         {
-            _context.Client.Add(client);
-            _context.SaveChanges();
-        }
+            Email = clientEntity.Email,
+            Password = clientEntity.Password,
+            FullName = clientEntity.FullName,
+            PhoneNumber = clientEntity.PhoneNumber,
+            GiftList = clientEntity.GiftList.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+            LaterList = clientEntity.LaterList.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+            ShoppingCart = clientEntity.ShoppingCart.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+            WishList = clientEntity.ShoppingCart.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+        };
 
-        public void Delete(string Email)
+        return client ?? throw new ResourceNotFound("Client email don't exists", email);
+    }
+
+    public Client GetByCredentials(string Email, string Password)
+    {
+        ClientEntity clientEntity = _context.Client
+            .Include(c => c.GiftList).ThenInclude(g => g.listProducts)
+            .Include(c => c.LaterList).ThenInclude(g => g.listProducts)
+            .Include(c => c.WishList).ThenInclude(g => g.listProducts)
+            .Include(c => c.ShoppingCart).ThenInclude(g => g.listProducts)
+            .Where(client => client.Email == Email && client.Password == Password)
+            .First() ?? throw new ResourceNotFound("Client not found", (Email, Password));
+
+        Client client = new Client()
         {
-            var targetClient = _context.Client
-                .Where(client => client.Email == Email)
-                .FirstOrDefault();
+            Email = clientEntity.Email,
+            Password = clientEntity.Password,
+            FullName = clientEntity.FullName,
+            PhoneNumber = clientEntity.PhoneNumber,
+            GiftList = clientEntity.GiftList.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
 
-            if (targetClient == null) throw new InvalidOperationException();
+            LaterList = clientEntity.LaterList.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
 
-            _context.Client.Remove(targetClient);
-            _context.SaveChanges();
-        }
+            ShoppingCart = clientEntity.ShoppingCart.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
 
-        public Client Get(string email)
-        {
-            var client = _context.Client
-                .Include(c => c.WishList).ThenInclude(w => w.listProducts)
-                .Include(c => c.GiftList).ThenInclude(g => g.listProducts)
-                .Include(c => c.LaterList).ThenInclude(n => n.listProducts)
-                .Include(c => c.ShoppingCart).ThenInclude(p => p.listProducts)
-				.FirstOrDefault(c => c.Email == email);
-            
-            return client ?? throw new ResourceNotFound("Client email don't exists", email);
-        }
+            WishList = clientEntity.WishList.listProducts
+                .Select(x => _productRepository.Get(x.Product_code)).ToList(),
+        };
 
-        public Client? GetByCredentials(string Email, string Password)
-        {
-            var client = _context.Client
-                .Where(client => client.Email == Email && client.Password == Password)
-                .FirstOrDefault();
+        return client;
+    }
 
-            return client;
-        }
+    public List<Client> GetAll()
+    {
+        throw new NotImplementedException();
+    }
 
-        public IEnumerable<Client> GetAll()
-        {
-            return _context.Client.ToList();
-        }
+    public void Set(string Email, Client client)
+    {
+        var actualClient = _context.Client
+            .Where(client => client.Email == Email)
+            .FirstOrDefault();
 
-        public void Set(string Email, Client client)
-        {
-            var actualClient = _context.Client
-                .Where(client => client.Email == Email)
-                .FirstOrDefault();
+        if (actualClient == null) throw new InvalidOperationException();
 
-            if (actualClient == null) throw new InvalidOperationException();
-
-            actualClient.Password = client.Password;
-            _context.SaveChanges();
-        }
+        actualClient.Password = client.Password;
+        _context.SaveChanges();
     }
 }
