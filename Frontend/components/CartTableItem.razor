@@ -11,7 +11,7 @@
         </td>
         <td class="px-6 py-4">
             <div class="flex items-center">
-                <button @onclick="DecreaseQuantity"
+                <button @onclick="DecreaseQuantity" @onclick:stopPropagation="true" @onclick:preventDefault="true"
                     class="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     type="button">
                     <span class="sr-only">Eliminar item</span>
@@ -25,7 +25,7 @@
                     <span style="background-color: #2d3748; border: 1px solid #edf2f7; color: #e2e8f0;"
                         class="w-14 text-center text-gray-900 text-sm rounded-lg px-2.5 py-1 leading-none flex items-center">@quantity</span>
                 </div>
-                <button @onclick="IncreaseQuantity"
+                <button @onclick="IncreaseQuantity" @onclick:stopPropagation="true" @onclick:preventDefault="true"
                     class="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     type="button">
                     <span class="sr-only">Agregar item</span>
@@ -41,11 +41,11 @@
             @product.Price€
         </td>
         <td class="px-6 py-4">
-            <button @onclick="MoveToLater" type="button"
+            <button @onclick="MoveToLater" type="button" @onclick:stopPropagation="true" @onclick:preventDefault="true"
                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Guardar para más tarde</button>
         </td>
         <td class="px-6 py-4">
-            <button @onclick="Remove" type="button"
+            <button @onclick="Remove" type="button" @onclick:stopPropagation="true" @onclick:preventDefault="true"
                 class="font-medium text-red-600 dark:text-red-500 hover:underline">Quitar</button>
         </td>
     </tr>

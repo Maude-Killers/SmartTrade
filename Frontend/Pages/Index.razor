@@ -1,4 +1,5 @@
 ﻿@inject IJSRuntime Js
+@inject AuthService _authService
 @page "/"
 
 <main class="flex flex-col justify-center">
@@ -27,3 +28,11 @@
 
     </article>
 </main>
+
+@code {
+    protected override void OnAfterRender(bool firstRender) {
+        if (firstRender) {
+            _authService.UpdateUserState();
+        }
+    }
+}

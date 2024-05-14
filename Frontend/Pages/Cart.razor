@@ -31,12 +31,18 @@
         <tbody>
             @foreach (var product in productDictionary)
             {
-                <CartTableItem product="product.Key" quantity="product.Value"/>
+                <CartTableItem product="product.Key" quantity="product.Value" />
             }
         </tbody>
     </table>
 </div>
 
+<div class="mt-8 flex justify-end">
+    <button type="button" @onclick="HandlePurchaseClick"
+        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        Realizar pedido
+    </button>
+</div>
 
 <div class="inline-flex items-center justify-center w-full">
     <hr class="w-96 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
@@ -94,7 +100,11 @@
     }
     //private async Task HandleQuantityChanged()
     //{
-    //    TotalPrice = CalculateTotalPrice();
-    //    StateHasChanged();
+    // TotalPrice = CalculateTotalPrice();
+    // StateHasChanged();
     //}
+    private Task HandlePurchaseClick(MouseEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }

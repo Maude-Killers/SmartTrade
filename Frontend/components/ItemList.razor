@@ -15,7 +15,7 @@
 			@product.Price
 		</td>
 		<td class="px-6 py-4">
-			<button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline"
+			<button @onclick:stopPropagation="true" @onclick:preventDefault="true" class="font-medium text-red-600 dark:text-red-500 hover:underline"
 				@onclick="DeleteProduct">Remove</button>
 		</td>
 	</tr>
