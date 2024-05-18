@@ -26,6 +26,12 @@ public sealed partial class SmartTrade
         return result;
     }
 
+    public void RegisterPerson(string email, string password, string fullname, int phoneNum) 
+    {
+        this.People.Add(new Client { Email = email, Password = password, FullName = fullname, PhoneNumber = phoneNum});
+
+    }
+
     public List<Product> GetAllProducts()
     {
         return this.Products;

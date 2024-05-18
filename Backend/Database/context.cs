@@ -80,7 +80,7 @@ public class AppDbContext : DbContext
         }).ToArray();
         modelBuilder.Entity<LaterListEntity>().HasData(laterList);
 
-        var mondongo = Enumerable.Range(1, 5).Select(index => new SportProductEntity
+        var sportProducts = Enumerable.Range(1, 5).Select(index => new SportProductEntity
         {
             Product_code = index,
             Name = "product" + index,
@@ -89,9 +89,9 @@ public class AppDbContext : DbContext
             Features = "caracteristicas" + index,
             FingerPrint = Random.Shared.Next(-20, 55),
         }).ToArray();
-        modelBuilder.Entity<SportProductEntity>().HasData(mondongo);
+        modelBuilder.Entity<SportProductEntity>().HasData(sportProducts);
 
-        var creeper = Enumerable.Range(6, 5).Select(index => new GroceryProductEntity
+        var groceryProducts = Enumerable.Range(6, 5).Select(index => new GroceryProductEntity
         {
             Product_code = index,
             Name = "product" + index,
@@ -100,9 +100,9 @@ public class AppDbContext : DbContext
             Features = "caracteristicas" + index,
             FingerPrint = Random.Shared.Next(-20, 55),
         }).ToArray();
-        modelBuilder.Entity<GroceryProductEntity>().HasData(creeper);
+        modelBuilder.Entity<GroceryProductEntity>().HasData(groceryProducts);
 
-        var patricioApruebame = Enumerable.Range(11, 5).Select(index => new TechnoProductEntity
+        var technoProducts = Enumerable.Range(11, 5).Select(index => new TechnoProductEntity
         {
             Product_code = index,
             Name = "product" + index,
@@ -111,7 +111,7 @@ public class AppDbContext : DbContext
             Features = "caracteristicas" + index,
             FingerPrint = Random.Shared.Next(-20, 55),
         }).ToArray();
-        modelBuilder.Entity<TechnoProductEntity>().HasData(patricioApruebame);
+        modelBuilder.Entity<TechnoProductEntity>().HasData(technoProducts);
 
         var listProducts = Enumerable.Range(1, 5).Select(index => new ListProduct
         {

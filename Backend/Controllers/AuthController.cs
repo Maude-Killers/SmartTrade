@@ -39,4 +39,10 @@ public class AuthController : ControllerBase
 
         Response.Cookies.Append("JWTToken", token, cookieOptions);
     }
+
+    [HttpPost("/register")]
+    public void Register([FromBody] Person registerPer)
+    {
+        //Person result = SmartTrade.Singleton.RegisterPerson(registerPer.Email, registerPer.Password, registerPer.FullName, registerPer.PhoneNumber);
+    }
 }

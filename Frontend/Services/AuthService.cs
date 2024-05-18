@@ -30,6 +30,24 @@ public class AuthService
         UpdateUserState();
     }
 
+    public async Task Register(string emailInput, string nameInput, int phoneInput, string passwordInput, string confPasswordInput, string errorMessage)
+    {
+        if (passwordInput.Equals(confPasswordInput))
+        {
+            var registerPer = new Person
+            {
+                Email = emailInput,
+                Password = passwordInput,
+                FullName = nameInput,
+                PhoneNumber = phoneInput
+
+            };
+            await _httpClient.PostAsJsonAsync("/register", registerPer);
+        }
+        else { errorMessage = "The password does not match"; }
+        
+    }
+
     private async Task<string> GetJWTTokenCookieAsync()
     {
         return await _jsRuntime.InvokeAsync<string>("getJWTTokenCookie");
