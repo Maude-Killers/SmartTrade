@@ -1,3 +1,4 @@
+using Backend.Database;
 using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
@@ -28,8 +29,11 @@ public sealed partial class SmartTrade
 
     public void RegisterPerson(string email, string password, string fullname, int phoneNum) 
     {
-        this.People.Add(new Client { Email = email, Password = password, FullName = fullname, PhoneNumber = phoneNum});
-
+        WishListEntity wishlist = new WishListEntity {ClientEmail= email };
+        LaterListEntity laterlist = new LaterListEntity { ClientEmail= email };
+        GiftListEntity giftlist = new GiftListEntity { ClientEmail= email }; 
+        ShoppingCartEntity shoppingcart = new ShoppingCartEntity { ClientEmail= email };
+        this.People.Add(new Client { Email = email, Password = password, FullName = fullname, PhoneNumber = phoneNum}) ;
     }
 
     public List<Product> GetAllProducts()
