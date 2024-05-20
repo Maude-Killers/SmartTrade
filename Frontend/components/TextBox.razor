@@ -1,6 +1,7 @@
 @using Backend.Models;
 @inject AuthService service
 @inject NavigationManager nav
+@inject HttpClient http
 
 <section class="bg-gray-50 dark:bg-gray-900 flex-col">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -68,7 +69,15 @@
     private string? errorMessage { get; set; }
     private async void HandleSubmit()
     {
-        await service.Login(emailInput, passwordInput);
-        nav.NavigateTo("/wishlist");
+        bool loginSuccess = await service.Login(emailInput, passwordInput);
+        if (loginSuccess)
+        {
+            nav.NavigateTo("/wishlist");
+        }
+        else
+        {
+            errorMessage = "Login failed. Please check your credentials and try again.";
+        }
+        
     }
 }

@@ -29,11 +29,11 @@ public sealed partial class SmartTrade
 
     public void RegisterPerson(string email, string password, string fullname, int phoneNum) 
     {
-        WishListEntity wishlist = new WishListEntity {ClientEmail= email };
-        LaterListEntity laterlist = new LaterListEntity { ClientEmail= email };
-        GiftListEntity giftlist = new GiftListEntity { ClientEmail= email }; 
-        ShoppingCartEntity shoppingcart = new ShoppingCartEntity { ClientEmail= email };
-        this.People.Add(new Client { Email = email, Password = password, FullName = fullname, PhoneNumber = phoneNum}) ;
+        List<Product> wishlist = new List<Product>();
+        List<Product> laterlist = new List<Product>();
+        List<Product> giftlist = new List<Product>();
+        List<Product> shoppingcart = new List<Product>();
+        this.People.Add(new Client { Email = email, Password = password, FullName = fullname, PhoneNumber = phoneNum, WishList = wishlist, GiftList= giftlist, LaterList= laterlist, ShoppingCart= shoppingcart}) ;
     }
 
     public List<Product> GetAllProducts()

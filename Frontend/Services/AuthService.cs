@@ -18,7 +18,7 @@ public class AuthService
         _dispatcher = dispatcher;
     }
 
-    public async Task Login(string emailInput, string passwordInput)
+    public async Task<bool> Login(string emailInput, string passwordInput)
     {
         var loginRequest = new Person
         {
@@ -26,8 +26,9 @@ public class AuthService
             Password = passwordInput
         };
 
-        await _httpClient.PostAsJsonAsync("/login", loginRequest);
+        var response= await _httpClient.PostAsJsonAsync("/login", loginRequest);
         UpdateUserState();
+        return response.IsSuccessStatusCode;
     }
 
     public async Task Register(string emailInput, string nameInput, int phoneInput, string passwordInput, string confPasswordInput, string errorMessage)
