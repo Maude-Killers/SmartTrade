@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240511222844_OOP")]
-    partial class OOP
+    [Migration("20240522170011_productosDescriptivos")]
+    partial class productosDescriptivos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -574,51 +574,51 @@ namespace Backend.Migrations
                         {
                             Product_code = 6,
                             Category = 1,
-                            Description = "descripcion6",
-                            Features = "caracteristicas6",
-                            FingerPrint = 28,
-                            Name = "product6",
-                            Price = 16m
+                            Description = "Tomate de rama de gran calidad, proveniente de Almería",
+                            Features = "Dimensiones del producto : 7 x 8 x 7 cm; 250 g\nFabricante : MERCOPHAL, S.L\n",
+                            FingerPrint = -17,
+                            Name = "Tomates",
+                            Price = 1m
                         },
                         new
                         {
                             Product_code = 7,
                             Category = 1,
-                            Description = "descripcion7",
-                            Features = "caracteristicas7",
-                            FingerPrint = 36,
-                            Name = "product7",
-                            Price = 17m
+                            Description = "Lechuga trocadero de gran calidad, proveniente de Francia",
+                            Features = "Dimensiones del producto : 24,5 x 17 x 9,5 cm; 380 g\nFabricante : Felixia\nInstrucciones de almacenaje : 6° C -8° C\n",
+                            FingerPrint = 47,
+                            Name = "Lechuga trocadero",
+                            Price = 2m
                         },
                         new
                         {
                             Product_code = 8,
                             Category = 1,
-                            Description = "descripcion8",
-                            Features = "caracteristicas8",
-                            FingerPrint = -6,
-                            Name = "product8",
-                            Price = 18m
+                            Description = "Calabacín de gran calidad, proveniente de España",
+                            Features = "Dimensiones del producto : 18,01 x 5 x 3,99 cm; 500 g\nFabricante : Eurobanan\nInstrucciones de almacenaje : 6° C -8° C\n",
+                            FingerPrint = 11,
+                            Name = "Calabacín",
+                            Price = 1m
                         },
                         new
                         {
                             Product_code = 9,
                             Category = 1,
-                            Description = "descripcion9",
-                            Features = "caracteristicas9",
-                            FingerPrint = 16,
-                            Name = "product9",
-                            Price = 19m
+                            Description = "Platanos de gran calidad, provenientes de Canarias",
+                            Features = "Dimensiones del producto : 24 x 20 x 8 cm; 1,2 kg\nFabricante : ARC-EUROBANAN, S.L.\nConsumir preferiblemente en 2-3 días\n",
+                            FingerPrint = 41,
+                            Name = "Plátano de canarias",
+                            Price = 2m
                         },
                         new
                         {
                             Product_code = 10,
                             Category = 1,
-                            Description = "descripcion10",
-                            Features = "caracteristicas10",
-                            FingerPrint = -4,
-                            Name = "product10",
-                            Price = 20m
+                            Description = "Melón de gran calidad, proveniente de Canarias",
+                            Features = "Dimensiones del producto : 5,99 x 5 x 3,99 cm; 1,25 kg\nFabricante : Felixia\nInstrucciones de almacenaje : 10° C -12° C\n",
+                            FingerPrint = 23,
+                            Name = "Melón Cantaloup",
+                            Price = 7m
                         });
                 });
 
@@ -633,51 +633,51 @@ namespace Backend.Migrations
                         {
                             Product_code = 1,
                             Category = 2,
-                            Description = "descripcion1",
-                            Features = "caracteristicas1",
-                            FingerPrint = 21,
-                            Name = "product1",
-                            Price = 11m
+                            Description = "Zapatillas Nike Court Vision color blanco y verde, inspirado en el baloncesto de los 80Nike Court Vision Mid reúne el rétro del parquet y la comodidad moderna, con materiales reciclados para al menos el 20% de su peso. La suela tiene piezas en Nike Grind, mientras que el Tomaia testurizado en cuero sintético mantiene el aspecto clásico que le gusta tanto.",
+                            Features = "Dimensiones del producto : 34 x 23 x 12 cm; 500 g\nMaterial de la suelaCaucho\nAltura de ejeAnkle Strap\nMaterial exteriorSintético\nMaterial internoSynthetic",
+                            FingerPrint = 23,
+                            Name = "Zapatillas Nike",
+                            Price = 90m
                         },
                         new
                         {
                             Product_code = 2,
                             Category = 2,
-                            Description = "descripcion2",
-                            Features = "caracteristicas2",
-                            FingerPrint = 0,
-                            Name = "product2",
-                            Price = 12m
+                            Description = "Raqueta de espuma suave con protector integrado para mayor durabilidad, mayor potencia y menos vibraciones. La raqueta tiene un cuadro de carbono. Es la elección perfecta para los jóvenes",
+                            Features = "Dimensiones del producto : 45 x 22 x 4 cm; 200 g\nMaterial : Grafito\nMaterial del marco : Carbono\nMaterial de la varilla : Fibra de carbono\n",
+                            FingerPrint = -16,
+                            Name = "Raqueta pádel",
+                            Price = 80m
                         },
                         new
                         {
                             Product_code = 3,
                             Category = 2,
-                            Description = "descripcion3",
-                            Features = "caracteristicas3",
-                            FingerPrint = 13,
-                            Name = "product3",
-                            Price = 13m
+                            Description = "con la bolsa de FITGRIFF puede esperar una bolsa multiusos moderna y bien pensada: súper adecuada como bolsa de entrenamiento, bolsa de viaje, bolsa de baño",
+                            Features = "Dimensiones del producto : 48 x 26 x 25 cm; 700 g\nFabricante : Fitgriff\nMaterial: 100% poliéster\n",
+                            FingerPrint = -6,
+                            Name = "Bolsa de gimnasio",
+                            Price = 23m
                         },
                         new
                         {
                             Product_code = 4,
                             Category = 2,
-                            Description = "descripcion4",
-                            Features = "caracteristicas4",
-                            FingerPrint = 49,
-                            Name = "product4",
-                            Price = 14m
+                            Description = " el balón de fútbol está hecho de cuero de PVC suave y cosido con máquinas exquisitas para proporcionar una sensación de mano suave y equilibrada,resistente al desgaste y duradero. Revestimiento a prueba de explosiones",
+                            Features = "Dimensiones del producto : 27 x 13,7 x 12 cm; 540 g\nMaterial : Cuero\nMarca : Aipwerer\n",
+                            FingerPrint = -20,
+                            Name = "Balón fútbol",
+                            Price = 30m
                         },
                         new
                         {
                             Product_code = 5,
                             Category = 2,
-                            Description = "descripcion5",
-                            Features = "caracteristicas5",
-                            FingerPrint = 24,
-                            Name = "product5",
-                            Price = 15m
+                            Description = "Tejido de malla suave y confortable, cómodo y transpirable la camiseta deportiva tiene un corte holgado y es cómoda de llevar. Confeccionada con un tejido transpirable y que absorbe la humedad, absorbe el sudor y se seca rápidamente",
+                            Features = "Dimensiones del producto : 15 x 10 x 1 cm; 300 g\nMaterial : dry-fit 100% poliéster \nMarca : Herbalife\n",
+                            FingerPrint = -14,
+                            Name = "Camiseta de deporte",
+                            Price = 25m
                         });
                 });
 
@@ -692,51 +692,51 @@ namespace Backend.Migrations
                         {
                             Product_code = 11,
                             Category = 0,
-                            Description = "descripcion11",
-                            Features = "caracteristicas11",
-                            FingerPrint = 38,
-                            Name = "product11",
-                            Price = 21m
+                            Description = "De tamaño mediano, fácil de agarrar para la mayoría de las personas, el peso ultraligero es de solo 75 gramos, diseño de panal ergonómico, fácil de agarrar y operar en juegos y oficinas",
+                            Features = "Dimensiones del producto : 12,6 x 6,3 x 4 cm; 105 g\nFabricante : DIERYA\nSistema operativo: Windows 7/10\n",
+                            FingerPrint = 25,
+                            Name = "Ratón gaming",
+                            Price = 32m
                         },
                         new
                         {
                             Product_code = 12,
                             Category = 0,
-                            Description = "descripcion12",
-                            Features = "caracteristicas12",
-                            FingerPrint = 10,
-                            Name = "product12",
-                            Price = 22m
+                            Description = "Teclado ultra responsivo + silencioso. disfrute de tiempos de respuesta rapidísimos con la tecnología inalámbrica de 2,4 ghz. el keyz tungsten ofrece una respuesta mucho más rápida y precisa que la mayoría de los teclados inalámbricos para juegos del mercado",
+                            Features = "Dimensiones del producto : 25,4 x 5,08 x 6,86 cm; 800 g\nFabricante : AXS\nSistema operativo: Windows\n",
+                            FingerPrint = -15,
+                            Name = "Teclado gaming",
+                            Price = 42m
                         },
                         new
                         {
                             Product_code = 13,
                             Category = 0,
-                            Description = "descripcion13",
-                            Features = "caracteristicas13",
-                            FingerPrint = 27,
-                            Name = "product13",
-                            Price = 23m
+                            Description = "el monitor de 24 pulgadas adopta una nueva generación de pantalla VA, que cubre el 99 % de la gama de colores SRGB. Por lo tanto, el monitor de la computadora puede restaurar al 100% los colores reales y presentar detalles vívidos. Además, el amplio ángulo de visión de 178° de este monitor de PC le permite disfrutar de imágenes claras, nítidas y delicadas desde cualquier ángulo.",
+                            Features = "Dimensiones del producto : 42,32 x 54,2 x 18,11 cm; 3,63 kg\nFabricante : KOORUI\nInterfaz del hardware: VGA, HDMI\n",
+                            FingerPrint = 10,
+                            Name = "Monitor",
+                            Price = 202m
                         },
                         new
                         {
                             Product_code = 14,
                             Category = 0,
-                            Description = "descripcion14",
-                            Features = "caracteristicas14",
-                            FingerPrint = 23,
-                            Name = "product14",
-                            Price = 24m
+                            Description = "El ventilador Aura II ha sido fabricado con el exclusivo y reconocido sistema de rodamientos de alta tecnología Tacens Fluxus II (10-12-12dB). Equipado a su vez con un cableado negro de alta calidad, que aumenta la protección y mejora la apariencia de este ventilador",
+                            Features = "Dimensiones del producto : 35 x 3 x 15,01 cm; 98,5 g\nFabricante : ‎Tacens Spain\nDescripción de la batería: 12VDC\n",
+                            FingerPrint = -10,
+                            Name = "Ventilador ordenador",
+                            Price = 7m
                         },
                         new
                         {
                             Product_code = 15,
                             Category = 0,
-                            Description = "descripcion15",
-                            Features = "caracteristicas15",
-                            FingerPrint = -14,
-                            Name = "product15",
-                            Price = 25m
+                            Description = "hecho de telas de felpa de alta calidad. Relleno de plumas de algodón PP en este peluche de pingüino totalmente vestido. El interior de alta calidad es realmente cómodo de sostener y soporta cualquier posición del cuerpo descansada a su alrededor.",
+                            Features = "Dimensiones del producto : ‎6 x 5 x 12 cm; 140 g\nMaterial : ‎Nailon\nMarca: Generic\n",
+                            FingerPrint = 41,
+                            Name = "Peluche pingüino",
+                            Price = 12m
                         });
                 });
 

@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class OOP : Migration
+    public partial class productosDescriptivos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -160,21 +160,21 @@ namespace Backend.Migrations
                 columns: new[] { "Product_code", "Category", "Description", "Discriminator", "Features", "FingerPrint", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 2, "descripcion1", "SportProductEntity", "caracteristicas1", 21, "product1", 11m },
-                    { 2, 2, "descripcion2", "SportProductEntity", "caracteristicas2", 0, "product2", 12m },
-                    { 3, 2, "descripcion3", "SportProductEntity", "caracteristicas3", 13, "product3", 13m },
-                    { 4, 2, "descripcion4", "SportProductEntity", "caracteristicas4", 49, "product4", 14m },
-                    { 5, 2, "descripcion5", "SportProductEntity", "caracteristicas5", 24, "product5", 15m },
-                    { 6, 1, "descripcion6", "GroceryProductEntity", "caracteristicas6", 28, "product6", 16m },
-                    { 7, 1, "descripcion7", "GroceryProductEntity", "caracteristicas7", 36, "product7", 17m },
-                    { 8, 1, "descripcion8", "GroceryProductEntity", "caracteristicas8", -6, "product8", 18m },
-                    { 9, 1, "descripcion9", "GroceryProductEntity", "caracteristicas9", 16, "product9", 19m },
-                    { 10, 1, "descripcion10", "GroceryProductEntity", "caracteristicas10", -4, "product10", 20m },
-                    { 11, 0, "descripcion11", "TechnoProductEntity", "caracteristicas11", 38, "product11", 21m },
-                    { 12, 0, "descripcion12", "TechnoProductEntity", "caracteristicas12", 10, "product12", 22m },
-                    { 13, 0, "descripcion13", "TechnoProductEntity", "caracteristicas13", 27, "product13", 23m },
-                    { 14, 0, "descripcion14", "TechnoProductEntity", "caracteristicas14", 23, "product14", 24m },
-                    { 15, 0, "descripcion15", "TechnoProductEntity", "caracteristicas15", -14, "product15", 25m }
+                    { 1, 2, "Zapatillas Nike Court Vision color blanco y verde, inspirado en el baloncesto de los 80Nike Court Vision Mid reúne el rétro del parquet y la comodidad moderna, con materiales reciclados para al menos el 20% de su peso. La suela tiene piezas en Nike Grind, mientras que el Tomaia testurizado en cuero sintético mantiene el aspecto clásico que le gusta tanto.", "SportProductEntity", "Dimensiones del producto : 34 x 23 x 12 cm; 500 g\nMaterial de la suelaCaucho\nAltura de ejeAnkle Strap\nMaterial exteriorSintético\nMaterial internoSynthetic", 23, "Zapatillas Nike", 90m },
+                    { 2, 2, "Raqueta de espuma suave con protector integrado para mayor durabilidad, mayor potencia y menos vibraciones. La raqueta tiene un cuadro de carbono. Es la elección perfecta para los jóvenes", "SportProductEntity", "Dimensiones del producto : 45 x 22 x 4 cm; 200 g\nMaterial : Grafito\nMaterial del marco : Carbono\nMaterial de la varilla : Fibra de carbono\n", -16, "Raqueta pádel", 80m },
+                    { 3, 2, "con la bolsa de FITGRIFF puede esperar una bolsa multiusos moderna y bien pensada: súper adecuada como bolsa de entrenamiento, bolsa de viaje, bolsa de baño", "SportProductEntity", "Dimensiones del producto : 48 x 26 x 25 cm; 700 g\nFabricante : Fitgriff\nMaterial: 100% poliéster\n", -6, "Bolsa de gimnasio", 23m },
+                    { 4, 2, " el balón de fútbol está hecho de cuero de PVC suave y cosido con máquinas exquisitas para proporcionar una sensación de mano suave y equilibrada,resistente al desgaste y duradero. Revestimiento a prueba de explosiones", "SportProductEntity", "Dimensiones del producto : 27 x 13,7 x 12 cm; 540 g\nMaterial : Cuero\nMarca : Aipwerer\n", -20, "Balón fútbol", 30m },
+                    { 5, 2, "Tejido de malla suave y confortable, cómodo y transpirable la camiseta deportiva tiene un corte holgado y es cómoda de llevar. Confeccionada con un tejido transpirable y que absorbe la humedad, absorbe el sudor y se seca rápidamente", "SportProductEntity", "Dimensiones del producto : 15 x 10 x 1 cm; 300 g\nMaterial : dry-fit 100% poliéster \nMarca : Herbalife\n", -14, "Camiseta de deporte", 25m },
+                    { 6, 1, "Tomate de rama de gran calidad, proveniente de Almería", "GroceryProductEntity", "Dimensiones del producto : 7 x 8 x 7 cm; 250 g\nFabricante : MERCOPHAL, S.L\n", -17, "Tomates", 1m },
+                    { 7, 1, "Lechuga trocadero de gran calidad, proveniente de Francia", "GroceryProductEntity", "Dimensiones del producto : 24,5 x 17 x 9,5 cm; 380 g\nFabricante : Felixia\nInstrucciones de almacenaje : 6° C -8° C\n", 47, "Lechuga trocadero", 2m },
+                    { 8, 1, "Calabacín de gran calidad, proveniente de España", "GroceryProductEntity", "Dimensiones del producto : 18,01 x 5 x 3,99 cm; 500 g\nFabricante : Eurobanan\nInstrucciones de almacenaje : 6° C -8° C\n", 11, "Calabacín", 1m },
+                    { 9, 1, "Platanos de gran calidad, provenientes de Canarias", "GroceryProductEntity", "Dimensiones del producto : 24 x 20 x 8 cm; 1,2 kg\nFabricante : ARC-EUROBANAN, S.L.\nConsumir preferiblemente en 2-3 días\n", 41, "Plátano de canarias", 2m },
+                    { 10, 1, "Melón de gran calidad, proveniente de Canarias", "GroceryProductEntity", "Dimensiones del producto : 5,99 x 5 x 3,99 cm; 1,25 kg\nFabricante : Felixia\nInstrucciones de almacenaje : 10° C -12° C\n", 23, "Melón Cantaloup", 7m },
+                    { 11, 0, "De tamaño mediano, fácil de agarrar para la mayoría de las personas, el peso ultraligero es de solo 75 gramos, diseño de panal ergonómico, fácil de agarrar y operar en juegos y oficinas", "TechnoProductEntity", "Dimensiones del producto : 12,6 x 6,3 x 4 cm; 105 g\nFabricante : DIERYA\nSistema operativo: Windows 7/10\n", 25, "Ratón gaming", 32m },
+                    { 12, 0, "Teclado ultra responsivo + silencioso. disfrute de tiempos de respuesta rapidísimos con la tecnología inalámbrica de 2,4 ghz. el keyz tungsten ofrece una respuesta mucho más rápida y precisa que la mayoría de los teclados inalámbricos para juegos del mercado", "TechnoProductEntity", "Dimensiones del producto : 25,4 x 5,08 x 6,86 cm; 800 g\nFabricante : AXS\nSistema operativo: Windows\n", -15, "Teclado gaming", 42m },
+                    { 13, 0, "el monitor de 24 pulgadas adopta una nueva generación de pantalla VA, que cubre el 99 % de la gama de colores SRGB. Por lo tanto, el monitor de la computadora puede restaurar al 100% los colores reales y presentar detalles vívidos. Además, el amplio ángulo de visión de 178° de este monitor de PC le permite disfrutar de imágenes claras, nítidas y delicadas desde cualquier ángulo.", "TechnoProductEntity", "Dimensiones del producto : 42,32 x 54,2 x 18,11 cm; 3,63 kg\nFabricante : KOORUI\nInterfaz del hardware: VGA, HDMI\n", 10, "Monitor", 202m },
+                    { 14, 0, "El ventilador Aura II ha sido fabricado con el exclusivo y reconocido sistema de rodamientos de alta tecnología Tacens Fluxus II (10-12-12dB). Equipado a su vez con un cableado negro de alta calidad, que aumenta la protección y mejora la apariencia de este ventilador", "TechnoProductEntity", "Dimensiones del producto : 35 x 3 x 15,01 cm; 98,5 g\nFabricante : ‎Tacens Spain\nDescripción de la batería: 12VDC\n", -10, "Ventilador ordenador", 7m },
+                    { 15, 0, "hecho de telas de felpa de alta calidad. Relleno de plumas de algodón PP en este peluche de pingüino totalmente vestido. El interior de alta calidad es realmente cómodo de sostener y soporta cualquier posición del cuerpo descansada a su alrededor.", "TechnoProductEntity", "Dimensiones del producto : ‎6 x 5 x 12 cm; 140 g\nMaterial : ‎Nailon\nMarca: Generic\n", 41, "Peluche pingüino", 12m }
                 });
 
             migrationBuilder.InsertData(
