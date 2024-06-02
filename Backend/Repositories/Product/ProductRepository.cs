@@ -44,20 +44,20 @@ public class ProductRepository : IProductRepository
 
     public Product Get(int id)
     {
-        var yoda = _context.Products
+        var existsProduct = _context.Products
             .Include(p => p.Gallery)
             .FirstOrDefault(product => product.Product_code == id) ?? throw new ResourceNotFound("product not fount", id);
 
         var product = new Product
         {
-            Category = yoda.Category,
-            Description = yoda.Description,
-            Features = yoda.Features,
-            FingerPrint = yoda.FingerPrint,
-            Images = yoda.Gallery.Select(img => img.Image ?? "").ToList(),
-            Name = yoda.Name,
-            Price = yoda.Price,
-            Product_code = yoda.Product_code,
+            Category = existsProduct.Category,
+            Description = existsProduct.Description,
+            Features = existsProduct.Features,
+            FingerPrint = existsProduct.FingerPrint,
+            Images = existsProduct.Gallery.Select(img => img.Image ?? "").ToList(),
+            Name = existsProduct.Name,
+            Price = existsProduct.Price,
+            Product_code = existsProduct.Product_code,
         };
 
         return product;
@@ -104,9 +104,9 @@ public class ProductRepository : IProductRepository
 
     public IEnumerable<SportProduct> GetAllSportProducts()
     {
-       var asoka = _context.SportProduct.Include(p => p.Gallery).ToList();
+       var listSportProducts = _context.SportProduct.Include(p => p.Gallery).ToList();
 
-       var products = asoka.Select(product => new SportProduct
+       var products = listSportProducts.Select(product => new SportProduct
         {
             Category = product.Category,
             Description = product.Description,
@@ -123,9 +123,9 @@ public class ProductRepository : IProductRepository
 
     public IEnumerable<TechnoProduct> GetAllTechnoProducts()
     {
-        var asoka = _context.TechnoProduct.Include(p => p.Gallery).ToList();
+        var listTechnoProducts = _context.TechnoProduct.Include(p => p.Gallery).ToList();
        
-       var products = asoka.Select(product => new TechnoProduct
+       var products = listTechnoProducts.Select(product => new TechnoProduct
         {
             Category = product.Category,
             Description = product.Description,
@@ -142,9 +142,9 @@ public class ProductRepository : IProductRepository
 
     public IEnumerable<GroceryProduct> GetAllGroceryProducts()
     {
-        var asoka = _context.GroceryProduct.Include(p => p.Gallery).ToList();
+        var listGroceryProducts = _context.GroceryProduct.Include(p => p.Gallery).ToList();
 
-       var products = asoka.Select(product => new GroceryProduct
+       var products = listGroceryProducts.Select(product => new GroceryProduct
         {
             Category = product.Category,
             Description = product.Description,

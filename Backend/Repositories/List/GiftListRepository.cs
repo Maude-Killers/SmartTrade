@@ -20,8 +20,9 @@ public class GiftListRepository : IGiftListRepository
         GiftListEntity giftList = _context.Client
                 .Where(x => x.Email == client.Email)
                 .First().GiftList;
+        var productDoesntExist = giftList.listProducts.Any(x => x.Product_code == product.Product_code);
 
-        if (giftList.listProducts.Any(x => x.Product_code == product.Product_code)) throw new ResourceNotFound("product is already in GiftList", product);
+        if (productDoesntExist) throw new ResourceNotFound("product is already in GiftList", product);
         _context.ListProducts.Add(new ListProduct { List_code = giftList.List_code, Product_code = product.Product_code });
         _context.SaveChanges();
     }
