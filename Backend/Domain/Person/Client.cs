@@ -1,7 +1,8 @@
+using Backend.Domain.DesignPattern;
 using Backend.Repositories;
 
 namespace Backend.Models;
-public partial class Client
+public partial class Client : Observer
 {
     public void AddProductToWishList(int productCode)
     {
@@ -25,6 +26,7 @@ public partial class Client
     {
         var product = SmartTrade.Singleton.GetProduct(productCode);
         this.ShoppingCart.Add(product);
+        product.AddObserver(this);
     }
 
     public void RemoveProductToWishList(int productCode)
@@ -56,7 +58,9 @@ public partial class Client
         this.ShoppingCart.RemoveAll(x => x.Product_code == productCode);
         var listRepository = new ShoppingCartRepository(AppServices.GetDbContext());
         var productRepository = new ProductRepository(AppServices.GetDbContext());
-        listRepository.DeleteProduct(productRepository.Get(productCode), this);
+        var product = productRepository.Get(productCode);
+        listRepository.DeleteProduct(product, this);
+        product.RemoveObserver(this);
     }
 
     public List<Product> GetWishListProducts()
@@ -77,5 +81,35 @@ public partial class Client
     public List<Product> GetShoppingCartProducts()
     {
         return this.ShoppingCart;
+    }
+
+    public void Update()
+    {
+        Console.WriteLine("Disculpe profe no lo actualizamos la logica todavia " + this.Email);
+    }
+
+    public Order ConfirmOrder()
+    {
+        Order order = BuyProducts();
+        this.Orders.Add(order);
+        order.RemovePurchasedStock();
+        return order;
+    }
+
+    // No me culpes a mi culpa al sistema
+
+    public List<Order> Orders { get; set; }
+
+    private Order BuyProducts()
+    {
+        throw new NotImplementedException();
+    }
+
+    public class Order
+    {
+        internal void RemovePurchasedStock()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
