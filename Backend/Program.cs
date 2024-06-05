@@ -3,6 +3,7 @@ using Backend.Utils;
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
 using Backend.Models;
+using Backend.Domain.DesignPattern;
 
 DotEnv.Load();
 
@@ -20,6 +21,7 @@ builder.Services.AddScoped<ProductService>();
 Repositories.UseRepositories(builder);
 
 builder.Services.AddSingleton<SmartTrade>();
+builder.Services.AddSingleton<CommandInvoker>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

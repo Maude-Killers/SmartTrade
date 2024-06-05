@@ -1,10 +1,12 @@
-﻿using Backend.Interfaces;
+﻿using Backend.Domain.DesignPattern;
+using Backend.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Backend.Models;
-public partial class Product
+public partial class Product : Subject
 {
     private IProductRepository _repository;
+    private List<Observer> _observers;
 
     public void SetName(string name)
     {
@@ -70,5 +72,26 @@ public partial class Product
         if (this._repository == null) throw new ArgumentNullException("repository not found");
         if (this.Product_code == 0) _repository.Create(this);
         else _repository.Set(this.Product_code, this);
+    }
+
+    public void AddObserver(Observer obs)
+    {
+        _observers.Add(obs);
+    }
+
+    public void RemoveObserver(Observer obs)
+    {
+        _observers.Remove(obs);
+    }
+
+    public void Notify()
+    {
+        foreach(var obs in _observers) obs.Update();
+    }
+
+    public void UpdateStock(int quantity)
+    {
+        this.Quantity -= quantity;
+        Notify();
     }
 }

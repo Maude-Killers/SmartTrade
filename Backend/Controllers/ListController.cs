@@ -3,6 +3,7 @@ using Backend.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Models;
+using Backend.Domain.DesignPattern;
 
 namespace Backend.Controllers;
 
@@ -10,10 +11,12 @@ namespace Backend.Controllers;
 [Route("[controller]")]
 public class ListController : ControllerBase
 {
+    private readonly CommandInvoker _commandInvoker;
     private readonly ILogger<ListController> _logger;
 
-    public ListController(ILogger<ListController> logger)
+    public ListController(CommandInvoker commandInvoker, ILogger<ListController> logger)
     {
+        _commandInvoker = commandInvoker;
         _logger = logger;
     }
 
@@ -118,10 +121,12 @@ public class ListController : ControllerBase
 
     [Authorize(Roles = "client")]
     [HttpDelete("/laterlist/{product_code}")]
-    public void DeleteProductFromLaterList(int product_code)
+    public void DeleteProductFromLaterList(int product_code, [FromQuery] bool confirm = false)
     {
+        if (confirm) { _commandInvoker.ExecuteCommands(); return; }
         var client = GetAuthenticatedClient();
-        client.LaterList.Remove(SmartTrade.Singleton.GetProduct(product_code));
+        var command = new RemoveProductCommand(client.LaterList, product_code);
+        _commandInvoker.AddCommand(command);
     }
 
     [Authorize(Roles = "client")]
