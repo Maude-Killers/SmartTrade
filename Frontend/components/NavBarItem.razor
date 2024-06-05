@@ -14,8 +14,12 @@
     [Parameter]
     public string Name { get; set; } = "";
 
-    private void handleClick()
+    [Parameter]
+    public EventCallback OnToggleHidden { get; set; }
+
+    private async void handleClick()
     {
+        await OnToggleHidden.InvokeAsync();
         nav.NavigateTo("/login");
         nav.NavigateTo(URI);
     }
