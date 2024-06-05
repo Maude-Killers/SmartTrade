@@ -25,11 +25,11 @@
                     </button>
                     <!-- Dropdown menu -->
                     <div id="dropdown"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 @(isHidden ? "hidden" : "")">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdowncategory">
-                            <NavBarItem Name="Deportes" URI="category/Sport" />
-                            <NavBarItem Name="Bodega" URI="category/Grocery" />
-                            <NavBarItem Name="Tecnologia" URI="category/Technology" />
+                            <NavBarItem Name="Deportes" URI="category/Sport" OnToggleHidden="ToggleHiddenClass" />
+                            <NavBarItem Name="Bodega" URI="category/Grocery"  OnToggleHidden="ToggleHiddenClass" />
+                            <NavBarItem Name="Tecnologia" URI="category/Technology"  OnToggleHidden="ToggleHiddenClass" />
                         </ul>
                     </div>
 
@@ -47,20 +47,20 @@
                 </svg>
             </div>
             <div id="dropdownHover"
-                class="z-10 hidden md:order-4 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                class="z-10 hidden md:order-4 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 @(isHidden ? "hidden" : "")">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
                     <li>
-                        <NavLink href="/wishlist"
+                        <NavLink href="/wishlist" @onclick="ToggleHiddenClass"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lista
                             deseos</NavLink>
                     </li>
                     <li>
-                        <NavLink href="/giftlist"
+                        <NavLink href="/giftlist" @onclick="ToggleHiddenClass"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lista de
                             regalos</NavLink>
                     </li>
                     <li>
-                        <NavLink href="/cart"
+                        <NavLink href="/cart" @onclick="ToggleHiddenClass"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Carrito
                             de compra</NavLink>
                     </li>
@@ -80,5 +80,13 @@
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
     {
         await Js.InvokeVoidAsync("window.initializeFlowbite");
+    }
+
+    private bool isHidden = false;
+
+    private void ToggleHiddenClass()
+    {
+        Console.WriteLine("Hello");
+        isHidden = !isHidden;
     }
 }
