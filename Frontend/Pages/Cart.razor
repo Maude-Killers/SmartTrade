@@ -1,5 +1,6 @@
 @inject IJSRuntime Js
 @inject HttpClient httpClient
+@inject NavigationManager nav
 @page "/cart"
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -103,8 +104,8 @@
     // TotalPrice = CalculateTotalPrice();
     // StateHasChanged();
     //}
-    private Task HandlePurchaseClick(MouseEventArgs e)
+    private void HandlePurchaseClick(MouseEventArgs e)
     {
-        throw new NotImplementedException();
+        nav.NavigateTo($"/delivery");
     }
 }
