@@ -1,0 +1,2 @@
+/home/david/Git/SmartTrade/Frontend/output/package-lock.json
+/home/david/Git/SmartTrade/Frontend/output/web.config
