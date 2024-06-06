@@ -14,11 +14,15 @@ namespace TestsSmartTrade
     {
         private readonly IClientRepository _moqclientRepository;
         private readonly IProductRepository _moqproductRepository;
+        private readonly IListRepository _moqlistRepository;
+
 
         public UnitTest1()
         {
             _moqclientRepository = new MockClientRepository();
             _moqproductRepository = new MockProductRepository();
+            _moqlistRepository = new MockListRepository();
+
         }
 
         [Fact]
@@ -44,13 +48,13 @@ namespace TestsSmartTrade
             Client client = _moqclientRepository.Get(Email);
             int Product_code = 1;
             Product product = _moqproductRepository.Get(Product_code);
-            if (client.WishList == null)
+            if (client.ShoppingCart == null)
             {
-                client.WishList = new List<Product>();
+                client.ShoppingCart = new List<Product>();
             }
-            client.RemoveProductToWishList(Product_code);
-            Assert.Single(client.WishList);
-            Assert.DoesNotContain(product, client.WishList);
+            client.RemoveProductToShoppingCart(Product_code);
+            Assert.Single(client.ShoppingCart);
+            Assert.DoesNotContain(product, client.ShoppingCart);
 
         }
         

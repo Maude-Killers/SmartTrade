@@ -64,10 +64,8 @@ public partial class Client : Observer
     {
         this.ShoppingCart.RemoveAll(x => x.Product_code == productCode);
         _listRepository.DeleteProduct(_productRepository.Get(productCode), this);
-        var listRepository = new ShoppingCartRepository(AppServices.GetDbContext());
-        var productRepository = new ProductRepository(AppServices.GetDbContext());
-        var product = productRepository.Get(productCode);
-        listRepository.DeleteProduct(product, this);
+        var product = _productRepository.Get(productCode);
+        _listRepository.DeleteProduct(product, this);
         product.RemoveObserver(this);
     }
 

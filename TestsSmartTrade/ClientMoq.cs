@@ -13,10 +13,11 @@ namespace TestsSmartTrade
     public class MockClientRepository : IClientRepository
     {
         private readonly List<Client> _clients;
-
+        private readonly IListRepository _moqlistRepository;
 
         public MockClientRepository()
         {
+            _moqlistRepository = new MockListRepository();
             _clients = new List<Client>
             {
                 new Client
@@ -24,7 +25,7 @@ namespace TestsSmartTrade
                     Email = "prueba1@prueba.com",
                     Password = "cliente1",
                     FullName = "Cliente 1",
-                    PhoneNumber = 654654655
+                    PhoneNumber = 654654655,
                 }
             };
             new WishListEntity
