@@ -1,0 +1,24 @@
+﻿@inject HttpClient Http
+@inject NavigationManager nav
+@inject ListService ListService;
+@inject NavigationManager nav
+
+<main class="flex flex-col justify-center">
+    <article class="max-h-lg grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-items-center">
+		@foreach(var product in listProducts)
+		{
+			<ProductCard product="product" showPrice="true" fromLater="true" />
+		}
+	</article>
+</main>
+
+
+@code {
+	private List<Product> listProducts = new List<Product>();
+
+	protected override async void OnInitialized()
+	{
+		listProducts = await ListService.GetLaterListProducts() ?? new List<Product>();
+		StateHasChanged();
+	}
+}
