@@ -1,0 +1,113 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SmartTrade
+build_property.RootNamespace = SmartTrade
+build_property.ProjectDir = /home/david/Git/SmartTrade/
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/david/Git/SmartTrade
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/david/Git/SmartTrade/Frontend/App.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvQXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/CabeceraList.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9DYWJlY2VyYUxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/CategoryCard.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9DYXRlZ29yeUNhcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/ImageCarrousel.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9JbWFnZUNhcnJvdXNlbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/ItemList.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9JdGVtTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/NavBarItem.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9OYXZCYXJJdGVtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/ProductCard.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9Qcm9kdWN0Q2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/SearchBar.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9TZWFyY2hCYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/SearchTableRow.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9TZWFyY2hUYWJsZVJvdy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/components/TextBox.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvY29tcG9uZW50cy9UZXh0Qm94LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/Category.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvQ2F0ZWdvcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/CreateProduct.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvQ3JlYXRlUHJvZHVjdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/LaterList.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvTGF0ZXJMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/LogIn.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvTG9nSW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/ProductForm.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvUHJvZHVjdEZvcm0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/ProductPage.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvUHJvZHVjdFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/SearchResults.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvU2VhcmNoUmVzdWx0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Pages/WishList.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvUGFnZXMvV2lzaExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvU2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvU2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvU2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/david/Git/SmartTrade/Frontend/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = RnJvbnRlbmQvX0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
