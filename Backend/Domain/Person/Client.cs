@@ -1,9 +1,18 @@
+using Backend.Interfaces;
 using Backend.Domain.DesignPattern;
 using Backend.Repositories;
 
 namespace Backend.Models;
 public partial class Client : Observer
 {
+    private readonly IProductRepository _productRepository;
+    private readonly IListRepository _listRepository;
+    public Client(IProductRepository productRepository, IListRepository listRepository) { 
+        
+        _productRepository = productRepository;
+        _listRepository = listRepository;
+    
+    }
     public void AddProductToWishList(int productCode)
     {
         var product = SmartTrade.Singleton.GetProduct(productCode);
@@ -32,9 +41,7 @@ public partial class Client : Observer
     public void RemoveProductToWishList(int productCode)
     {
         this.WishList.RemoveAll(x => x.Product_code == productCode);
-        var listRepository = new WishListRepository(AppServices.GetDbContext());
-        var productRepository = new ProductRepository(AppServices.GetDbContext());
-        listRepository.DeleteProduct(productRepository.Get(productCode), this);
+        _listRepository.DeleteProduct(_productRepository.Get(productCode), this);
     }
 
     public void RemoveProductToLaterList(int productCode)
@@ -56,6 +63,7 @@ public partial class Client : Observer
     public void RemoveProductToShoppingCart(int productCode)
     {
         this.ShoppingCart.RemoveAll(x => x.Product_code == productCode);
+        _listRepository.DeleteProduct(_productRepository.Get(productCode), this);
         var listRepository = new ShoppingCartRepository(AppServices.GetDbContext());
         var productRepository = new ProductRepository(AppServices.GetDbContext());
         var product = productRepository.Get(productCode);
