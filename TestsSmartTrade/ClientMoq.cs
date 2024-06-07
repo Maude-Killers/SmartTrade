@@ -40,29 +40,21 @@ namespace TestsSmartTrade
         {
             throw new NotImplementedException();
         }
-
         public void Delete(string id)
         {
             throw new NotImplementedException();
         }
-
         public Client Get(string email)
         {
             return _clients.FirstOrDefault(c => c.Email == email);
         }
-
         public List<Client> GetAll()
         {
             throw new NotImplementedException();
         }
-
         public void Set(string id, Client item)
         {
             throw new NotImplementedException();
         }
-
-
     }
-
-
 }

@@ -26,7 +26,7 @@ namespace TestsSmartTrade
         }
 
         [Fact]
-        public void AñadirProductoListaDeseos()
+        public void AnadirProductoListaDeseos()
         {
             String Email = "prueba1@prueba.com";
             Client client= _moqclientRepository.Get(Email);
@@ -50,7 +50,10 @@ namespace TestsSmartTrade
             Product product = _moqproductRepository.Get(Product_code);
             if (client.ShoppingCart == null)
             {
-                client.ShoppingCart = new List<Product>();
+                client.ShoppingCart = new List<Product> {
+                    
+                    new Product { Product_code = 1, Name = "Producto 1", Price= 10 }
+                };
             }
             client.RemoveProductToShoppingCart(Product_code);
             Assert.Single(client.ShoppingCart);

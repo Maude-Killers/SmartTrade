@@ -23,6 +23,18 @@ namespace TestsSmartTrade
             _giftList = new List<GiftListEntity>();
             _laterList = new List<LaterListEntity>();  
             _cartList = new List<ShoppingCartEntity>();
+            {
+                new ShoppingCartEntity
+                {
+                    List_code = 1,
+                    Name = "Cart",
+                    ClientEmail = "prueba1@prueba.com",
+                    listProducts = new List<ListProduct>
+                    {
+                        new ListProduct { Product_code = 1, List_code = 1 }
+                    }
+                };
+            };
 
 
         }
